@@ -1,5 +1,5 @@
 class CreateRoomWorker
-  #include Sidekiq::Worker
+  include Sidekiq::Worker
 
   def perform
     Room.create(name: 'Amazing room')
