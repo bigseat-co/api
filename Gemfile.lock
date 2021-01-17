@@ -218,7 +218,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.0)
-  redis (~> 4.0)
   rspec
   rubocop-performance
   rubocop-rails
