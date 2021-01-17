@@ -1,5 +1,5 @@
-require 'sidekiq/web'
-require 'sidekiq/cron/web'
+#require 'sidekiq/web'
+#require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
   #mount Sidekiq::Web => '/sidekiq' # Protected by basic_auth (ie. config/initializers/sidekiq.rb)
