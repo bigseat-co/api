@@ -1,19 +1,23 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 
-gem 'rails', '6.1.1'
+gem 'bootsnap', require: false
 gem 'pg'
 gem 'puma'
-gem 'redis'
-gem 'bootsnap', require: false
 gem 'rack-cors'
+gem 'rails', '6.1.1'
+gem 'redis'
 gem 'sidekiq'
 
 group :development do
   gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development, :test do
@@ -25,4 +29,3 @@ group :development do
   gem 'listen'
   gem 'spring'
 end
-
