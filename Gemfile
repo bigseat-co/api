@@ -9,6 +9,7 @@ gem 'puma'
 gem 'redis'
 gem 'bootsnap', require: false
 gem 'rack-cors'
+gem 'sidekiq'
 
 group :development do
   gem 'rubocop', require: false
