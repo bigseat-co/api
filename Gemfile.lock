@@ -94,6 +94,7 @@ GEM
     mjml (0.0.8)
       tilt (>= 1.0.0)
     msgpack (1.4.1)
+    mustache (1.1.1)
     nio4r (2.5.4)
     nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
@@ -159,6 +160,10 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.1)
+    rspec_api_documentation (6.1.0)
+      activesupport (>= 3.0.0)
+      mustache (~> 1.0, >= 0.99.4)
+      rspec (~> 3.0)
     rubocop (1.9.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -218,6 +223,7 @@ DEPENDENCIES
   rails (= 6.1.1)
   redis
   rspec
+  rspec_api_documentation
   rubocop
   rubocop-performance
   rubocop-rails

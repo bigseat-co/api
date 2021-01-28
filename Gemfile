@@ -25,6 +25,7 @@ end
 group :development, :test do
   gem 'pry'
   gem 'rspec'
+  gem 'rspec_api_documentation'
 end
 
 group :development do
