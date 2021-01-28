@@ -4,15 +4,15 @@ require 'sidekiq'
 require 'sidekiq/web'
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1') }
+  config.redis = { url: ENV['REDIS_URL'] }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1') }
+  config.redis = { url: ENV['REDIS_URL'] }
 end
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
-  [user, password] == [ENV.fetch('BASIC_AUTH_USERNAME', 'admin'), ENV.fetch('BASIC_AUTH_PASSWORD', 'admin')]
+  [user, password] == [ENV['BASIC_AUTH_USERNAME', 'admin'], ENV['BASIC_AUTH_PASSWORD']]
 end
 
 if Rails.env.development?

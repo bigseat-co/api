@@ -11,8 +11,9 @@ gem 'puma'
 gem 'rack-cors'
 gem 'rails', '6.1.1'
 gem 'redis'
-gem 'sidekiq'
 gem 'mjml'
+gem 'sidekiq'
+gem 'figaro'
 
 group :development do
   gem 'rubocop', require: false
