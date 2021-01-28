@@ -1,24 +1,44 @@
-# README
+# Bigseat API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An API worth coding.
 
-Things you may want to cover:
+## Requirements
+- Docker Desktop (https://www.docker.com/products/docker-desktop)
+- Ruby 3.0.0
+- Bundler 2.2.3
 
-* Ruby version
+## Setup
 
-* System dependencies
+```
+# Pull project
+$ git clone https://github.com/bigseat-co/api.git
 
-* Configuration
+# Go to project folder
+$ cd cosmo-music
 
-* Database creation
+# Install dependencies
+#
+# Notes:
+#
+# If you get an error such as `Could not find 'bundler' (2.2.3)`,
+# just run `gem install bundler -v 2.2.3` beforehand.
+#
+# If you get an error such as `An error occurred while installing pg (x.x.x)`,
+# just run `brew install postgresql`
+#
+$ bundle install
 
-* Database initialization
+# Mount environment
+# => Don't forget to have docker app mac running in the background
+$ bundle exec rake bigseat:services:up
 
-* How to run the test suite
+# Seed project
+$ bundle exec rake db:seed
 
-* Services (job queues, cache servers, search engines, etc.)
+# Woop woop!
+$ bundle exec rails s
 
-* Deployment instructions
-
-* ...
+# Don't forget to unmount the environment
+# when you finished work / want to switch to another project
+$ bundle exec rake bigseat:services:down
+```
