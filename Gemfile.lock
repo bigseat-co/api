@@ -89,6 +89,8 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     minitest (5.14.3)
+    mjml (0.0.8)
+      tilt (>= 1.0.0)
     msgpack (1.4.1)
     nio4r (2.5.4)
     nokogiri (1.11.1-x86_64-darwin)
@@ -190,6 +192,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (1.1.0)
+    tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -204,6 +207,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   listen
+  mjml
   pg
   pry
   puma

@@ -12,6 +12,7 @@ gem 'rack-cors'
 gem 'rails', '6.1.1'
 gem 'redis'
 gem 'sidekiq'
+gem 'mjml'
 
 group :development do
   gem 'rubocop', require: false
