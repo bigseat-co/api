@@ -5,7 +5,7 @@ defmodule BigseatWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BigseatWeb do
+  scope "/", BigseatWeb do
     pipe_through :api
     resources "/spaces", SpaceController, except: [:new, :edit]
   end

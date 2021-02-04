@@ -1,9 +1,24 @@
-# Bigseat
+# Install
 
-To start your Phoenix server:
+```
+mix deps.get
+mix ecto.setup
+```
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+# Start
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Standard
+
+```
+mix phx.server
+```
+
+With REPL (IEx)
+
+```
+iex -S mix phx.server
+```
+
+# Access
+
+[`localhost:4000`](http://localhost:4000)
