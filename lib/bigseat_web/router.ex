@@ -7,6 +7,7 @@ defmodule BigseatWeb.Router do
 
   scope "/api", BigseatWeb do
     pipe_through :api
+    resources "/spaces", SpaceController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
