@@ -5,9 +5,9 @@ defmodule BigseatWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", BigseatWeb do
+  scope "/" do
     pipe_through :api
-    resources "/spaces", SpaceController, except: [:new, :edit]
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: Bigseat.Schema
   end
 
   # Enables LiveDashboard only for development

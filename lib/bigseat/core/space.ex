@@ -7,9 +7,9 @@ defmodule Bigseat.Core.Space do
   schema "spaces" do
     field :avatar_url, :string
     field :name, :string
-    field :open_hours, :map
     field :slug, :string
     field :working_days, :map
+    field :open_hours, :map
     field :organization_id, :binary_id
 
     timestamps()
