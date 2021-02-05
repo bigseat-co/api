@@ -16,12 +16,15 @@ defmodule BigseatWeb.SchemaTest do
       }
       """
 
-      res =
-        conn
-        |> post("/graphql", %{query: query})
-        |> json_response(200)
-
-      assert res == %{"data" => %{"space" => %{"id" => "#{id}"}}}
+      expected = %{"data" => %{"space" => %{"id" => "#{id}"}}}
+      response = response(200, conn, query)
+      assert response == expected
     end
+  end
+
+  defp response(status, conn, query) do
+    conn
+    |> post("/graphql", %{query: query})
+    |> json_response(status)
   end
 end
