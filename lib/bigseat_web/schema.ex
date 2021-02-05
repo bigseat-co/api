@@ -1,14 +1,11 @@
 defmodule Bigseat.Schema do
   use Absinthe.Schema
 
-  import_types Bigseat.Schema.DataTypes
+  import_types Bigseat.Schema.Scalars
+  import_types Bigseat.Schema.Core.Types
+  import_types Bigseat.Schema.Core.Queries
 
   query do
-    @desc "Get a list of spaces"
-    field :spaces, list_of(:space) do
-      resolve fn _parent, _args, _resolution ->
-        {:ok, Bigseat.Core.list_spaces()}
-      end
-    end
+    import_fields :space_queries
   end
 end

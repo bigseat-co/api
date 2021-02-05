@@ -7,7 +7,7 @@ defmodule BigseatWeb.Router do
 
   scope "/" do
     pipe_through :api
-    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: Bigseat.Schema
+    forward "/graphql", Absinthe.Plug.GraphiQL, schema: Bigseat.Schema
   end
 
   # Enables LiveDashboard only for development

@@ -5,12 +5,12 @@ defmodule Bigseat.Core.Space do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "spaces" do
+    field :organization_id, :binary_id
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
     field :working_days, :map
     field :open_hours, :map
-    field :organization_id, :binary_id
 
     timestamps()
   end

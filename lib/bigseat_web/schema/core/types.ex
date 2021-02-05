@@ -1,4 +1,4 @@
-defmodule Bigseat.Schema.DataTypes do
+defmodule Bigseat.Schema.Core.Types do
   use Absinthe.Schema.Notation
 
   object :space do
@@ -7,7 +7,7 @@ defmodule Bigseat.Schema.DataTypes do
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
-    # field :working_days, :map
-    # field :open_hours, :map
+    field :working_days, :json
+    field :open_hours, :json
   end
 end
