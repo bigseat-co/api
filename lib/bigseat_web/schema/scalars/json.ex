@@ -1,4 +1,4 @@
-defmodule Bigseat.Schema.Scalars do
+defmodule Bigseat.Schema.Scalars.Json do
   use Absinthe.Schema.Notation
 
   scalar :json do

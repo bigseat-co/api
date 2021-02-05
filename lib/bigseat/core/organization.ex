@@ -5,6 +5,7 @@ defmodule Bigseat.Core.Organization do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organizations" do
+    has_many :spaces, Bigseat.Core.Space
     field :name, :string
     field :slug, :string
 

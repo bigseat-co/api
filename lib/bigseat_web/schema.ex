@@ -1,7 +1,9 @@
 defmodule Bigseat.Schema do
   use Absinthe.Schema
 
-  import_types Bigseat.Schema.Scalars
+  import_types Bigseat.Schema.Scalars.Json
+  import_types Bigseat.Schema.Scalars.Uuid
+
   import_types Bigseat.Schema.Core.Types
   import_types Bigseat.Schema.Core.Queries
 

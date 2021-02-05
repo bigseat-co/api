@@ -2,7 +2,7 @@ defmodule Bigseat.Schema.Core.Types do
   use Absinthe.Schema.Notation
 
   object :space do
-    field :id, :id
+    field :id, :uuid
     field :organization_id, :id
     field :avatar_url, :string
     field :name, :string

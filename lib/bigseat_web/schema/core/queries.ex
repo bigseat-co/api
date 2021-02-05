@@ -8,5 +8,13 @@ defmodule Bigseat.Schema.Core.Queries do
         {:ok, Bigseat.Core.list_spaces()}
       end
     end
+
+    @desc "Get a specific space"
+    field :space, :space do
+      arg :id, non_null(:uuid)
+      resolve fn _parent, %{id: id}, _resolution ->
+        {:ok, Bigseat.Core.get_space!(id)}
+      end
+    end
   end
 end

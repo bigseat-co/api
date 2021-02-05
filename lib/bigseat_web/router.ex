@@ -1,12 +1,11 @@
 defmodule BigseatWeb.Router do
   use BigseatWeb, :router
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :graphql do
   end
 
   scope "/" do
-    pipe_through :api
+    pipe_through :graphql
     forward "/graphql", Absinthe.Plug.GraphiQL, schema: Bigseat.Schema
   end
 

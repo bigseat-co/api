@@ -20,7 +20,7 @@ defmodule Bigseat.MixProject do
   def application do
     [
       mod: {Bigseat.Application, []},
-      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
+      extra_applications: [:ex_machina, :logger, :runtime_tools, :absinthe_plug]
     ]
   end
 
@@ -45,7 +45,8 @@ defmodule Bigseat.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
-      {:poison, "~> 4.0.1"}
+      {:poison, "~> 4.0.1"},
+      {:ex_machina, "~> 2.5.0", only: :test},
     ]
   end
 

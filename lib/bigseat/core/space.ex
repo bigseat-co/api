@@ -5,7 +5,7 @@ defmodule Bigseat.Core.Space do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "spaces" do
-    field :organization_id, :binary_id
+    belongs_to :organization, Bigseat.Core.Organization
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
@@ -15,6 +15,7 @@ defmodule Bigseat.Core.Space do
     timestamps()
   end
 
+  @spec changeset(any, any) :: none
   @doc false
   def changeset(space, attrs) do
     space
