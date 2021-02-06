@@ -130,4 +130,73 @@ defmodule Bigseat.DashboardTest do
       assert %Ecto.Changeset{} = Dashboard.change_organization(organization)
     end
   end
+
+  describe "identities" do
+    alias Bigseat.Dashboard.Identity
+
+    @valid_attrs %{email: "some email", encrypted_password: "some encrypted_password", first_name: "some first_name", group: "some group", is_admin: true, last_name: "some last_name"}
+    @update_attrs %{email: "some updated email", encrypted_password: "some updated encrypted_password", first_name: "some updated first_name", group: "some updated group", is_admin: false, last_name: "some updated last_name"}
+    @invalid_attrs %{email: nil, encrypted_password: nil, first_name: nil, group: nil, is_admin: nil, last_name: nil}
+
+    def identity_fixture(attrs \\ %{}) do
+      {:ok, identity} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Dashboard.create_identity()
+
+      identity
+    end
+
+    test "list_identities/0 returns all identities" do
+      identity = identity_fixture()
+      assert Dashboard.list_identities() == [identity]
+    end
+
+    test "get_identity!/1 returns the identity with given id" do
+      identity = identity_fixture()
+      assert Dashboard.get_identity!(identity.id) == identity
+    end
+
+    test "create_identity/1 with valid data creates a identity" do
+      assert {:ok, %Identity{} = identity} = Dashboard.create_identity(@valid_attrs)
+      assert identity.email == "some email"
+      assert identity.encrypted_password == "some encrypted_password"
+      assert identity.first_name == "some first_name"
+      assert identity.group == "some group"
+      assert identity.is_admin == true
+      assert identity.last_name == "some last_name"
+    end
+
+    test "create_identity/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Dashboard.create_identity(@invalid_attrs)
+    end
+
+    test "update_identity/2 with valid data updates the identity" do
+      identity = identity_fixture()
+      assert {:ok, %Identity{} = identity} = Dashboard.update_identity(identity, @update_attrs)
+      assert identity.email == "some updated email"
+      assert identity.encrypted_password == "some updated encrypted_password"
+      assert identity.first_name == "some updated first_name"
+      assert identity.group == "some updated group"
+      assert identity.is_admin == false
+      assert identity.last_name == "some updated last_name"
+    end
+
+    test "update_identity/2 with invalid data returns error changeset" do
+      identity = identity_fixture()
+      assert {:error, %Ecto.Changeset{}} = Dashboard.update_identity(identity, @invalid_attrs)
+      assert identity == Dashboard.get_identity!(identity.id)
+    end
+
+    test "delete_identity/1 deletes the identity" do
+      identity = identity_fixture()
+      assert {:ok, %Identity{}} = Dashboard.delete_identity(identity)
+      assert_raise Ecto.NoResultsError, fn -> Dashboard.get_identity!(identity.id) end
+    end
+
+    test "change_identity/1 returns a identity changeset" do
+      identity = identity_fixture()
+      assert %Ecto.Changeset{} = Dashboard.change_identity(identity)
+    end
+  end
 end
