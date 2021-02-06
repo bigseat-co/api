@@ -16,15 +16,21 @@ defmodule BigseatWeb.SchemaTest do
       }
       """
 
-      expected = %{"data" => %{"space" => %{"id" => "#{id}"}}}
-      response = response(200, conn, query)
-      assert response == expected
+      response = graphql_response(conn, query, :success)
+      assert response == %{"data" => %{"space" => %{"id" => "#{id}"}}}
     end
   end
 
-  defp response(status, conn, query) do
+
+  defp graphql_response(conn, query, status) do
     conn
     |> post("/graphql", %{query: query})
-    |> json_response(status)
+    |> assert_response(:success)
+  end
+
+  defp assert_response(conn, status) do
+    case status do
+      :success -> json_response(conn, 200)
+    end
   end
 end

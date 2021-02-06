@@ -20,7 +20,7 @@ defmodule Bigseat.MixProject do
   def application do
     [
       mod: {Bigseat.Application, []},
-      extra_applications: [:ex_machina, :logger, :runtime_tools, :absinthe_plug]
+      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
     ]
   end
 
