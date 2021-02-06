@@ -25,7 +25,7 @@ defmodule BigseatWeb.SchemaTest do
   defp graphql_response(conn, query, status) do
     conn
     |> post("/graphql", %{query: query})
-    |> assert_response(:success)
+    |> assert_response(status)
   end
 
   defp assert_response(conn, status) do

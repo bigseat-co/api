@@ -2,14 +2,14 @@ defmodule Bigseat.Factory do
   use ExMachina.Ecto, repo: Bigseat.Repo
 
   def organization_factory do
-    %Bigseat.Core.Organization{
+    %Bigseat.Dashboard.Organization{
       name: "Random name too",
       slug: "random-slug-too"
     }
   end
 
   def space_factory do
-    %Bigseat.Core.Space{
+    %Bigseat.Dashboard.Space{
       organization: build(:organization),
       avatar_url: "http://fake-avatar.com",
       name: "Random name",

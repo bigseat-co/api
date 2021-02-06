@@ -1,11 +1,11 @@
-defmodule Bigseat.Core.Organization do
+defmodule Bigseat.Dashboard.Organization do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organizations" do
-    has_many :spaces, Bigseat.Core.Space
+    has_many :spaces, Bigseat.Dashboard.Space
     field :name, :string
     field :slug, :string
 

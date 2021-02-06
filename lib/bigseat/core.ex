@@ -1,12 +1,12 @@
-defmodule Bigseat.Core do
+defmodule Bigseat.Dashboard do
   @moduledoc """
-  The Core context.
+  The Dashboard context.
   """
 
   import Ecto.Query, warn: false
   alias Bigseat.Repo
 
-  alias Bigseat.Core.Space
+  alias Bigseat.Dashboard.Space
 
   @doc """
   Returns the list of spaces.
@@ -102,7 +102,7 @@ defmodule Bigseat.Core do
     Space.changeset(space, attrs)
   end
 
-  alias Bigseat.Core.Organization
+  alias Bigseat.Dashboard.Organization
 
   @doc """
   Returns the list of organizations.
