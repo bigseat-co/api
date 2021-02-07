@@ -2,8 +2,12 @@ defmodule Bigseat.Dashboard.People do
 
   import Ecto.Query, warn: false
   alias Bigseat.Repo
+  alias Ecto.Multi
 
-  alias Bigseat.Dashboard.Person
+  alias Bigseat.Dashboard.{
+    Person,
+    Organization
+  }
 
   def list do
     Repo.all(Person)
@@ -11,15 +15,32 @@ defmodule Bigseat.Dashboard.People do
 
   def get!(id), do: Repo.get!(Person, id)
 
-  def create(attrs \\ %{}) do
-    %Person{}
-    |> Person.changeset(attrs)
-    |> Repo.insert()
+  def create(params = %{ organization: organization_params } \\ %{}) do
+    organization_changeset = %Organization{}
+    |> Organization.changeset(organization_params)
+
+    multi = Multi.new
+    |> Multi.insert(:organization, organization_changeset)
+    |> Multi.run(:person, fn _repo, %{organization: organization} ->
+      %Person{}
+      |> Person.changeset(params)
+      |> Ecto.Changeset.put_assoc(:organization, organization)
+      |> Repo.insert()
+    end)
+
+    case Repo.transaction(multi) do
+      {:ok, %{person: person}} -> {:ok, person}
+      {:error, _model, changeset, _changes_so_far} -> {:error, changeset}
+    end
   end
 
-  def update(%Person{} = person, attrs) do
+  @spec update(
+          %Bigseat.Dashboard.Person{optional(atom) => any},
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
+        ) :: any
+  def update(%Person{} = person, params) do
     person
-    |> Person.changeset(attrs)
+    |> Person.changeset(params)
     |> Repo.update()
   end
 
@@ -27,7 +48,7 @@ defmodule Bigseat.Dashboard.People do
     Repo.delete(person)
   end
 
-  def change(%Person{} = person, attrs \\ %{}) do
-    Person.changeset(person, attrs)
+  def change(%Person{} = person, params \\ %{}) do
+    Person.changeset(person, params)
   end
 end

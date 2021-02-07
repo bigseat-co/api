@@ -21,8 +21,9 @@ defmodule Bigseat.Dashboard.Person do
   def changeset(person, attrs) do
     person
     |> cast(attrs, [:email, :encrypted_password, :first_name, :last_name, :is_admin, :group])
-    |> validate_required([:organization, :email, :first_name, :last_name])
-    |> unique_constraint(:slug, [:organization_id, :slug])
-    |> unique_constraint(:email, [:organization_id, :email])
+    |> cast_assoc(:organization)
+    |> validate_required([:email, :first_name, :last_name])
+    # |> unique_constraint(:slug, [:organization_id, :slug])
+    # |> unique_constraint(:email, [:organization_id, :email])
   end
 end

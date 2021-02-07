@@ -18,4 +18,10 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :email, :string
     field :password, :string
   end
+
+  object :organization do
+    field :id, :uuid
+    field :name, :string
+    field :slug, :string
+  end
 end

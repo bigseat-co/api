@@ -9,12 +9,17 @@ defmodule Bigseat.Schema.Dashboard.Mutations do
       arg :last_name, non_null(:string)
       arg :email, non_null(:string)
       arg :password, non_null(:string)
-      arg :organization_name, non_null(:string)
+      arg :organization, non_null(:organization_input)
 
       resolve fn _parent, args, _resolution ->
         Bigseat.Dashboard.People.create(args)
       end
       middleware TranslateErrors
     end
+  end
+
+  input_object :organization_input do
+    field :name, :string
+    field :slug, :string
   end
 end
