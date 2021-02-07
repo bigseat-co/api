@@ -6,8 +6,13 @@ defmodule Bigseat.Schema do
 
   import_types Bigseat.Schema.Dashboard.Types
   import_types Bigseat.Schema.Dashboard.Queries
+  import_types Bigseat.Schema.Dashboard.Mutations
 
   query do
-    import_fields :space_queries
+    import_fields :dashboard_queries
+  end
+
+  mutation do
+    import_fields :dashboard_mutations
   end
 end

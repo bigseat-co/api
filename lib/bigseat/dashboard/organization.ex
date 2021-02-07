@@ -6,7 +6,7 @@ defmodule Bigseat.Dashboard.Organization do
   @foreign_key_type :binary_id
   schema "organizations" do
     has_many :spaces, Bigseat.Dashboard.Space
-    has_many :identities, Bigseat.Dashboard.Identity
+    has_many :people, Bigseat.Dashboard.Person
     field :name, :string
     field :slug, :string
 

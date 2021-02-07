@@ -2,7 +2,7 @@ defmodule Bigseat.Repo.Migrations.CreateIdentities do
   use Ecto.Migration
 
   def change do
-    create table(:identities, primary_key: false) do
+    create table(:people, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :email, :string
       add :encrypted_password, :string
@@ -15,7 +15,7 @@ defmodule Bigseat.Repo.Migrations.CreateIdentities do
       timestamps()
     end
 
-    create index(:identities, [:organization_id])
-    create unique_index(:identities, [:organization_id, :email])
+    create index(:people, [:organization_id])
+    create unique_index(:people, [:organization_id, :email])
   end
 end

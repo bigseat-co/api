@@ -14,23 +14,23 @@ defmodule Bigseat.DashboardTest do
       {:ok, space} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Dashboard.create_space()
+        |> Dashboard.create()
 
       space
     end
 
-    test "list_spaces/0 returns all spaces" do
+    test "lists/0 returns all spaces" do
       space = space_fixture()
-      assert Dashboard.list_spaces() == [space]
+      assert Dashboard.lists() == [space]
     end
 
-    test "get_space!/1 returns the space with given id" do
+    test "get!/1 returns the space with given id" do
       space = space_fixture()
-      assert Dashboard.get_space!(space.id) == space
+      assert Dashboard.get!(space.id) == space
     end
 
-    test "create_space/1 with valid data creates a space" do
-      assert {:ok, %Space{} = space} = Dashboard.create_space(@valid_attrs)
+    test "create/1 with valid data creates a space" do
+      assert {:ok, %Space{} = space} = Dashboard.create(@valid_attrs)
       assert space.avatar_url == "some avatar_url"
       assert space.name == "some name"
       assert space.open_hours == %{}
@@ -38,13 +38,13 @@ defmodule Bigseat.DashboardTest do
       assert space.working_days == %{}
     end
 
-    test "create_space/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Dashboard.create_space(@invalid_attrs)
+    test "create/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Dashboard.create(@invalid_attrs)
     end
 
-    test "update_space/2 with valid data updates the space" do
+    test "update/2 with valid data updates the space" do
       space = space_fixture()
-      assert {:ok, %Space{} = space} = Dashboard.update_space(space, @update_attrs)
+      assert {:ok, %Space{} = space} = Dashboard.update(space, @update_attrs)
       assert space.avatar_url == "some updated avatar_url"
       assert space.name == "some updated name"
       assert space.open_hours == %{}
@@ -52,21 +52,21 @@ defmodule Bigseat.DashboardTest do
       assert space.working_days == %{}
     end
 
-    test "update_space/2 with invalid data returns error changeset" do
+    test "update/2 with invalid data returns error changeset" do
       space = space_fixture()
-      assert {:error, %Ecto.Changeset{}} = Dashboard.update_space(space, @invalid_attrs)
-      assert space == Dashboard.get_space!(space.id)
+      assert {:error, %Ecto.Changeset{}} = Dashboard.update(space, @invalid_attrs)
+      assert space == Dashboard.get!(space.id)
     end
 
-    test "delete_space/1 deletes the space" do
+    test "delete/1 deletes the space" do
       space = space_fixture()
-      assert {:ok, %Space{}} = Dashboard.delete_space(space)
-      assert_raise Ecto.NoResultsError, fn -> Dashboard.get_space!(space.id) end
+      assert {:ok, %Space{}} = Dashboard.delete(space)
+      assert_raise Ecto.NoResultsError, fn -> Dashboard.get!(space.id) end
     end
 
-    test "change_space/1 returns a space changeset" do
+    test "change/1 returns a space changeset" do
       space = space_fixture()
-      assert %Ecto.Changeset{} = Dashboard.change_space(space)
+      assert %Ecto.Changeset{} = Dashboard.change(space)
     end
   end
 
@@ -81,14 +81,14 @@ defmodule Bigseat.DashboardTest do
       {:ok, organization} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Dashboard.create_organization()
+        |> Dashboard.create()
 
       organization
     end
 
-    test "list_organizations/0 returns all organizations" do
+    test "list/0 returns all organizations" do
       organization = organization_fixture()
-      assert Dashboard.list_organizations() == [organization]
+      assert Dashboard.list() == [organization]
     end
 
     test "get_organization!/1 returns the organization with given id" do
@@ -96,107 +96,107 @@ defmodule Bigseat.DashboardTest do
       assert Dashboard.get_organization!(organization.id) == organization
     end
 
-    test "create_organization/1 with valid data creates a organization" do
-      assert {:ok, %Organization{} = organization} = Dashboard.create_organization(@valid_attrs)
+    test "create/1 with valid data creates a organization" do
+      assert {:ok, %Organization{} = organization} = Dashboard.create(@valid_attrs)
       assert organization.name == "some name"
       assert organization.slug == "some slug"
     end
 
-    test "create_organization/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Dashboard.create_organization(@invalid_attrs)
+    test "create/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Dashboard.create(@invalid_attrs)
     end
 
-    test "update_organization/2 with valid data updates the organization" do
+    test "update/2 with valid data updates the organization" do
       organization = organization_fixture()
-      assert {:ok, %Organization{} = organization} = Dashboard.update_organization(organization, @update_attrs)
+      assert {:ok, %Organization{} = organization} = Dashboard.update(organization, @update_attrs)
       assert organization.name == "some updated name"
       assert organization.slug == "some updated slug"
     end
 
-    test "update_organization/2 with invalid data returns error changeset" do
+    test "update/2 with invalid data returns error changeset" do
       organization = organization_fixture()
-      assert {:error, %Ecto.Changeset{}} = Dashboard.update_organization(organization, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Dashboard.update(organization, @invalid_attrs)
       assert organization == Dashboard.get_organization!(organization.id)
     end
 
-    test "delete_organization/1 deletes the organization" do
+    test "delete/1 deletes the organization" do
       organization = organization_fixture()
-      assert {:ok, %Organization{}} = Dashboard.delete_organization(organization)
+      assert {:ok, %Organization{}} = Dashboard.delete(organization)
       assert_raise Ecto.NoResultsError, fn -> Dashboard.get_organization!(organization.id) end
     end
 
-    test "change_organization/1 returns a organization changeset" do
+    test "change/1 returns a organization changeset" do
       organization = organization_fixture()
-      assert %Ecto.Changeset{} = Dashboard.change_organization(organization)
+      assert %Ecto.Changeset{} = Dashboard.change(organization)
     end
   end
 
-  describe "identities" do
-    alias Bigseat.Dashboard.Identity
+  describe "people" do
+    alias Bigseat.Dashboard.Person
 
     @valid_attrs %{email: "some email", encrypted_password: "some encrypted_password", first_name: "some first_name", group: "some group", is_admin: true, last_name: "some last_name"}
     @update_attrs %{email: "some updated email", encrypted_password: "some updated encrypted_password", first_name: "some updated first_name", group: "some updated group", is_admin: false, last_name: "some updated last_name"}
     @invalid_attrs %{email: nil, encrypted_password: nil, first_name: nil, group: nil, is_admin: nil, last_name: nil}
 
-    def identity_fixture(attrs \\ %{}) do
-      {:ok, identity} =
+    def person_fixture(attrs \\ %{}) do
+      {:ok, person} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Dashboard.create_identity()
+        |> Dashboard.create()
 
-      identity
+      person
     end
 
-    test "list_identities/0 returns all identities" do
-      identity = identity_fixture()
-      assert Dashboard.list_identities() == [identity]
+    test "list/0 returns all people" do
+      person = person_fixture()
+      assert Dashboard.list() == [person]
     end
 
-    test "get_identity!/1 returns the identity with given id" do
-      identity = identity_fixture()
-      assert Dashboard.get_identity!(identity.id) == identity
+    test "get!/1 returns the person with given id" do
+      person = person_fixture()
+      assert Dashboard.get!(person.id) == person
     end
 
-    test "create_identity/1 with valid data creates a identity" do
-      assert {:ok, %Identity{} = identity} = Dashboard.create_identity(@valid_attrs)
-      assert identity.email == "some email"
-      assert identity.encrypted_password == "some encrypted_password"
-      assert identity.first_name == "some first_name"
-      assert identity.group == "some group"
-      assert identity.is_admin == true
-      assert identity.last_name == "some last_name"
+    test "create/1 with valid data creates a person" do
+      assert {:ok, %Person{} = person} = Dashboard.create(@valid_attrs)
+      assert person.email == "some email"
+      assert person.encrypted_password == "some encrypted_password"
+      assert person.first_name == "some first_name"
+      assert person.group == "some group"
+      assert person.is_admin == true
+      assert person.last_name == "some last_name"
     end
 
-    test "create_identity/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Dashboard.create_identity(@invalid_attrs)
+    test "create/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Dashboard.create(@invalid_attrs)
     end
 
-    test "update_identity/2 with valid data updates the identity" do
-      identity = identity_fixture()
-      assert {:ok, %Identity{} = identity} = Dashboard.update_identity(identity, @update_attrs)
-      assert identity.email == "some updated email"
-      assert identity.encrypted_password == "some updated encrypted_password"
-      assert identity.first_name == "some updated first_name"
-      assert identity.group == "some updated group"
-      assert identity.is_admin == false
-      assert identity.last_name == "some updated last_name"
+    test "update/2 with valid data updates the person" do
+      person = person_fixture()
+      assert {:ok, %Person{} = person} = Dashboard.update(person, @update_attrs)
+      assert person.email == "some updated email"
+      assert person.encrypted_password == "some updated encrypted_password"
+      assert person.first_name == "some updated first_name"
+      assert person.group == "some updated group"
+      assert person.is_admin == false
+      assert person.last_name == "some updated last_name"
     end
 
-    test "update_identity/2 with invalid data returns error changeset" do
-      identity = identity_fixture()
-      assert {:error, %Ecto.Changeset{}} = Dashboard.update_identity(identity, @invalid_attrs)
-      assert identity == Dashboard.get_identity!(identity.id)
+    test "update/2 with invalid data returns error changeset" do
+      person = person_fixture()
+      assert {:error, %Ecto.Changeset{}} = Dashboard.update(person, @invalid_attrs)
+      assert person == Dashboard.get!(person.id)
     end
 
-    test "delete_identity/1 deletes the identity" do
-      identity = identity_fixture()
-      assert {:ok, %Identity{}} = Dashboard.delete_identity(identity)
-      assert_raise Ecto.NoResultsError, fn -> Dashboard.get_identity!(identity.id) end
+    test "delete/1 deletes the person" do
+      person = person_fixture()
+      assert {:ok, %Person{}} = Dashboard.delete(person)
+      assert_raise Ecto.NoResultsError, fn -> Dashboard.get!(person.id) end
     end
 
-    test "change_identity/1 returns a identity changeset" do
-      identity = identity_fixture()
-      assert %Ecto.Changeset{} = Dashboard.change_identity(identity)
+    test "change/1 returns a person changeset" do
+      person = person_fixture()
+      assert %Ecto.Changeset{} = Dashboard.change(person)
     end
   end
 end

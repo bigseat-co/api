@@ -10,4 +10,12 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :working_days, :json
     field :open_hours, :json
   end
+
+  object :person do
+    field :id, :uuid
+    field :first_name, :string
+    field :last_name, :string
+    field :email, :string
+    field :password, :string
+  end
 end

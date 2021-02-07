@@ -44,6 +44,7 @@ defmodule Bigseat.MixProject do
       {:plug_cowboy, "~> 2.0"}, # web server
       {:absinthe, "~> 1.4"}, # graphql
       {:absinthe_plug, "~> 1.4"}, # graphql
+      {:crudry, "~> 2.3.1"}, # error handling
       {:poison, "~> 4.0.1"}, # json decoder
       {:jason, "~> 1.0"}, # json decoder
       {:ex_machina, "~> 2.5.0", only: :test}, # factories
