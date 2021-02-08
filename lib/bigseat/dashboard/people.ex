@@ -16,14 +16,15 @@ defmodule Bigseat.Dashboard.People do
   def get!(id), do: Repo.get!(Person, id)
 
   def create(params = %{ organization: organization_params } \\ %{}) do
+    slug = Slug.slugify(organization_params.name)
     organization_changeset = %Organization{}
-    |> Organization.changeset(organization_params)
+    |> Organization.changeset(Map.merge(%{slug: slug}, organization_params))
 
     multi = Multi.new
     |> Multi.insert(:organization, organization_changeset)
     |> Multi.run(:person, fn _repo, %{organization: organization} ->
       %Person{}
-      |> Person.changeset(params)
+      |> Person.changeset(Map.delete(params, :organization))
       |> Ecto.Changeset.put_assoc(:organization, organization)
       |> Repo.insert()
     end)
@@ -34,10 +35,6 @@ defmodule Bigseat.Dashboard.People do
     end
   end
 
-  @spec update(
-          %Bigseat.Dashboard.Person{optional(atom) => any},
-          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
-        ) :: any
   def update(%Person{} = person, params) do
     person
     |> Person.changeset(params)

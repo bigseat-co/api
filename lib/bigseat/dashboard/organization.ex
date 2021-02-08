@@ -16,9 +16,9 @@ defmodule Bigseat.Dashboard.Organization do
   @doc false
   def changeset(organization, attrs) do
     organization
-    |> cast(attrs, [:slug, :name])
+    |> cast(attrs, [:name, :slug])
     |> cast_assoc(:people)
-    |> validate_required([:slug, :name])
+    |> validate_required([:name, :slug])
     |> unique_constraint(:slug)
   end
 end

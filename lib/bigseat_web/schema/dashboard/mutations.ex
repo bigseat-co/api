@@ -19,7 +19,7 @@ defmodule Bigseat.Schema.Dashboard.Mutations do
   end
 
   input_object :organization_input do
-    field :name, :string
+    field :name, non_null(:string)
     field :slug, :string
   end
 end
