@@ -1,4 +1,5 @@
 defmodule Bigseat.Dashboard.Organization do
+  import Ecto.Query, only: [from: 2]
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -20,5 +21,22 @@ defmodule Bigseat.Dashboard.Organization do
     |> cast_assoc(:people)
     |> validate_required([:name, :slug])
     |> unique_constraint(:slug)
+  end
+
+  def solve_slug(name, iteration \\ 0) do
+    raw_slug = Slug.slugify(name)
+    end_slug = if iteration === 0 do
+      raw_slug
+    else
+      "#{raw_slug}#{iteration}"
+    end
+
+    query = from organization in Bigseat.Dashboard.Organization, where: organization.slug == ^end_slug
+
+    if Bigseat.Repo.exists?(query) do
+      solve_slug(name, iteration+1)
+    else
+      end_slug
+    end
   end
 end

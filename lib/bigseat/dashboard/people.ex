@@ -16,9 +16,11 @@ defmodule Bigseat.Dashboard.People do
   def get!(id), do: Repo.get!(Person, id)
 
   def create(params = %{ organization: organization_params } \\ %{}) do
-    slug = Slug.slugify(organization_params.name)
+    slug = Organization.solve_slug(organization_params.name)
     organization_changeset = %Organization{}
-    |> Organization.changeset(Map.merge(%{slug: slug}, organization_params))
+    |> Organization.changeset(
+      Map.merge(%{slug: slug}, organization_params)
+    )
 
     multi = Multi.new
     |> Multi.insert(:organization, organization_changeset)
