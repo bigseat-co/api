@@ -1,6 +1,7 @@
-defmodule BigseatWeb.SchemaTest do
+defmodule BigseatWeb.Schema.SpaceTest do
   use BigseatWeb.ConnCase, async: true
   import Bigseat.Factory
+  use Bigseat.HelpersCase
 
   describe "spaces" do
     setup do
@@ -18,19 +19,6 @@ defmodule BigseatWeb.SchemaTest do
 
       response = graphql_response(conn, query, :success)
       assert response == %{"data" => %{"space" => %{"id" => "#{id}"}}}
-    end
-  end
-
-
-  defp graphql_response(conn, query, status) do
-    conn
-    |> post("/graphql", %{query: query})
-    |> assert_response(status)
-  end
-
-  defp assert_response(conn, status) do
-    case status do
-      :success -> json_response(conn, 200)
     end
   end
 end
