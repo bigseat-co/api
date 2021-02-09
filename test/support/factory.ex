@@ -18,4 +18,14 @@ defmodule Bigseat.Factory do
       open_hours: %{"test" => true}
     }
   end
+
+  def person_factory do
+    %Bigseat.Dashboard.Person{
+      organization: build(:organization),
+      email: "test@test.com",
+      first_name: "Laurent",
+      last_name: "Schaffner",
+      encrypted_password: "random"
+    }
+  end
 end
