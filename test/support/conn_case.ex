@@ -23,6 +23,10 @@ defmodule BigseatWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import BigseatWeb.ConnCase
+      alias Bigseat.Repo
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
 
       alias BigseatWeb.Router.Helpers, as: Routes
 

@@ -4,7 +4,7 @@ defmodule Bigseat.HelpersCase do
 
   using do
     quote do
-      defp graphql_response(conn, query, status) do
+      defp graphql_query(conn, query, status) do
         conn
         |> post("/graphql", %{query: query})
         |> assert_response(status)

@@ -10,14 +10,14 @@ defmodule BigseatWeb.Schema.SpaceTest do
 
     test "gets a space by id", %{conn: conn, space: %{id: id}} do
       query = """
-      {
+      query {
         space(id: "#{id}") {
           id
         }
       }
       """
 
-      response = graphql_response(conn, query, :success)
+      response = graphql_query(conn, query, :success)
       assert response == %{"data" => %{"space" => %{"id" => "#{id}"}}}
     end
   end
