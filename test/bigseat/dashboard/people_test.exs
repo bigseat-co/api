@@ -3,12 +3,7 @@ defmodule Bigseat.Dashboard.PeopleTest do
   import Bigseat.Factory
 
   describe "people" do
-    alias Bigseat.Dashboard.Person
     alias Bigseat.Dashboard.People
-
-    @valid_attrs %{}
-    @update_attrs %{email: "some updated email", password: "some updated password", first_name: "some updated first_name", group: "some updated group", is_admin: false, last_name: "some updated last_name"}
-    @invalid_attrs %{email: nil, password: nil, first_name: nil, group: nil, is_admin: nil, last_name: nil}
 
     test "list/0 returns all people" do
       person = insert(:person)
