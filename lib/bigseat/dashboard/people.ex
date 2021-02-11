@@ -26,7 +26,7 @@ defmodule Bigseat.Dashboard.People do
     |> Multi.insert(:organization, organization_changeset)
     |> Multi.run(:person, fn _repo, %{organization: organization} ->
       %Person{}
-      |> Person.changeset(Map.delete(params, :organization))
+      |> Person.changeset(Map.merge(%{is_admin: true}, Map.delete(params, :organization)))
       |> Ecto.Changeset.put_assoc(:organization, organization)
       |> Repo.insert()
     end)

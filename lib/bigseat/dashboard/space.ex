@@ -15,8 +15,6 @@ defmodule Bigseat.Dashboard.Space do
     timestamps()
   end
 
-  @spec changeset(any, any) :: none
-  @doc false
   def changeset(space, attrs) do
     space
     |> cast(attrs, [:slug, :name, :working_days, :open_hours, :avatar_url])

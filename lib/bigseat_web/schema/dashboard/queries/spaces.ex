@@ -1,4 +1,4 @@
-defmodule Bigseat.Schema.Dashboard.Queries do
+defmodule Bigseat.Schema.Dashboard.Queries.Spaces do
   use Absinthe.Schema.Notation
 
   object :dashboard_queries do
