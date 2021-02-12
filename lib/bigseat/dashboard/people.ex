@@ -1,6 +1,4 @@
 defmodule Bigseat.Dashboard.People do
-
-  import Ecto.Query, warn: false
   alias Bigseat.Repo
   alias Ecto.Multi
 
@@ -16,8 +14,7 @@ defmodule Bigseat.Dashboard.People do
   def get!(id), do: Repo.get!(Person, id)
 
   def create(params = %{ organization: organization_params } \\ %{}) do
-    slug = Organization.solve_slug(organization_params.name)
-    api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
+    {:ok, %{slug: slug, api_key: api_key} } = Bigseat.Dashboard.Organization.Helper.generate_from(organization_params.name)
 
     organization_changeset = %Organization{}
     |> Organization.changeset(

@@ -23,8 +23,19 @@ defmodule Bigseat.Dashboard.Organization do
     |> validate_required([:name, :slug, :api_key])
     |> unique_constraint(:slug)
   end
+end
 
-  def solve_slug(name, iteration \\ 0) do
+defmodule Bigseat.Dashboard.Organization.Helper do
+  import Ecto.Query, warn: false
+
+  def generate_from(name) do
+    slug = slug_with(name)
+    api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
+
+    {:ok, %{slug: slug, api_key: api_key}}
+  end
+
+  def slug_with(name, iteration \\ 0) do
     raw_slug = Slug.slugify(name)
     end_slug = if iteration === 0 do
       raw_slug
@@ -35,7 +46,7 @@ defmodule Bigseat.Dashboard.Organization do
     query = from organization in Bigseat.Dashboard.Organization, where: organization.slug == ^end_slug
 
     if Bigseat.Repo.exists?(query) do
-      solve_slug(name, iteration+1)
+      slug_with(name, iteration+1)
     else
       end_slug
     end

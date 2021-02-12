@@ -1,24 +1,23 @@
 defmodule Bigseat.Schema.Dashboard.Mutations.Signin do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
+  alias Bigseat.Schema.Dashboard.Mutations.Signin.Helper
 
   object :dashboard_mutations_signin do
     @desc "Signin to the dashboard"
-    field :signin, :organization do
+    field :signin, :person do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
 
       resolve fn _parent, %{email: email, password: password}, _resolution ->
-        with {:ok, person} <- Signin.Helper.signin_with_email_password(email, password) do
-             {:ok, %{api_key: person.organization.api_key}}
-             end
+        Helper.signin_with_email_password(email, password)
       end
       middleware TranslateErrors
     end
   end
 end
 
-defmodule Signin.Helper do
+defmodule Bigseat.Schema.Dashboard.Mutations.Signin.Helper do
   import Comeonin.Bcrypt, only: [checkpw: 2]
   alias Bigseat.Repo
   alias Bigseat.Dashboard.Person
