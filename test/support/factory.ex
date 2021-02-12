@@ -4,7 +4,8 @@ defmodule Bigseat.Factory do
   def organization_factory do
     %Bigseat.Dashboard.Organization{
       name: "Random name too",
-      slug: "random-slug-too"
+      slug: "random-slug-too",
+      api_key: "valid-api-key"
     }
   end
 
