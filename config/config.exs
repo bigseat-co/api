@@ -27,6 +27,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :bigseat, Bigseat.Guardian,
+  issuer: "bigseat",
+  secret_key: "JX+5SOTn52STCCbu7fjvTp+Q0ex9Klsf+8OEzdEzaIQArh/48o94hXfHjihpHirC"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

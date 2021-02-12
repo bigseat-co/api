@@ -10,6 +10,7 @@ defmodule Bigseat.Dashboard.Organization do
     has_many :people, Bigseat.Dashboard.Person
     field :name, :string
     field :slug, :string
+    field :api_key, :string
 
     timestamps()
   end
@@ -17,9 +18,9 @@ defmodule Bigseat.Dashboard.Organization do
   @doc false
   def changeset(organization, attrs) do
     organization
-    |> cast(attrs, [:name, :slug])
+    |> cast(attrs, [:name, :slug, :api_key])
     |> cast_assoc(:people)
-    |> validate_required([:name, :slug])
+    |> validate_required([:name, :slug, :api_key])
     |> unique_constraint(:slug)
   end
 

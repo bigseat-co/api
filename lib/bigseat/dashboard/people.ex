@@ -17,9 +17,11 @@ defmodule Bigseat.Dashboard.People do
 
   def create(params = %{ organization: organization_params } \\ %{}) do
     slug = Organization.solve_slug(organization_params.name)
+    api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
+
     organization_changeset = %Organization{}
     |> Organization.changeset(
-      Map.merge(%{slug: slug}, organization_params)
+      Map.merge(%{slug: slug, api_key: api_key}, organization_params)
     )
 
     multi = Multi.new
