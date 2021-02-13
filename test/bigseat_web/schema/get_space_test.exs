@@ -2,10 +2,6 @@ defmodule BigseatWeb.Schema.GetSpaceTest do
   use BigseatWeb.ConnCase, async: true
   import Bigseat.Factory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
-    Person,
-    Organization
-  }
 
   describe "get_space" do
     setup do
@@ -16,7 +12,7 @@ defmodule BigseatWeb.Schema.GetSpaceTest do
     end
 
     test "get a space id without authentication", %{conn: conn, space: space} do
-      response = graphql_query(conn, space.id |> query, :success)
+      response = graphql_query(conn, space.id |> query(), :success)
       assert Map.has_key?(response, "errors")
     end
 

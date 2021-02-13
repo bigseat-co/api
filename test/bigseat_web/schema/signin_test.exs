@@ -2,10 +2,6 @@ defmodule BigseatWeb.Schema.SigninTest do
   use BigseatWeb.ConnCase, async: true
   import Bigseat.Factory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
-    Person,
-    Organization
-  }
 
   describe "signin" do
     setup do
