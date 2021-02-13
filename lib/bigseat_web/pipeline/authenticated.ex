@@ -1,4 +1,4 @@
-defmodule BigseatWeb.Connect.AuthenticatedPipeline do
+defmodule BigseatWeb.Pipeline.Authenticated do
   @behaviour Plug
 
   import Plug.Conn
@@ -17,10 +17,9 @@ defmodule BigseatWeb.Connect.AuthenticatedPipeline do
   end
 
   defp build_context(conn) do
-    require IEx; IEx.pry
     with ["Bearer " <> api_key] <- get_req_header(conn, "authorization"),
         {:ok, current_person} <- authorize(api_key) do
-        {:ok, %{current_person: current_person, api_key: api_key}}
+        {:ok, %{current_person: current_person}}
     end
   end
 
