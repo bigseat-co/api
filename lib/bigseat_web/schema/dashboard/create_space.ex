@@ -10,7 +10,6 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       arg :open_hours, list_of(non_null(:open_hours_input))
       middleware BigseatWeb.Middleware.Authorized
       resolve fn _parent, _args, _resolution ->
-        require IEx; IEx.pry
         {:ok, Bigseat.Dashboard.Spaces.create()}
       end
     end
