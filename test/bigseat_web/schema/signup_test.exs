@@ -6,7 +6,7 @@ defmodule BigseatWeb.Schema.SignupTest do
     Organization
   }
 
-  describe "spaces" do
+  describe "signup" do
     setup do
       [signup: %{
         email: "test@test.com",

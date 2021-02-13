@@ -7,7 +7,7 @@ defmodule BigseatWeb.Schema.SigninTest do
     Organization
   }
 
-  describe "spaces" do
+  describe "signin" do
     setup do
       [space: insert(:person, %{
         email: "test@test.com",
@@ -25,17 +25,14 @@ defmodule BigseatWeb.Schema.SigninTest do
       mutation = signin |> valid_mutation
       response = conn |> graphql_query(mutation, :success)
 
-      require IEx; IEx.pry
       assert response == %{"data" =>
         %{"signin" =>
           %{
             "id" => first_person().id,
-            "organization" => %{
-              "api_key" => first_organization().api_key
-              }
-            }
+            "api_key" => first_person().api_key
           }
         }
+      }
     end
 
     defp first_person do
@@ -53,6 +50,7 @@ defmodule BigseatWeb.Schema.SigninTest do
           email: "#{signin.email}"
           password: "#{signin.password}"
         ) {
+          id
           api_key
         }
       }

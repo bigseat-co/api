@@ -3,8 +3,7 @@ defmodule Bigseat.Factory do
 
   def organization_factory do
     %Bigseat.Dashboard.Organization{
-      name: "Random name too",
-      slug: "random-slug-too"
+      name: "Random name too"
     }
   end
 
@@ -25,7 +24,7 @@ defmodule Bigseat.Factory do
       email: "test@test.com",
       first_name: "Laurent",
       last_name: "Schaffner",
-      encrypted_password: "random",
+      encrypted_password: Comeonin.Bcrypt.hashpwsalt("password"),
       api_key: "valid-api-key"
     }
   end
