@@ -4,7 +4,7 @@ defmodule Bigseat.Dashboard.SpaceOpenHour do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "organization_open_time" do
+  schema "space_open_hour" do
     belongs_to :space, Bigseat.Dashboard.Space
     field :day_of_the_week, :string
     field :open_time, :time

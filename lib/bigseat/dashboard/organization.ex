@@ -29,7 +29,7 @@ defmodule Bigseat.Dashboard.Organization do
     %{slug: _} ->
       changeset
     _ ->
-      put_change(changeset, :slug, Bigseat.Dashboard.Organization.Helper.slug_with(changeset.changes.name))
+      put_change(changeset, :slug, Bigseat.Dashboard.Organization.Helper.slug_with(changeset.changes))
     end
   end
 end
@@ -37,7 +37,7 @@ end
 defmodule Bigseat.Dashboard.Organization.Helper do
   import Ecto.Query, warn: false
 
-  def slug_with(name, iteration \\ 0) do
+  def slug_with(%{name: name}, iteration \\ 0) do
     raw_slug = Slug.slugify(name)
     end_slug = if iteration === 0 do
       raw_slug

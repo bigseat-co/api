@@ -8,9 +8,10 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       arg :slug, :string
       arg :name, non_null(:string)
       arg :open_hours, list_of(non_null(:open_hours_input))
+
       middleware BigseatWeb.Middleware.Authorized
-      resolve fn _parent, _args, _resolution ->
-        {:ok, Bigseat.Dashboard.Spaces.create()}
+      resolve fn _parent, args, _resolution ->
+        {:ok, Bigseat.Dashboard.Spaces.create(args)}
       end
     end
   end
