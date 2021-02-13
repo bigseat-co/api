@@ -1,9 +1,9 @@
-defmodule Bigseat.Schema.Dashboard.Mutations.Signin do
+defmodule Bigseat.Schema.Dashboard.Signin do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
   alias Bigseat.Schema.Dashboard.Mutations.Signin.Helper
 
-  object :dashboard_mutations_signin do
+  object :dashboard_signin do
     @desc "Signin to the dashboard"
     field :signin, :person do
       arg :email, non_null(:string)

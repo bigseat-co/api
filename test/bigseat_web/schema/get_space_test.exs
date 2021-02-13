@@ -1,4 +1,4 @@
-defmodule BigseatWeb.Schema.SpaceTest do
+defmodule BigseatWeb.Schema.GetSpaceTest do
   use BigseatWeb.ConnCase, async: true
   import Bigseat.Factory
   use Bigseat.HelpersCase
@@ -7,7 +7,7 @@ defmodule BigseatWeb.Schema.SpaceTest do
     Organization
   }
 
-  describe "spaces" do
+  describe "get_space" do
     setup do
       [
         space: insert(:space),
@@ -24,14 +24,14 @@ defmodule BigseatWeb.Schema.SpaceTest do
       auth_conn = conn |> put_req_header("authorization", "Bearer #{person.api_key}")
 
       response = graphql_query(auth_conn, space.id |> query, :success)
-      assert response == %{"data" => %{"space" => %{"id" => "#{space.id}"}}}
+      assert response == %{"data" => %{"getSpace" => %{"id" => "#{space.id}"}}}
     end
 
 
     defp query(id) do
       """
       query {
-        space(id: "#{id}") {
+        getSpace(id: "#{id}") {
           id
         }
       }

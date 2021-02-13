@@ -1,8 +1,8 @@
-defmodule Bigseat.Schema.Dashboard.Mutations.Signup do
+defmodule Bigseat.Schema.Dashboard.Signup do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
 
-  object :dashboard_mutations_signup do
+  object :dashboard_signup do
     @desc "Signup to the dashboard"
     field :signup, :person do
       arg :first_name, non_null(:string)
