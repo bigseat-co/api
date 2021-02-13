@@ -23,7 +23,7 @@ defmodule Bigseat.Schema.Dashboard.Mutations.Signin.Helper do
   alias Bigseat.Dashboard.Person
 
   def signin_with_email_password(email, given_password) do
-    person = Repo.get_by(Person, email: String.downcase(email)) |> Repo.preload(:organization)
+    person = Repo.get_by(Person, email: String.downcase(email))
 
     cond do
       person && checkpw(given_password, person.encrypted_password) -> {:ok, person}

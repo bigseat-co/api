@@ -17,6 +17,7 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :last_name, :string
     field :email, :string
     field :password, :string
+    field :api_key, :string
     field :organization, :organization
   end
 
@@ -24,6 +25,5 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :id, :uuid
     field :name, :string
     field :slug, :string
-    field :api_key, :string
   end
 end

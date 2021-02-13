@@ -53,10 +53,7 @@ defmodule BigseatWeb.Schema.SigninTest do
           email: "#{signin.email}"
           password: "#{signin.password}"
         ) {
-          id
-          organization {
-            api_key
-          }
+          api_key
         }
       }
       """
