@@ -9,25 +9,24 @@ defmodule BigseatWeb.Schema.SpaceTest do
 
   describe "spaces" do
     setup do
-      insert(:person)
-      [space: insert(:space)]
+      [
+        space: insert(:space),
+        person: insert(:person)
+      ]
     end
 
-    test "get a space id without authentication", %{conn: conn, space: %{id: id}} do
-      response = graphql_query(conn, query(id), :success)
+    test "get a space id without authentication", %{conn: conn, space: space} do
+      response = graphql_query(conn, space.id |> query, :success)
       assert Map.has_key?(response, "errors")
     end
 
-    test "gets a space by id", %{conn: conn, space: %{id: id}} do
-      auth_conn = conn |> put_req_header("authorization", "Bearer #{first_person().api_key}")
+    test "gets a space by id", %{conn: conn, space: space, person: person} do
+      auth_conn = conn |> put_req_header("authorization", "Bearer #{person.api_key}")
 
-      response = graphql_query(auth_conn, query(id), :success)
-      assert response == %{"data" => %{"space" => %{"id" => "#{id}"}}}
+      response = graphql_query(auth_conn, space.id |> query, :success)
+      assert response == %{"data" => %{"space" => %{"id" => "#{space.id}"}}}
     end
 
-    defp first_person do
-      Person |> first() |> Repo.one()
-    end
 
     defp query(id) do
       """

@@ -8,51 +8,48 @@ defmodule BigseatWeb.Schema.SignupTest do
 
   describe "signup" do
     setup do
-      [signup: %{
-        email: "test@test.com",
-        first_name: "Laurent",
-        last_name: "Schaffner",
-        organization: %{
-          name: "BigSeat"
-        },
-        password: "Password0$"
-      }]
+      [
+        payload: %{
+          email: "test@test.com",
+          first_name: "Laurent",
+          last_name: "Schaffner",
+          organization: %{
+            name: "BigSeat"
+          },
+          password: "Password0$"
+        }
+      ]
     end
 
-    test "signup a new person", %{conn: conn, signup: signup} do
-      mutation = signup |> valid_mutation
+    test "signup a new person", %{conn: conn, payload: payload} do
+      mutation = payload |> valid_mutation
       response = conn |> graphql_query(mutation, :success)
+      person_created = Person |> first() |> Repo.one()
 
-      assert response == %{"data" => %{"signup" => %{"id" => first_person().id}}}
+      assert response == %{"data" => %{"signup" => %{"id" => person_created.id}}}
     end
 
-    test "signup a new person with a specific organization slug", %{conn: conn, signup: signup} do
-      mutation = signup |> valid_mutation_with_slug("valid-slug")
+    test "signup a new person with a specific organization slug", %{conn: conn, payload: payload} do
+      mutation = payload |> valid_mutation_with_slug("valid-slug")
       response = conn |> graphql_query(mutation, :success)
+      person_created = Person |> first() |> Repo.one()
+      organization_created = Organization |> first() |> Repo.one()
 
-      assert response == %{"data" => %{"signup" => %{"id" => first_person().id}}}
-      assert first_organization().slug == "valid-slug"
+      assert response == %{"data" => %{"signup" => %{"id" => person_created.id}}}
+      assert organization_created.slug == "valid-slug"
     end
 
-    defp first_person do
-      Person |> first() |> Repo.one()
-    end
-
-    defp first_organization do
-      Organization |> first() |> Repo.one()
-    end
-
-    defp valid_mutation(signup) do
+    defp valid_mutation(payload) do
       """
       mutation {
         signup(
-          email: "#{signup.email}"
-          firstName: "#{signup.first_name}"
-          lastName: "#{signup.last_name}"
+          email: "#{payload.email}"
+          firstName: "#{payload.first_name}"
+          lastName: "#{payload.last_name}"
           organization: {
-            name: "#{signup.organization.name}"
+            name: "#{payload.organization.name}"
           }
-          password: "#{signup.password}"
+          password: "#{payload.password}"
         ) {
           id
         }
@@ -60,18 +57,18 @@ defmodule BigseatWeb.Schema.SignupTest do
       """
     end
 
-    defp valid_mutation_with_slug(signup, slug) do
+    defp valid_mutation_with_slug(payload, slug) do
       """
       mutation {
         signup(
-          email: "#{signup.email}"
-          firstName: "#{signup.first_name}"
-          lastName: "#{signup.last_name}"
+          email: "#{payload.email}"
+          firstName: "#{payload.first_name}"
+          lastName: "#{payload.last_name}"
           organization: {
-            name: "#{signup.organization.name}"
+            name: "#{payload.organization.name}"
             slug: "#{slug}"
           }
-          password: "#{signup.password}"
+          password: "#{payload.password}"
         ) {
           id
         }
