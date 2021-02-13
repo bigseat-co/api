@@ -14,12 +14,8 @@ defmodule Bigseat.Dashboard.People do
   def get!(id), do: Repo.get!(Person, id)
 
   def create(params = %{ organization: organization_params } \\ %{}) do
-    {:ok, %{slug: slug, api_key: api_key} } = Bigseat.Dashboard.Organization.Helper.generate_from(organization_params.name)
-
     organization_changeset = %Organization{}
-    |> Organization.changeset(
-      Map.merge(%{slug: slug, api_key: api_key}, organization_params)
-    )
+    |> Organization.changeset(organization_params)
 
     multi = Multi.new
     |> Multi.insert(:organization, organization_changeset)

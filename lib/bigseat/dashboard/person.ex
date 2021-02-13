@@ -14,15 +14,17 @@ defmodule Bigseat.Dashboard.Person do
     field :group, :string
     field :is_admin, :boolean, default: false
     field :last_name, :string
+    field :api_key, :string
 
     timestamps()
   end
 
   def changeset(person, attrs) do
     person
-    |> cast(attrs, [:email, :password, :first_name, :last_name, :is_admin, :group])
+    |> cast(attrs, [:email, :password, :first_name, :last_name, :is_admin, :group, :api_key])
     |> cast_assoc(:organization)
-    |> validate_required([:email, :first_name, :last_name])
+    |> put_api_key()
+    |> validate_required([:email, :first_name, :last_name, :api_key])
     |> unique_constraint(:email, name: :people_organization_id_email_index)
     |> validate_unique_admin()
     |> put_encrypted_password()
@@ -42,9 +44,13 @@ defmodule Bigseat.Dashboard.Person do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
-
       _ ->
         changeset
     end
+  end
+
+  defp put_api_key(changeset) do
+    api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
+    put_change(changeset, :api_key, api_key)
   end
 end

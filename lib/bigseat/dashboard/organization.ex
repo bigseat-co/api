@@ -10,7 +10,6 @@ defmodule Bigseat.Dashboard.Organization do
     has_many :people, Bigseat.Dashboard.Person
     field :name, :string
     field :slug, :string
-    field :api_key, :string
 
     timestamps()
   end
@@ -18,22 +17,25 @@ defmodule Bigseat.Dashboard.Organization do
   @doc false
   def changeset(organization, attrs) do
     organization
-    |> cast(attrs, [:name, :slug, :api_key])
+    |> cast(attrs, [:name, :slug])
     |> cast_assoc(:people)
-    |> validate_required([:name, :slug, :api_key])
+    |> put_slug()
+    |> validate_required([:name, :slug])
     |> unique_constraint(:slug)
+  end
+
+  defp put_slug(changeset) do
+    case changeset.changes do
+    %{slug: _} ->
+      changeset
+    _ ->
+      put_change(changeset, :slug, Bigseat.Dashboard.Organization.Helper.slug_with(changeset.changes.name))
+    end
   end
 end
 
 defmodule Bigseat.Dashboard.Organization.Helper do
   import Ecto.Query, warn: false
-
-  def generate_from(name) do
-    slug = slug_with(name)
-    api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
-
-    {:ok, %{slug: slug, api_key: api_key}}
-  end
 
   def slug_with(name, iteration \\ 0) do
     raw_slug = Slug.slugify(name)

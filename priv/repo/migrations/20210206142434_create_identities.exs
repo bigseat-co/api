@@ -11,11 +11,13 @@ defmodule Bigseat.Repo.Migrations.CreateIdentities do
       add :is_admin, :boolean, default: false, null: false
       add :group, :string
       add :organization_id, references(:organizations, on_delete: :nothing, type: :binary_id)
+      add :api_key, :string, null: false
 
       timestamps()
     end
 
     create index(:people, [:organization_id])
     create unique_index(:people, [:organization_id, :email])
+    create unique_index(:people, [:api_key])
   end
 end

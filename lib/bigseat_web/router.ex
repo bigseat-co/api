@@ -4,8 +4,13 @@ defmodule BigseatWeb.Router do
   pipeline :graphql do
   end
 
+  pipeline :authenticated do
+    plug BigseatWeb.Connect.AuthenticatedPipeline
+  end
+
   scope "/" do
     pipe_through :graphql
+    # pipe_through :authenticated
     forward "/graphql", Absinthe.Plug.GraphiQL, schema: Bigseat.Schema
   end
 
