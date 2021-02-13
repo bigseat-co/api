@@ -6,19 +6,18 @@ defmodule Bigseat.Dashboard.Space do
   @foreign_key_type :binary_id
   schema "spaces" do
     belongs_to :organization, Bigseat.Dashboard.Organization
+    has_many :open_hours, Bigseat.Dashboard.OrganizationOpenHours
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
-    field :working_days, :map
-    field :open_hours, :map
 
     timestamps()
   end
 
   def changeset(space, attrs) do
     space
-    |> cast(attrs, [:slug, :name, :working_days, :open_hours, :avatar_url])
-    |> validate_required([:slug, :name, :working_days, :open_hours, :avatar_url])
+    |> cast(attrs, [:slug, :name, :avatar_url])
+    |> validate_required([:slug, :name, :avatar_url])
     |> unique_constraint(:slug, [:organization_id, :slug])
   end
 end

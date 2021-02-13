@@ -7,8 +7,15 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
-    field :working_days, :json
-    field :open_hours, :json
+    field :open_hours, :space_open_hours
+  end
+
+  object :space_open_hours do
+    field :id, :uuid
+    field :space_id, :id
+    field :day_of_the_week, :string
+    field :open_time, :time
+    field :close_time, :time
   end
 
   object :person do

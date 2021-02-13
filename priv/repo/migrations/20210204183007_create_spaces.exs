@@ -6,8 +6,6 @@ defmodule Bigseat.Repo.Migrations.CreateSpaces do
       add :id, :binary_id, primary_key: true
       add :slug, :string
       add :name, :string
-      add :working_days, :map
-      add :open_hours, :map
       add :avatar_url, :string
       add :organization_id, references(:organizations, on_delete: :nothing, type: :binary_id)
 

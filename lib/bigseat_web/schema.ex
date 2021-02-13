@@ -1,10 +1,12 @@
 defmodule Bigseat.Schema do
   use Absinthe.Schema
 
+  import_types Absinthe.Type.Custom
   import_types Bigseat.Schema.Scalars.Json
   import_types Bigseat.Schema.Scalars.Uuid
 
   import_types Bigseat.Schema.Dashboard.Types
+  import_types Bigseat.Schema.Dashboard.CreateSpace
   import_types Bigseat.Schema.Dashboard.ListSpaces
   import_types Bigseat.Schema.Dashboard.GetSpace
   import_types Bigseat.Schema.Dashboard.Signup
@@ -18,5 +20,6 @@ defmodule Bigseat.Schema do
   mutation do
     import_fields :dashboard_signup
     import_fields :dashboard_signin
+    import_fields :dashboard_create_space
   end
 end
