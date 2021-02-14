@@ -38,7 +38,8 @@ defmodule Bigseat.Dashboard.Organization.Helper do
   import Ecto.Query, warn: false
 
   def slug_with(%{name: name}, iteration \\ 0) do
-    raw_slug = Slug.slugify(name)
+
+    raw_slug = Inflex.parameterize(name)
     end_slug = if iteration === 0 do
       raw_slug
     else
