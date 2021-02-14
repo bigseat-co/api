@@ -32,12 +32,17 @@ defmodule Bigseat.Dashboard.Person do
   end
 
   defp validate_unique_admin(changeset) do
-    email = Map.get(changeset.changes, :email)
-    query = from person in Bigseat.Dashboard.Person, where: person.email == ^email, where: person.is_admin == true
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{is_admin: true}} ->
+        email = Map.get(changeset.changes, :email)
+        query = from person in Bigseat.Dashboard.Person, where: person.email == ^email, where: person.is_admin == true
 
-    case Bigseat.Repo.exists?(query) == false do
-      true -> changeset
-      false -> add_error(changeset, :email, "already in use within another organization")
+        case Bigseat.Repo.exists?(query) == false do
+          true -> changeset
+          false -> add_error(changeset, :email, "already in use within another organization")
+        end
+      _ ->
+        changeset
     end
   end
 
