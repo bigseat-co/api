@@ -21,7 +21,7 @@ defmodule Bigseat.Dashboard.People do
     # when you create from scratch
     person_characteristics = %{
       is_admin: true,
-      group: "in-office",
+      group: :office,
       type: "TeamMember"
     }
 

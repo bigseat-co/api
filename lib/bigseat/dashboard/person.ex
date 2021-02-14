@@ -11,7 +11,7 @@ defmodule Bigseat.Dashboard.Person do
     field :password, :string, virtual: true
     field :encrypted_password, :string
     field :first_name, :string
-    field :group, :string
+    field :group, Ecto.Enum, values: [:remote, :office]
     field :type, :string
     field :is_admin, :boolean, default: false
     field :last_name, :string
