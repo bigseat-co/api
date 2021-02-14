@@ -30,7 +30,7 @@ defmodule Bigseat.Factory do
 
   def space_open_hour_factory do
     %Bigseat.Dashboard.SpaceOpenHour{
-      space: build(:space),
+      # space: build(:space),
       day_of_the_week: "monday",
       open_time: "10:00:00Z",
       close_time: "18:00:00Z"
