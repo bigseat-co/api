@@ -9,7 +9,7 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
   describe "create_space" do
     setup do
       [
-        person: insert(:person),
+        person: insert(:person, is_admin: true),
         # payload: %{} # not currently in use, can be transferred if complex data are needed
       ]
     end

@@ -10,7 +10,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       arg :open_hours, list_of(non_null(:open_hours_input))
       arg :maximum_people, non_null(:integer)
 
-      middleware BigseatWeb.Middleware.Authorized
+      middleware BigseatWeb.Middleware.AuthorizedAdmin
       resolve fn _parent, args, %{ context: %{ current_person: current_person }} ->
         Bigseat.Dashboard.Spaces.create(args, current_person.organization_id)
       end

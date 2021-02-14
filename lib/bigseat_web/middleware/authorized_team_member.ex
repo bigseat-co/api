@@ -1,7 +1,7 @@
-defmodule BigseatWeb.Middleware.Authorized do
+defmodule BigseatWeb.Middleware.AuthorizedTeamMember do
   @behaviour Absinthe.Middleware
 
-  def call(resolution = %{context: %{current_person: _}}, _config) do
+  def call(resolution = %{context: %{current_person: %{ type: "TeamMember" }}}, _config) do
     resolution
   end
 
@@ -11,6 +11,6 @@ defmodule BigseatWeb.Middleware.Authorized do
   end
 
   defp not_authorized_error do
-    %{message: "Not authorized"}
+    %{message: "Not authorized, you're not an admin"}
   end
 end
