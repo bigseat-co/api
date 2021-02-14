@@ -24,7 +24,8 @@ defmodule Bigseat.Factory do
       first_name: "Laurent",
       last_name: "Schaffner",
       encrypted_password: Comeonin.Bcrypt.hashpwsalt("password"),
-      api_key: "valid-api-key"
+      api_key: "valid-api-key",
+      type: "TeamMember"
     }
   end
 

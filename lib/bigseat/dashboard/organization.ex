@@ -37,8 +37,7 @@ end
 defmodule Bigseat.Dashboard.Organization.Helper do
   import Ecto.Query, warn: false
 
-  def slug_with(%{name: name}, iteration \\ 0) do
-
+  def slug_with(params = %{name: name}, iteration \\ 0) do
     raw_slug = Inflex.parameterize(name)
     end_slug = if iteration === 0 do
       raw_slug
@@ -49,7 +48,7 @@ defmodule Bigseat.Dashboard.Organization.Helper do
     query = from organization in Bigseat.Dashboard.Organization, where: organization.slug == ^end_slug
 
     if Bigseat.Repo.exists?(query) do
-      slug_with(name, iteration+1)
+      Bigseat.Dashboard.Organization.Helper.slug_with(params, iteration+1)
     else
       end_slug
     end

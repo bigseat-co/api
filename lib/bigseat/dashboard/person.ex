@@ -12,6 +12,7 @@ defmodule Bigseat.Dashboard.Person do
     field :encrypted_password, :string
     field :first_name, :string
     field :group, :string
+    field :type, :string
     field :is_admin, :boolean, default: false
     field :last_name, :string
     field :api_key, :string
@@ -21,10 +22,10 @@ defmodule Bigseat.Dashboard.Person do
 
   def changeset(person, attrs) do
     person
-    |> cast(attrs, [:email, :password, :first_name, :last_name, :is_admin, :group, :api_key])
+    |> cast(attrs, [:email, :password, :first_name, :last_name, :is_admin, :type, :group, :api_key])
     |> cast_assoc(:organization)
     |> put_api_key()
-    |> validate_required([:email, :first_name, :last_name, :api_key])
+    |> validate_required([:email, :first_name, :last_name, :api_key, :type, :group])
     |> unique_constraint(:email, name: :people_organization_id_email_index)
     |> validate_unique_admin()
     |> put_encrypted_password()

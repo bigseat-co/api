@@ -12,7 +12,7 @@ defmodule Bigseat.Schema.Dashboard.Signup do
       arg :organization, non_null(:organization_input)
 
       resolve fn _parent, args, _resolution ->
-        Bigseat.Dashboard.People.create(args)
+        Bigseat.Dashboard.People.create_from_scratch(args)
       end
       middleware TranslateErrors
     end
