@@ -1,5 +1,6 @@
 defmodule Bigseat.Schema.Dashboard.CreateSpace do
   use Absinthe.Schema.Notation
+  alias Crudry.Middlewares.TranslateErrors
 
   object :dashboard_create_space do
     @desc "Create a new space"
@@ -14,6 +15,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       resolve fn _parent, args, %{ context: %{ current_person: current_person }} ->
         Bigseat.Dashboard.Spaces.create(args, current_person.organization_id)
       end
+      middleware TranslateErrors
     end
   end
 

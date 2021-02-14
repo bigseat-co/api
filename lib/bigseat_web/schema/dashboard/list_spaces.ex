@@ -1,5 +1,6 @@
 defmodule Bigseat.Schema.Dashboard.ListSpaces do
   use Absinthe.Schema.Notation
+  alias Crudry.Middlewares.TranslateErrors
 
   object :dashboard_list_spaces do
     @desc "Get a list of spaces"
@@ -9,6 +10,7 @@ defmodule Bigseat.Schema.Dashboard.ListSpaces do
       resolve fn _parent, _args, _resolution ->
         {:ok, Bigseat.Dashboard.Spaces.lists()}
       end
+      middleware TranslateErrors
     end
   end
 end

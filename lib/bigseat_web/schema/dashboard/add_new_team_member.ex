@@ -1,5 +1,6 @@
 defmodule Bigseat.Schema.Dashboard.AddNewTeamMember do
   use Absinthe.Schema.Notation
+  alias Crudry.Middlewares.TranslateErrors
 
   object :dashboard_add_new_team_member do
     @desc "Add a new team member to the organization"
