@@ -13,8 +13,7 @@ defmodule Bigseat.Factory do
       avatar_url: "http://fake-avatar.com",
       name: "Random name",
       slug: "random-slug",
-      working_days: %{"test" => true},
-      open_hours: %{"test" => true}
+      open_hours: [build(:space_open_hour)]
     }
   end
 
@@ -26,6 +25,15 @@ defmodule Bigseat.Factory do
       last_name: "Schaffner",
       encrypted_password: Comeonin.Bcrypt.hashpwsalt("password"),
       api_key: "valid-api-key"
+    }
+  end
+
+  def space_open_hour_factory do
+    %Bigseat.Dashboard.SpaceOpenHour{
+      space: build(:space),
+      day_of_the_week: "monday",
+      open_time: "10:00:00Z",
+      close_time: "18:00:00Z"
     }
   end
 end

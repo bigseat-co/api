@@ -1,9 +1,11 @@
 defmodule Bigseat.Dashboard.Spaces do
-
-  import Ecto.Query, warn: false
   alias Bigseat.Repo
+  alias Ecto.Multi
 
-  alias Bigseat.Dashboard.Space
+  alias Bigseat.Dashboard.{
+    Space,
+    SpaceOpenHour
+  }
 
   def lists do
     Repo.all(Space)
@@ -11,10 +13,27 @@ defmodule Bigseat.Dashboard.Spaces do
 
   def get!(id), do: Repo.get!(Space, id)
 
-  def create(attrs \\ %{}) do
-    %Space{}
-    |> Space.changeset(attrs)
-    |> Repo.insert()
+  def create(params = %{ open_hours: open_hours_params }, current_person) do
+    organization_id = current_person.organization_id
+    space_params = Map.delete(params, :open_hours) |> Map.merge(%{organization_id: organization_id})
+    changeset = %Space{} |> Space.changeset(space_params)
+
+    multi = Multi.new
+    |> Multi.insert(:space, changeset)
+    |> Multi.run(:open_hours, fn _repo, %{space: space} ->
+      open_hours = Enum.each open_hours_params, fn open_hour_param ->
+        %SpaceOpenHour{}
+        |> SpaceOpenHour.changeset(open_hour_param)
+        |> Ecto.Changeset.put_assoc(:space, space)
+        |> Repo.insert()
+      end
+      {:ok, open_hours}
+    end)
+
+    case Repo.transaction(multi) do
+      {:ok, %{space: space}} -> {:ok, space}
+      {:error, _model, changeset, _changes_so_far} -> {:error, changeset}
+    end
   end
 
   def update(%Space{} = space, attrs) do

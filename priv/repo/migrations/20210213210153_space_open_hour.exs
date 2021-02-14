@@ -2,7 +2,7 @@ defmodule Bigseat.Repo.Migrations.SpaceOpenHour do
   use Ecto.Migration
 
   def change do
-    create table(:space_open_times, primary_key: false) do
+    create table(:space_open_hours, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :day_of_the_week, :string
       add :open_time, :time
@@ -12,6 +12,6 @@ defmodule Bigseat.Repo.Migrations.SpaceOpenHour do
       timestamps()
     end
 
-    create index(:space_open_times, [:space_id])
+    create index(:space_open_hours, [:space_id])
   end
 end
