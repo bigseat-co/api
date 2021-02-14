@@ -8,7 +8,7 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :name, :string
     field :slug, :string
     field :maximum_people, :integer
-    field :open_hours, :space_open_hours
+    field :open_hours, list_of(:space_open_hours)
   end
 
   object :space_open_hours do

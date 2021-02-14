@@ -8,7 +8,7 @@ defmodule Bigseat.Dashboard.Spaces do
   }
 
   def lists do
-    Repo.all(Space)
+    Space |> Repo.all() |> Repo.preload(:open_hours)
   end
 
   def get!(id), do: Repo.get!(Space, id)

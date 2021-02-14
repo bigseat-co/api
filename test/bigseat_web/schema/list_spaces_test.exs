@@ -20,7 +20,7 @@ defmodule BigseatWeb.Schema.ListSpacesTest do
       auth_conn = conn |> authorize(person)
 
       response = graphql_query(auth_conn, %{query: query()}, :success)
-      assert response == %{"data" => %{"listSpaces" => [%{"id" => "#{space.id}"}]}}
+      assert response == %{"data" => %{"listSpaces" => [%{"id" => "#{space.id}", "openHours" => [%{"dayOfTheWeek" => "monday"}]}]}}
     end
 
 
@@ -29,6 +29,9 @@ defmodule BigseatWeb.Schema.ListSpacesTest do
       query {
         listSpaces {
           id
+          openHours {
+            dayOfTheWeek
+          }
         }
       }
       """
