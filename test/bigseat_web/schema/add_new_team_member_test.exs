@@ -30,7 +30,7 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
       auth_conn = conn |> authorize(person)
 
       response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
-      person_created = Person |> first() |> Repo.one()
+      person_created = Person |> where(is_admin: false) |> first() |> Repo.one()
       assert response == %{"data" => %{"addNewTeamMember" => %{"id" => person_created.id}}}
     end
 
