@@ -17,7 +17,7 @@ defmodule BigseatWeb.Schema.ListSpacesTest do
     end
 
     test "gets a space by id", %{conn: conn, space: space, person: person} do
-      auth_conn = conn |> put_req_header("authorization", "Bearer #{person.api_key}")
+      auth_conn = conn |> authorize(person)
 
       response = graphql_query(auth_conn, %{query: query()}, :success)
       assert response == %{"data" => %{"listSpaces" => [%{"id" => "#{space.id}"}]}}

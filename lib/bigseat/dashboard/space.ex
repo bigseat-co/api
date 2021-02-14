@@ -36,6 +36,7 @@ end
 
 defmodule Bigseat.Dashboard.Space.Helper do
   import Ecto.Query, warn: false
+  import Inflex
 
   def slug_with(%{name: name, organization_id: organization_id}, iteration \\ 0) do
     raw_slug = Slug.slugify(name)

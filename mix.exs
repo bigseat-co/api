@@ -50,7 +50,8 @@ defmodule Bigseat.MixProject do
       {:ex_machina, "~> 2.5.0", only: :test}, # factories
       {:comeonin, "~> 4.0"}, # authentication
       {:bcrypt_elixir, "~> 1.0"}, # authentication
-      {:slugify, "~> 1.3.1"} # slugs generation
+      {:slugify, "~> 1.3.1"}, # slugs generation
+      {:inflex, "~> 2.0.0"} # camelize, kebabcase everything (useful for graphql variables, etc.)
     ]
   end
 

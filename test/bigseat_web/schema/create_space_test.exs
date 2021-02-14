@@ -1,45 +1,58 @@
-# defmodule BigseatWeb.Schema.CreateSpaceTest do
-#   use BigseatWeb.ConnCase, async: true
-#   import Bigseat.Factory
-#   use Bigseat.HelpersCase
+defmodule BigseatWeb.Schema.CreateSpaceTest do
+  use BigseatWeb.ConnCase, async: true
+  import Bigseat.Factory
+  use Bigseat.HelpersCase
+  alias Bigseat.Dashboard.{
+    Space
+  }
 
-#   describe "get_space" do
-#     setup do
-#       [
-#         person: insert(:person),
-#         payload: %{
-#             email: "test@test.com",
-#           first_name: "Laurent",
-#           last_name: "Schaffner",
-#           organization: %{
-#               name: "BigSeat"
-#           },
-#           password: "Password0$"
-#         }
-#       ]
-#     end
+  describe "create_space" do
+    setup do
+      [
+        person: insert(:person),
+        # payload: %{} # not currently in use, can be transferred if complex data are needed
+      ]
+    end
 
-#     test "create a space without authentication", %{conn: conn} do
-#       response = graphql_query(conn, %{query: space |> query()}, :success)
-#       assert Map.has_key?(response, "errors")
-#     end
+    test "without authentication", %{conn: conn} do
+      response = graphql_query(conn, %{query: query(), variables: variables()}, :success)
+      assert Map.has_key?(response, "errors")
+    end
 
-#     test "gets a space by id", %{conn: conn, space: space, person: person} do
-#       auth_conn = conn |> put_req_header("authorization", "Bearer #{person.api_key}")
+    test "with authentication", %{conn: conn, person: person} do
+      auth_conn = conn |> authorize(person)
 
-#       response = graphql_query(auth_conn, %{query: space.id |> query}, :success)
-#       assert response == %{"data" => %{"getSpace" => %{"id" => "#{space.id}"}}}
-#     end
+      response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
+      space_created = Space |> first() |> Repo.one()
+      assert response == %{"data" => %{"createSpace" => %{"id" => space_created.id}}}
+    end
 
 
-#     defp query(id) do
-#       """
-#       query {
-#         getSpace(id: "#{id}") {
-#           id
-#         }
-#       }
-#       """
-#     end
-#   end
-# end
+    defp query() do
+      """
+      mutation createSpace(
+        $openHours: OpenHoursInput!
+      ) {
+        createSpace(
+          avatarUrl: "https://fake-image.com",
+          name: "My space",
+          openHours: $openHours,
+          maximumPeople: 10
+        ) {
+          id
+        }
+      }
+      """
+    end
+
+    def variables() do
+      %{
+        open_hours: [%{
+          day_of_the_week: "monday",
+          open_time: "10:59:40Z",
+          close_time: "20:59:40Z"
+        }]
+      }
+    end
+  end
+end
