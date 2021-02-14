@@ -10,16 +10,17 @@ defmodule Bigseat.Dashboard.Space do
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
+    field :maximum_people, :integer
 
     timestamps()
   end
 
   def changeset(space, attrs) do
     space
-    |> cast(attrs, [:slug, :name, :avatar_url, :organization_id])
+    |> cast(attrs, [:slug, :name, :avatar_url, :maximum_people, :organization_id])
     |> cast_assoc(:open_hours)
     |> put_slug()
-    |> validate_required([:slug, :name, :avatar_url, :organization_id])
+    |> validate_required([:slug, :name, :avatar_url, :maximum_people, :organization_id])
     |> unique_constraint(:slug, [:organization_id, :slug])
   end
 

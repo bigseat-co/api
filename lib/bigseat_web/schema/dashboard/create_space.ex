@@ -8,6 +8,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       arg :slug, :string
       arg :name, non_null(:string)
       arg :open_hours, list_of(non_null(:open_hours_input))
+      arg :maximum_people, non_null(:integer)
 
       middleware BigseatWeb.Middleware.Authorized
       resolve fn _parent, args, %{ context: %{ current_person: current_person }} ->

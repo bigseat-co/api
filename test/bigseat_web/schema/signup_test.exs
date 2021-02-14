@@ -23,7 +23,7 @@ defmodule BigseatWeb.Schema.SignupTest do
 
     test "signup a new person", %{conn: conn, payload: payload} do
       mutation = payload |> valid_mutation
-      response = conn |> graphql_query(mutation, :success)
+      response = conn |> graphql_query(%{query: mutation}, :success)
       person_created = Person |> first() |> Repo.one()
 
       assert response == %{"data" => %{"signup" => %{"id" => person_created.id}}}
@@ -31,7 +31,7 @@ defmodule BigseatWeb.Schema.SignupTest do
 
     test "signup a new person with a specific organization slug", %{conn: conn, payload: payload} do
       mutation = payload |> valid_mutation_with_slug("valid-slug")
-      response = conn |> graphql_query(mutation, :success)
+      response = conn |> graphql_query(%{query: mutation}, :success)
       person_created = Person |> first() |> Repo.one()
       organization_created = Organization |> first() |> Repo.one()
 

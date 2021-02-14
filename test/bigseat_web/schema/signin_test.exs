@@ -16,7 +16,7 @@ defmodule BigseatWeb.Schema.SigninTest do
 
     test "signin a new person", %{conn: conn, payload: payload, person: person} do
       mutation = payload |> valid_mutation
-      response = conn |> graphql_query(mutation, :success)
+      response = conn |> graphql_query(%{query: mutation}, :success)
 
       assert response == %{"data" =>
         %{"signin" =>

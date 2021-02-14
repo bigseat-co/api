@@ -12,14 +12,14 @@ defmodule BigseatWeb.Schema.GetSpaceTest do
     end
 
     test "get a space id without authentication", %{conn: conn, space: space} do
-      response = graphql_query(conn, space.id |> query(), :success)
+      response = graphql_query(conn, %{query: space.id |> query()}, :success)
       assert Map.has_key?(response, "errors")
     end
 
     test "gets a space by id", %{conn: conn, space: space, person: person} do
       auth_conn = conn |> put_req_header("authorization", "Bearer #{person.api_key}")
 
-      response = graphql_query(auth_conn, space.id |> query, :success)
+      response = graphql_query(auth_conn, %{query: space.id |> query}, :success)
       assert response == %{"data" => %{"getSpace" => %{"id" => "#{space.id}"}}}
     end
 

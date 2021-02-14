@@ -7,6 +7,7 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
+    field :maximum_people, :integer
     field :open_hours, :space_open_hours
   end
 
