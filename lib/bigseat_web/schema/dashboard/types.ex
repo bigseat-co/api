@@ -19,6 +19,8 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :close_time, :time
   end
 
+  # NOTE : be careful with sensitive data, if we call those from a public area,
+  # we should add resolvers and restriction depending the context, and change the types called
   object :person do
     field :id, :uuid
     field :first_name, :string
@@ -27,6 +29,7 @@ defmodule Bigseat.Schema.Dashboard.Types do
     field :password, :string
     field :api_key, :string
     field :organization, :organization
+    field :password_recovery_token, :string
   end
 
   object :organization do

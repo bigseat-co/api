@@ -1,10 +1,12 @@
 defmodule Bigseat.Dashboard.People do
+  import Ecto.Query, warn: false
   alias Bigseat.Repo
   alias Ecto.Multi
 
   alias Bigseat.Dashboard.{
     Person,
-    Organization
+    Organization,
+    PeoplePasswordToken
   }
 
   def list do
@@ -54,6 +56,26 @@ defmodule Bigseat.Dashboard.People do
     |> Person.changeset(Map.merge(person_characteristics, params))
     |> Ecto.Changeset.put_assoc(:organization, organization)
     |> Repo.insert()
+  end
+
+  def request_new_password_by_email(email) do
+    person = Person |> where(email: ^email) |> where(is_admin: true) |> Repo.one()
+    case person do
+      %Person{} ->
+        password_token = %PeoplePasswordToken{}
+        |> PeoplePasswordToken.changeset(%{})
+        |> Ecto.Changeset.put_assoc(:person, person)
+        |> Repo.insert()
+        # TODO new token for the emailing
+        # + email dispatch
+        {:ok, person}
+      _ ->
+        {:ok, %Person{email: email}}
+    end
+
+    # person
+    # |> Person.changeset(params)
+    # |> Repo.update()
   end
 
   def update(%Person{} = person, params) do

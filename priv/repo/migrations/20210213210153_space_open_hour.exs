@@ -7,7 +7,7 @@ defmodule Bigseat.Repo.Migrations.SpaceOpenHour do
       add :day_of_the_week, :string
       add :open_time, :time
       add :close_time, :time
-      add :space_id, references(:spaces, on_delete: :nothing, type: :binary_id)
+      add :space_id, references(:spaces, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

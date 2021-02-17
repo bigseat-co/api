@@ -8,7 +8,7 @@ defmodule Bigseat.Repo.Migrations.CreateSpaces do
       add :name, :string
       add :avatar_url, :string
       add :maximum_people, :integer
-      add :organization_id, references(:organizations, on_delete: :nothing, type: :binary_id)
+      add :organization_id, references(:organizations, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

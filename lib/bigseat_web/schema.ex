@@ -12,6 +12,7 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.Signup
   import_types Bigseat.Schema.Dashboard.Signin
   import_types Bigseat.Schema.Dashboard.AddNewTeamMember
+  import_types Bigseat.Schema.Dashboard.ForgotPassword
 
   query do
     import_fields :dashboard_list_spaces
@@ -23,5 +24,6 @@ defmodule Bigseat.Schema do
     import_fields :dashboard_signin
     import_fields :dashboard_create_space
     import_fields :dashboard_add_new_team_member
+    import_fields :dashboard_forgot_password
   end
 end
