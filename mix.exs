@@ -50,7 +50,8 @@ defmodule Bigseat.MixProject do
       {:ex_machina, "~> 2.5.0", only: :test}, # factories
       {:comeonin, "~> 4.0"}, # authentication
       {:bcrypt_elixir, "~> 1.0"}, # authentication
-      {:inflex, "~> 2.0.0"} # slugs, camelize, kebabcase everything (useful for graphql variables, etc.)
+      {:inflex, "~> 2.0.0"}, # slugs, camelize, kebabcase everything (useful for graphql variables, etc.)
+      {:bamboo, "~> 1.7.0"} # emailing
     ]
   end
 

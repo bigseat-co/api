@@ -15,7 +15,6 @@ defmodule Bigseat.Dashboard.PeoplePasswordToken do
   def changeset(people_password_token, attrs) do
     people_password_token
     |> cast(attrs, [])
-    # |> cast_assoc(:person)
     |> put_token()
   end
 

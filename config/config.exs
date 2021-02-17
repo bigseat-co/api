@@ -19,6 +19,14 @@ config :bigseat, BigseatWeb.Endpoint,
   pubsub_server: Bigseat.PubSub,
   live_view: [signing_salt: "F/wV2zPz"]
 
+config :bigseat, Bigseat.Mailer,
+	adapter: Bamboo.MailgunAdapter,
+  api_key: "aec07870ad2dd9ca2e3409c2082cb434-d32d817f-c735b0bd",
+  domain: "sandboxfad1ef45f2db49688b493c680940604e.mailgun.org",
+  hackney_opts: [
+    recv_timeout: :timer.minutes(1)
+  ]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
