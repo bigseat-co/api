@@ -32,7 +32,7 @@ defmodule Bigseat.Dashboard.People do
     |> Multi.insert(:organization, organization_changeset)
     |> Multi.run(:person, fn _repo, %{organization: organization} ->
       %Person{}
-      |> Person.changeset(Map.merge(person_characteristics, Map.delete(params, :organization)))
+      |> Person.create_changeset(Map.merge(person_characteristics, Map.delete(params, :organization)))
       |> Ecto.Changeset.put_assoc(:organization, organization)
       |> Repo.insert()
     end)
@@ -54,7 +54,7 @@ defmodule Bigseat.Dashboard.People do
     }
 
     %Person{}
-    |> Person.changeset(Map.merge(person_characteristics, params))
+    |> Person.create_changeset(Map.merge(person_characteristics, params))
     |> Ecto.Changeset.put_assoc(:organization, organization)
     |> Repo.insert()
   end
@@ -77,7 +77,7 @@ defmodule Bigseat.Dashboard.People do
 
   def update(%Person{} = person, params) do
     person
-    |> Person.changeset(params)
+    |> Person.update_changeset(params)
     |> Repo.update()
   end
 

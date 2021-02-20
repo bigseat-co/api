@@ -20,7 +20,7 @@ defmodule Bigseat.Dashboard.Person do
     timestamps()
   end
 
-  def changeset(person, attrs) do
+  def create_changeset(person, attrs) do
     person
     |> cast(attrs, [:email, :password, :first_name, :last_name, :is_admin, :type, :group, :api_key])
     |> cast_assoc(:organization)
@@ -28,6 +28,13 @@ defmodule Bigseat.Dashboard.Person do
     |> validate_required([:email, :first_name, :last_name, :api_key, :type, :group])
     |> unique_constraint(:email, name: :people_organization_id_email_index)
     |> validate_unique_admin()
+    |> put_encrypted_password()
+  end
+
+  def update_changeset(person, attrs) do
+    person
+    |> cast(attrs, [:email, :password, :first_name, :last_name, :group])
+    |> unique_constraint(:email, name: :people_organization_id_email_index)
     |> put_encrypted_password()
   end
 
