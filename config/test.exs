@@ -18,7 +18,6 @@ config :bigseat, BigseatWeb.Endpoint,
   http: [port: 4002],
   server: false
 
-
 config :bigseat, Bigseat.Mailer,
   adapter: Bamboo.TestAdapter
 
