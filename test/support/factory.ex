@@ -29,6 +29,13 @@ defmodule Bigseat.Factory do
     }
   end
 
+  def people_password_token_factory do
+    %Bigseat.Dashboard.PeoplePasswordToken{
+      person: build(:person),
+      token: "random-token"
+    }
+  end
+
   def space_open_hour_factory do
     %Bigseat.Dashboard.SpaceOpenHour{
       # space: build(:space),
