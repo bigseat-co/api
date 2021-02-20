@@ -59,7 +59,6 @@ defmodule Bigseat.Dashboard.People do
     |> Repo.insert()
   end
 
-  # TODO: maybe move that into the people_password_tokens table
   def request_new_password_by_email(email) do
     person = Person |> where(email: ^email) |> where(is_admin: true) |> Repo.one()
     case person do
