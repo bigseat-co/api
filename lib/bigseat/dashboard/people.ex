@@ -59,22 +59,6 @@ defmodule Bigseat.Dashboard.People do
     |> Repo.insert()
   end
 
-  def request_new_password_by_email(email) do
-    person = Person |> where(email: ^email) |> where(is_admin: true) |> Repo.one()
-    case person do
-      %Person{} ->
-        {:ok, %{token: token}} = %PeoplePasswordToken{}
-        |> PeoplePasswordToken.changeset(%{})
-        |> Ecto.Changeset.put_assoc(:person, person)
-        |> Repo.insert()
-        Bigseat.Dashboard.Emails.request_new_password(email, token)
-        |> Mailer.deliver_now()
-        {:ok, person}
-      _ ->
-        {:ok, %Person{email: email}}
-    end
-  end
-
   def update(%Person{} = person, params) do
     person
     |> Person.update_changeset(params)

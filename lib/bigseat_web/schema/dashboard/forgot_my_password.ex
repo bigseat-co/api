@@ -8,7 +8,7 @@ defmodule Bigseat.Schema.Dashboard.ForgotMyPassword do
       arg :email, non_null(:string)
 
       resolve fn _parent, %{ email: email }, _resolution ->
-        Bigseat.Dashboard.People.request_new_password_by_email(email)
+        Bigseat.Dashboard.PeoplePasswordTokens.request_new_password_by_email(email)
       end
       middleware TranslateErrors
     end
