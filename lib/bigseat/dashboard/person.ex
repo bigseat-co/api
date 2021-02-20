@@ -56,7 +56,12 @@ defmodule Bigseat.Dashboard.Person do
   end
 
   defp put_api_key(changeset) do
-    api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
-    put_change(changeset, :api_key, api_key)
+    case Ecto.get_meta(changeset.data, :state) do
+      :built ->
+        api_key = :crypto.strong_rand_bytes(64) |> Base.url_encode64
+        changeset |> put_change(:api_key, api_key)
+      :loaded ->
+        changeset
+    end
   end
 end
