@@ -7,7 +7,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
 
   object :dashboard_edit_space do
     @desc "Edit a specific space"
-    field :edit_space, :space do
+    field :edit_space, :dashboard_space do
       arg :id, :uuid
       arg :space_input, non_null(:space_input)
 

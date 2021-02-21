@@ -4,7 +4,7 @@ defmodule Bigseat.Schema.Connect.Signup do
 
   object :connect_signup do
     @desc "Signup to the dashboard"
-    field :signup, :person do
+    field :signup, :connect_person do
       arg :first_name, non_null(:string)
       arg :last_name, non_null(:string)
       arg :email, non_null(:string)

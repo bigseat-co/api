@@ -7,7 +7,7 @@ defmodule Bigseat.Schema.Dashboard.RemoveTeamMember do
 
   object :dashboard_remove_team_member do
     @desc "Remove a team member from the organization"
-    field :remove_team_member, :person do
+    field :remove_team_member, :dashboard_person do
       arg :id, non_null(:uuid)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin

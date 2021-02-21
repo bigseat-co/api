@@ -4,7 +4,7 @@ defmodule Bigseat.Schema.Connect.ChangePasswordFromToken do
 
   object :connect_change_password_from_token do
     @desc "Change password from specific token"
-    field :change_password_from_token, :person do
+    field :change_password_from_token, :connect_person do
       arg :token, non_null(:string)
       arg :new_password, non_null(:string)
 

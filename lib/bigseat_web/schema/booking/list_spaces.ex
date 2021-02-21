@@ -3,7 +3,7 @@ defmodule Bigseat.Schema.Booking.ListSpaces do
   alias Crudry.Middlewares.TranslateErrors
 
   object :booking_list_spaces do
-    @desc "List spaces to book a seat"
+    @desc "List spaces by date range"
     field :booking_list_spaces, :person do
       arg :start_at, non_null(:string)
       arg :end_at, non_null(:string)
@@ -14,7 +14,6 @@ defmodule Bigseat.Schema.Booking.ListSpaces do
   end
 
   def resolve(_parent, %{ start_at: start_at, end_at: end_at }, _resolution) do
-    # TODO make it work
   end
 
   def resolve(_parent, _args, _resolution) do

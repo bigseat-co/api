@@ -18,6 +18,7 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.AddNewTeamMember
   import_types Bigseat.Schema.Dashboard.RemoveTeamMember
   import_types Bigseat.Schema.Dashboard.EditMyAccount
+
   query do
     import_fields :dashboard_list_spaces
     import_fields :dashboard_get_space

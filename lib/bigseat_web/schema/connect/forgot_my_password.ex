@@ -4,7 +4,7 @@ defmodule Bigseat.Schema.Connect.ForgotMyPassword do
 
   object :connect_forgot_my_password do
     @desc "Request a password reset by email"
-    field :forgot_my_password, :person do
+    field :forgot_my_password, :connect_person do
       arg :email, non_null(:string)
 
       resolve &resolve/3

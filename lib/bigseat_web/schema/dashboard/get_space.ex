@@ -4,7 +4,7 @@ defmodule Bigseat.Schema.Dashboard.GetSpace do
 
   object :dashboard_get_space do
     @desc "Get a specific space"
-    field :get_space, :space do
+    field :get_space, :dashboard_space do
       arg :id, non_null(:uuid)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin

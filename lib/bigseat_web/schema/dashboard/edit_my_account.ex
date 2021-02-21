@@ -4,7 +4,7 @@ defmodule Bigseat.Schema.Dashboard.EditMyAccount do
 
   object :dashboard_edit_my_account do
     @desc "Edit my account"
-    field :edit_my_account, :person do
+    field :edit_my_account, :dashboard_person do
       arg :first_name, :string
       arg :last_name, :string
       arg :email, :string

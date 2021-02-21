@@ -6,7 +6,7 @@ defmodule Bigseat.Schema.Dashboard.AddNewTeamMember do
 
   object :dashboard_add_new_team_member do
     @desc "Add a new team member to the organization"
-    field :add_new_team_member, :person do
+    field :add_new_team_member, :dashboard_person do
       arg :first_name, non_null(:string)
       arg :last_name, non_null(:string)
       arg :email, non_null(:string)
