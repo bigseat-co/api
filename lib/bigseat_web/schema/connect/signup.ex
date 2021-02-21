@@ -1,8 +1,8 @@
-defmodule Bigseat.Schema.Dashboard.Signup do
+defmodule Bigseat.Schema.Connect.Signup do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
 
-  object :dashboard_signup do
+  object :connect_signup do
     @desc "Signup to the dashboard"
     field :signup, :person do
       arg :first_name, non_null(:string)
@@ -23,9 +23,5 @@ defmodule Bigseat.Schema.Dashboard.Signup do
 
   def resolve(_parent, args, _resolution) do
     Bigseat.Dashboard.People.create_from_scratch(args)
-  end
-
-  def resolve(_parent, _args, _resolution) do
-    {:error, "not found"}
   end
 end

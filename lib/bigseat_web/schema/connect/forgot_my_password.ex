@@ -1,8 +1,8 @@
-defmodule Bigseat.Schema.Dashboard.ForgotMyPassword do
+defmodule Bigseat.Schema.Connect.ForgotMyPassword do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
 
-  object :dashboard_forgot_my_password do
+  object :connect_forgot_my_password do
     @desc "Request a password reset by email"
     field :forgot_my_password, :person do
       arg :email, non_null(:string)

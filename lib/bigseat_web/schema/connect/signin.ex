@@ -1,12 +1,11 @@
-defmodule Bigseat.Schema.Dashboard.Signin do
+defmodule Bigseat.Schema.Connect.Signin do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
-  alias Bigseat.Schema.Dashboard.Mutations.Signin.Helper
   import Comeonin.Bcrypt, only: [checkpw: 2]
   alias Bigseat.Repo
   alias Bigseat.Dashboard.Person
 
-  object :dashboard_signin do
+  object :connect_signin do
     @desc "Signin to the dashboard"
     field :signin, :person do
       arg :email, non_null(:string)

@@ -18,7 +18,6 @@ defmodule BigseatWeb.Schema.EditSpaceTest do
     end
 
     test "without authentication", %{conn: conn, space: space} do
-      space_input = %{name: "Random name"}
       response = graphql_query(conn, %{query: query(), variables: space |> variables(%{name: "Random name"})}, :success)
       assert Map.has_key?(response, "errors")
     end

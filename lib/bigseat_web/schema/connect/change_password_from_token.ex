@@ -1,8 +1,8 @@
-defmodule Bigseat.Schema.Dashboard.ChangePasswordFromToken do
+defmodule Bigseat.Schema.Connect.ChangePasswordFromToken do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
 
-  object :dashboard_change_password_from_token do
+  object :connect_change_password_from_token do
     @desc "Change password from specific token"
     field :change_password_from_token, :person do
       arg :token, non_null(:string)
