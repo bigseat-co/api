@@ -1,4 +1,4 @@
-defmodule Bigseat.Schema.Dashboard.Types do
+defmodule Bigseat.Schema.Types do
   use Absinthe.Schema.Notation
 
   object :space do
