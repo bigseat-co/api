@@ -1,6 +1,6 @@
 defmodule BigseatWeb.Schema.EditMyAccountTest do
   use BigseatWeb.ConnCase, async: true
-  import Bigseat.Factory
+  alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
   alias Bigseat.Dashboard.{
     Person
@@ -9,7 +9,7 @@ defmodule BigseatWeb.Schema.EditMyAccountTest do
   describe "edit_my_account" do
     setup do
       [
-        person: insert(:person, is_admin: true),
+        person: PersonFactory.insert(:person, is_admin: true),
       ]
     end
 

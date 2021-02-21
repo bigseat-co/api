@@ -1,12 +1,12 @@
 defmodule BigseatWeb.Schema.SigninTest do
   use BigseatWeb.ConnCase, async: true
-  import Bigseat.Factory
+  alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
 
   describe "signin" do
     setup do
       [
-        person: insert(:person, %{email: "test@test.com", encrypted_password: Comeonin.Bcrypt.hashpwsalt("Password0$")}),
+        person: PersonFactory.insert(:person, %{email: "test@test.com", encrypted_password: Comeonin.Bcrypt.hashpwsalt("Password0$")}),
         payload: %{
           email: "test@test.com",
           password: "Password0$"

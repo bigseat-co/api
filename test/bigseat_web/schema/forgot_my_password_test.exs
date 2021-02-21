@@ -1,6 +1,6 @@
 defmodule BigseatWeb.Schema.ForgotMyPasswordTest do
   use BigseatWeb.ConnCase, async: true
-  import Bigseat.Factory
+  alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
   alias Bigseat.Dashboard.{
     Person
@@ -9,7 +9,7 @@ defmodule BigseatWeb.Schema.ForgotMyPasswordTest do
   describe "forgot_my_password" do
     setup do
       [
-        person: insert(:person, is_admin: true, email: "existing-email@gmail.com"),
+        person: PersonFactory.insert(:person, is_admin: true, email: "existing-email@gmail.com"),
       ]
     end
 

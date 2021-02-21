@@ -65,11 +65,11 @@ defmodule Bigseat.Dashboard.People do
     |> Repo.update()
   end
 
-  def delete(%Person{} = person) do
-    Repo.delete(person)
-  end
-
-  def change(%Person{} = person, params \\ %{}) do
-    Person.changeset(person, params)
+  def delete(id, organization_id) do
+    person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
+    case person do
+      %Person{} -> person |> Repo.delete()
+      _ -> {:error, "not found"}
+    end
   end
 end

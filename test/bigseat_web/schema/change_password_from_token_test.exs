@@ -1,6 +1,6 @@
 defmodule BigseatWeb.Schema.ChangePasswordFromTokenTest do
   use BigseatWeb.ConnCase, async: true
-  import Bigseat.Factory
+  alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
   alias Bigseat.Dashboard.{
     Person
@@ -9,7 +9,7 @@ defmodule BigseatWeb.Schema.ChangePasswordFromTokenTest do
   describe "change_password_from_token" do
     setup do
       [
-        person: insert(:person, is_admin: true),
+        person: PersonFactory.insert(:person, is_admin: true),
       ]
     end
 
@@ -19,7 +19,7 @@ defmodule BigseatWeb.Schema.ChangePasswordFromTokenTest do
     end
 
     test "with non existing email", %{conn: conn, person: person} do
-      people_person_token = insert(:people_password_token, person: person)
+      people_person_token = PersonFactory.insert(:people_password_token, person: person)
       response = conn |> graphql_query(%{query: query(), variables: %{token: people_person_token.token, new_password: "random-password"}}, :success)
       assert response == %{"data" => %{"changePasswordFromToken" => %{"id" => person.id}}}
     end

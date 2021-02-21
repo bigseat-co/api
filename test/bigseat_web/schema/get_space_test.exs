@@ -1,13 +1,16 @@
 defmodule BigseatWeb.Schema.GetSpaceTest do
   use BigseatWeb.ConnCase, async: true
-  import Bigseat.Factory
+  alias Bigseat.Factory.{
+    PersonFactory,
+    SpaceFactory
+  }
   use Bigseat.HelpersCase
 
   describe "get_space" do
     setup do
       [
-        space: insert(:space),
-        person: insert(:person, is_admin: true)
+        space: SpaceFactory.insert(:space),
+        person: PersonFactory.insert(:person, is_admin: true)
       ]
     end
 

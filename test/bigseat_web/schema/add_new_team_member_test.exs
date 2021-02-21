@@ -1,6 +1,6 @@
 defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
   use BigseatWeb.ConnCase, async: true
-  import Bigseat.Factory
+  alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
   alias Bigseat.Dashboard.{
     Person
@@ -9,7 +9,7 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
   describe "add_new_team_member" do
     setup do
       [
-        person: insert(:person, is_admin: true),
+        person: PersonFactory.insert(:person, is_admin: true),
         # payload: %{} # not currently in use, can be transferred if complex data are needed
       ]
     end
