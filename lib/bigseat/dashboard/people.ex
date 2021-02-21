@@ -43,8 +43,7 @@ defmodule Bigseat.Dashboard.People do
     end
   end
 
-  def create_for_organization(params \\ %{}, organization_id) do
-    organization = Organization |> Repo.get!(organization_id)
+  def create_for_organization(params \\ %{}, %Organization{} = organization) do
 
     # it's a team member but he has no admin power
     # the group must be defined by hand
@@ -65,11 +64,7 @@ defmodule Bigseat.Dashboard.People do
     |> Repo.update()
   end
 
-  def delete(id, organization_id) do
-    person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
-    case person do
-      %Person{} -> person |> Repo.delete()
-      _ -> {:error, "not found"}
-    end
+  def delete(%Person{} = person) do
+    person |> Repo.delete()
   end
 end

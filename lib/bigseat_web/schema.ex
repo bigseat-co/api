@@ -9,6 +9,7 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.CreateSpace
   import_types Bigseat.Schema.Dashboard.ListSpaces
   import_types Bigseat.Schema.Dashboard.GetSpace
+  import_types Bigseat.Schema.Dashboard.EditSpace
   import_types Bigseat.Schema.Dashboard.Signup
   import_types Bigseat.Schema.Dashboard.Signin
   import_types Bigseat.Schema.Dashboard.AddNewTeamMember
@@ -26,6 +27,7 @@ defmodule Bigseat.Schema do
     import_fields :dashboard_signup
     import_fields :dashboard_signin
     import_fields :dashboard_create_space
+    # import_fields :dashboard_edit_space
     import_fields :dashboard_add_new_team_member
     import_fields :dashboard_remove_team_member
     import_fields :dashboard_forgot_my_password
