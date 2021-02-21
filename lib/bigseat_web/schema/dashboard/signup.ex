@@ -11,9 +11,7 @@ defmodule Bigseat.Schema.Dashboard.Signup do
       arg :password, non_null(:string)
       arg :organization, non_null(:organization_input)
 
-      resolve fn _parent, args, _resolution ->
-        Bigseat.Dashboard.People.create_from_scratch(args)
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
   end
@@ -21,5 +19,13 @@ defmodule Bigseat.Schema.Dashboard.Signup do
   input_object :organization_input do
     field :name, non_null(:string)
     field :slug, :string
+  end
+
+  def resolve(_parent, args, _resolution) do
+    Bigseat.Dashboard.People.create_from_scratch(args)
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

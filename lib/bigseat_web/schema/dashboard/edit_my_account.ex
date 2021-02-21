@@ -11,10 +11,16 @@ defmodule Bigseat.Schema.Dashboard.EditMyAccount do
       arg :password, :string
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
-      resolve fn _parent, args, %{ context: %{ current_person: current_person }} ->
-        Bigseat.Dashboard.People.update(current_person, args)
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, args, %{ context: %{ current_person: current_person }}) do
+    Bigseat.Dashboard.People.update(current_person, args)
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

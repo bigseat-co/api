@@ -7,10 +7,16 @@ defmodule Bigseat.Schema.Dashboard.ForgotMyPassword do
     field :forgot_my_password, :person do
       arg :email, non_null(:string)
 
-      resolve fn _parent, %{ email: email }, _resolution ->
-        Bigseat.Dashboard.PeoplePasswordTokens.request_new_password_by_email(email)
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, %{ email: email }, _resolution) do
+    Bigseat.Dashboard.PeoplePasswordTokens.request_new_password_by_email(email)
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

@@ -8,10 +8,16 @@ defmodule Bigseat.Schema.Dashboard.GetSpace do
       arg :id, non_null(:uuid)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
-      resolve fn _parent, %{id: id}, _resolution ->
-        {:ok, Bigseat.Dashboard.Spaces.get!(id)}
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, %{id: id}, _resolution) do
+    {:ok, Bigseat.Dashboard.Spaces.get!(id)}
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

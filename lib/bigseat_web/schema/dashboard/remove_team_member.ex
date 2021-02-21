@@ -11,15 +11,20 @@ defmodule Bigseat.Schema.Dashboard.RemoveTeamMember do
       arg :id, non_null(:uuid)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
-      resolve fn _parent, %{ id: id }, %{ context: %{ current_person: current_person }} ->
-        organization_id = current_person.organization_id
-        person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
-        case person do
-          %Person{} -> Bigseat.Dashboard.People.delete(person)
-          _ -> {:error, "not found"}
-        end
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, %{ id: id }, %{ context: %{ current_person: %{ organization_id: organization_id } }}) do
+    person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
+    case person do
+      %Person{} -> Bigseat.Dashboard.People.delete(person)
+      _ -> {:error, "not found"}
+    end
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

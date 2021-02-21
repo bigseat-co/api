@@ -13,12 +13,17 @@ defmodule Bigseat.Schema.Dashboard.AddNewTeamMember do
       arg :group, non_null(:string)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
-      resolve fn _parent, args, %{ context: %{ current_person: current_person }} ->
-        organization_id = current_person.organization_id
-        organization = Organization |> Repo.get!(organization_id)
-        Bigseat.Dashboard.People.create_for_organization(args, organization)
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, args, %{ context: %{ current_person: %{ organization_id: organization_id }}}) do
+    organization = Organization |> Repo.get!(organization_id)
+    Bigseat.Dashboard.People.create_for_organization(args, organization)
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

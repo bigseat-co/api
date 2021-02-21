@@ -8,10 +8,16 @@ defmodule Bigseat.Schema.Dashboard.ChangePasswordFromToken do
       arg :token, non_null(:string)
       arg :new_password, non_null(:string)
 
-      resolve fn _parent, %{ token: token, new_password: new_password }, _resolution ->
-        Bigseat.Dashboard.PeoplePasswordTokens.confirm_new_password(token, new_password)
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, %{ token: token, new_password: new_password }, _resolution) do
+    Bigseat.Dashboard.PeoplePasswordTokens.confirm_new_password(token, new_password)
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

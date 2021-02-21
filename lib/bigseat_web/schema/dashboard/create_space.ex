@@ -12,9 +12,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       arg :maximum_people, non_null(:integer)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
-      resolve fn _parent, args, %{ context: %{ current_person: current_person }} ->
-        Bigseat.Dashboard.Spaces.create(args, current_person.organization_id)
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
   end
@@ -23,5 +21,13 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
     field :day_of_the_week, non_null(:string)
     field :open_time, non_null(:time) # ISO 8601
     field :close_time, non_null(:time) # ISO 8601
+  end
+
+  def resolve(_parent, args, %{ context: %{ current_person: %{ organization_id: organization_id} }}) do
+    Bigseat.Dashboard.Spaces.create(args, organization_id)
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end
