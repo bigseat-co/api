@@ -1,13 +1,11 @@
-defmodule Bigseat.Dashboard.People do
+defmodule Bigseat.Core.People do
   import Ecto.Query, warn: false
-  alias Bigseat.Mailer
   alias Bigseat.Repo
   alias Ecto.Multi
 
-  alias Bigseat.Dashboard.{
+  alias Bigseat.Core.{
     Person,
-    Organization,
-    PeoplePasswordToken
+    Organization
   }
 
   def list do

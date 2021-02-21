@@ -1,9 +1,9 @@
-defmodule Bigseat.Dashboard.Organizations do
+defmodule Bigseat.Core.Organizations do
 
   import Ecto.Query, warn: false
   alias Bigseat.Repo
 
-  alias Bigseat.Dashboard.Organization
+  alias Bigseat.Core.Organization
 
   def list do
     Repo.all(Organization)

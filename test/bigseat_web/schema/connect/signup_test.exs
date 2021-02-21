@@ -1,7 +1,7 @@
 defmodule BigseatWeb.Schema.SignupTest do
   use BigseatWeb.ConnCase, async: true
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
+  alias Bigseat.Core.{
     Person,
     Organization
   }

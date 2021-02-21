@@ -13,7 +13,7 @@ defmodule Bigseat.Schema.Connect.ForgotMyPassword do
   end
 
   def resolve(_parent, %{ email: email }, _resolution) do
-    Bigseat.Dashboard.PeoplePasswordTokens.request_new_password_by_email(email)
+    Bigseat.Core.PeoplePasswordTokens.request_new_password_by_email(email)
   end
 
   def resolve(_parent, _args, _resolution) do

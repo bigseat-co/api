@@ -1,12 +1,12 @@
-defmodule Bigseat.Dashboard.Space do
+defmodule Bigseat.Core.Space do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "spaces" do
-    belongs_to :organization, Bigseat.Dashboard.Organization
-    has_many :open_hours, Bigseat.Dashboard.SpaceOpenHour
+    belongs_to :organization, Bigseat.Core.Organization
+    has_many :open_hours, Bigseat.Core.SpaceOpenHour
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
@@ -35,12 +35,12 @@ defmodule Bigseat.Dashboard.Space do
     %{slug: _} ->
       changeset
     _ ->
-      put_change(changeset, :slug, Bigseat.Dashboard.Space.Helper.slug_with(changeset.changes))
+      put_change(changeset, :slug, Bigseat.Core.Space.Helper.slug_with(changeset.changes))
     end
   end
 end
 
-defmodule Bigseat.Dashboard.Space.Helper do
+defmodule Bigseat.Core.Space.Helper do
   import Ecto.Query, warn: false
 
   def slug_with(params = %{name: name, organization_id: organization_id}, iteration \\ 0) do
@@ -51,7 +51,7 @@ defmodule Bigseat.Dashboard.Space.Helper do
       "#{raw_slug}#{iteration}"
     end
 
-    query = from space in Bigseat.Dashboard.Space,
+    query = from space in Bigseat.Core.Space,
             where: space.slug == ^end_slug,
             where: space.organization_id == ^organization_id
 

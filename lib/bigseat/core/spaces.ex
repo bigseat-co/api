@@ -1,8 +1,8 @@
-defmodule Bigseat.Dashboard.Spaces do
+defmodule Bigseat.Core.Spaces do
   alias Bigseat.Repo
   alias Ecto.Multi
 
-  alias Bigseat.Dashboard.{
+  alias Bigseat.Core.{
     Space,
     SpaceOpenHour
   }

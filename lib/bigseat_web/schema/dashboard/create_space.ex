@@ -24,7 +24,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
   end
 
   def resolve(_parent, args, %{ context: %{ current_person: %{ organization_id: organization_id} }}) do
-    Bigseat.Dashboard.Spaces.create(args, organization_id)
+    Bigseat.Core.Spaces.create(args, organization_id)
   end
 
   def resolve(_parent, _args, _resolution) do

@@ -1,9 +1,9 @@
-defmodule Bigseat.Dashboard.PeoplePasswordTokens do
+defmodule Bigseat.Core.PeoplePasswordTokens do
   import Ecto.Query, warn: false
   alias Bigseat.Mailer
   alias Bigseat.Repo
 
-  alias Bigseat.Dashboard.{
+  alias Bigseat.Core.{
     Person,
     PeoplePasswordToken
   }
@@ -16,7 +16,7 @@ defmodule Bigseat.Dashboard.PeoplePasswordTokens do
         |> PeoplePasswordToken.changeset(%{})
         |> Ecto.Changeset.put_assoc(:person, person)
         |> Repo.insert()
-        Bigseat.Dashboard.Emails.request_new_password(email, token)
+        Bigseat.Core.Emails.request_new_password(email, token)
         |> Mailer.deliver_now()
         {:ok, person}
       _ ->

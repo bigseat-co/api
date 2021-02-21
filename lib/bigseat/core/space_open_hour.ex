@@ -1,11 +1,11 @@
-defmodule Bigseat.Dashboard.SpaceOpenHour do
+defmodule Bigseat.Core.SpaceOpenHour do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "space_open_hours" do
-    belongs_to :space, Bigseat.Dashboard.Space
+    belongs_to :space, Bigseat.Core.Space
     field :day_of_the_week, :string
     field :open_time, :time
     field :close_time, :time

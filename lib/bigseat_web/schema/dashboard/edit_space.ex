@@ -2,7 +2,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
   import Ecto.Query, warn: false
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
-  alias Bigseat.Dashboard.Space
+  alias Bigseat.Core.Space
   alias Bigseat.Repo
 
   object :dashboard_edit_space do
@@ -28,7 +28,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
   def resolve(_parent, %{ id: id, space_input: space_input }, %{ context: %{ current_person: %{ organization_id: organization_id }}}) do
     space = Space |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case space do
-      %Space{} -> Bigseat.Dashboard.Spaces.update(space, space_input)
+      %Space{} -> Bigseat.Core.Spaces.update(space, space_input)
       _ -> {:error, "not found"}
     end
   end

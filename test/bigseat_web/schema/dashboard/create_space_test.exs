@@ -4,7 +4,7 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
     PersonFactory,
   }
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.Space
+  alias Bigseat.Core.Space
 
   describe "create_space" do
     setup do

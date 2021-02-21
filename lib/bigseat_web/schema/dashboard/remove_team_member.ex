@@ -3,7 +3,7 @@ defmodule Bigseat.Schema.Dashboard.RemoveTeamMember do
   use Absinthe.Schema.Notation
   alias Bigseat.Repo
   alias Crudry.Middlewares.TranslateErrors
-  alias Bigseat.Dashboard.Person
+  alias Bigseat.Core.Person
 
   object :dashboard_remove_team_member do
     @desc "Remove a team member from the organization"
@@ -19,7 +19,7 @@ defmodule Bigseat.Schema.Dashboard.RemoveTeamMember do
   def resolve(_parent, %{ id: id }, %{ context: %{ current_person: %{ organization_id: organization_id } }}) do
     person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case person do
-      %Person{} -> Bigseat.Dashboard.People.delete(person)
+      %Person{} -> Bigseat.Core.People.delete(person)
       _ -> {:error, "not found"}
     end
   end

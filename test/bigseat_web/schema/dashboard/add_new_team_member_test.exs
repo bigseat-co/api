@@ -2,7 +2,7 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
+  alias Bigseat.Core.{
     Person
   }
 

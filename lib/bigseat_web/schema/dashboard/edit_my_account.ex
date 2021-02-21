@@ -17,7 +17,7 @@ defmodule Bigseat.Schema.Dashboard.EditMyAccount do
   end
 
   def resolve(_parent, args, %{ context: %{ current_person: current_person }}) do
-    Bigseat.Dashboard.People.update(current_person, args)
+    Bigseat.Core.People.update(current_person, args)
   end
 
   def resolve(_parent, _args, _resolution) do

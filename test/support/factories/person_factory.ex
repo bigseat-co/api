@@ -3,7 +3,7 @@ defmodule Bigseat.Factory.PersonFactory do
   alias Bigseat.Factory.OrganizationFactory
 
   def person_factory do
-    %Bigseat.Dashboard.Person{
+    %Bigseat.Core.Person{
       organization: OrganizationFactory.build(:organization),
       email: "test@test.com",
       first_name: "Laurent",
@@ -15,7 +15,7 @@ defmodule Bigseat.Factory.PersonFactory do
   end
 
   def people_password_token_factory do
-    %Bigseat.Dashboard.PeoplePasswordToken{
+    %Bigseat.Core.PeoplePasswordToken{
       person: build(:person),
       token: "random-token"
     }

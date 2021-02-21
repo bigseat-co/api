@@ -1,9 +1,9 @@
-defmodule Bigseat.Dashboard.PeopleTest do
+defmodule Bigseat.Core.PeopleTest do
   use Bigseat.DataCase
   alias Bigseat.Factory.PersonFactory
 
   describe "people" do
-    alias Bigseat.Dashboard.People
+    alias Bigseat.Core.People
 
     test "list/0 returns all people" do
       person = PersonFactory.insert(:person)

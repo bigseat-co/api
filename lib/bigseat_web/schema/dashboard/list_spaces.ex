@@ -8,7 +8,7 @@ defmodule Bigseat.Schema.Dashboard.ListSpaces do
     field :list_spaces, list_of(:space) do
       middleware BigseatWeb.Middleware.AuthorizedAdmin
       resolve fn _parent, _args, _resolution ->
-        {:ok, Bigseat.Dashboard.Spaces.lists()}
+        {:ok, Bigseat.Core.Spaces.lists()}
       end
       middleware TranslateErrors
     end

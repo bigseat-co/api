@@ -3,7 +3,7 @@ defmodule Bigseat.Factory.SpaceFactory do
   alias Bigseat.Factory.OrganizationFactory
 
   def space_factory do
-    %Bigseat.Dashboard.Space{
+    %Bigseat.Core.Space{
       organization: OrganizationFactory.build(:organization),
       avatar_url: "http://fake-avatar.com",
       name: "Random name",
@@ -13,7 +13,7 @@ defmodule Bigseat.Factory.SpaceFactory do
   end
 
   def space_open_hour_factory do
-    %Bigseat.Dashboard.SpaceOpenHour{
+    %Bigseat.Core.SpaceOpenHour{
       # space: build(:space),
       day_of_the_week: "monday",
       open_time: "10:00:00Z",

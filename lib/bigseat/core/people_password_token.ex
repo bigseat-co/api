@@ -1,4 +1,4 @@
-defmodule Bigseat.Dashboard.PeoplePasswordToken do
+defmodule Bigseat.Core.PeoplePasswordToken do
   import Ecto.Query, warn: false
   use Ecto.Schema
   import Ecto.Changeset
@@ -6,7 +6,7 @@ defmodule Bigseat.Dashboard.PeoplePasswordToken do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "people_password_tokens" do
-    belongs_to :person, Bigseat.Dashboard.Person
+    belongs_to :person, Bigseat.Core.Person
     field :token, :string
 
     timestamps()

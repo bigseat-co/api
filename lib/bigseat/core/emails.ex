@@ -1,4 +1,4 @@
-defmodule Bigseat.Dashboard.Emails do
+defmodule Bigseat.Core.Emails do
   import Bamboo.Email
 
   def request_new_password(email, token) do

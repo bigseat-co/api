@@ -1,4 +1,4 @@
-defmodule Bigseat.Dashboard.Organization do
+defmodule Bigseat.Core.Organization do
   import Ecto.Query, only: [from: 2]
   use Ecto.Schema
   import Ecto.Changeset
@@ -6,8 +6,8 @@ defmodule Bigseat.Dashboard.Organization do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organizations" do
-    has_many :spaces, Bigseat.Dashboard.Space
-    has_many :people, Bigseat.Dashboard.Person
+    has_many :spaces, Bigseat.Core.Space
+    has_many :people, Bigseat.Core.Person
     field :name, :string
     field :slug, :string
 
@@ -29,12 +29,12 @@ defmodule Bigseat.Dashboard.Organization do
     %{slug: _} ->
       changeset
     _ ->
-      put_change(changeset, :slug, Bigseat.Dashboard.Organization.Helper.slug_with(changeset.changes))
+      put_change(changeset, :slug, Bigseat.Core.Organization.Helper.slug_with(changeset.changes))
     end
   end
 end
 
-defmodule Bigseat.Dashboard.Organization.Helper do
+defmodule Bigseat.Core.Organization.Helper do
   import Ecto.Query, warn: false
 
   def slug_with(params = %{name: name}, iteration \\ 0) do
@@ -45,10 +45,10 @@ defmodule Bigseat.Dashboard.Organization.Helper do
       "#{raw_slug}#{iteration}"
     end
 
-    query = from organization in Bigseat.Dashboard.Organization, where: organization.slug == ^end_slug
+    query = from organization in Bigseat.Core.Organization, where: organization.slug == ^end_slug
 
     if Bigseat.Repo.exists?(query) do
-      Bigseat.Dashboard.Organization.Helper.slug_with(params, iteration+1)
+      Bigseat.Core.Organization.Helper.slug_with(params, iteration+1)
     else
       end_slug
     end

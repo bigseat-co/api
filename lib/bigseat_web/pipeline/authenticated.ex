@@ -5,7 +5,7 @@ defmodule BigseatWeb.Pipeline.Authenticated do
   import Ecto.Query, only: [where: 2]
 
   alias Bigseat.Repo
-  alias Bigseat.Dashboard.Person
+  alias Bigseat.Core.Person
 
   def init(opts), do: opts
 

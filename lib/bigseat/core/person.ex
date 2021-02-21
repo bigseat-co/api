@@ -1,4 +1,4 @@
-defmodule Bigseat.Dashboard.Person do
+defmodule Bigseat.Core.Person do
   import Ecto.Query, warn: false
   use Ecto.Schema
   import Ecto.Changeset
@@ -6,7 +6,7 @@ defmodule Bigseat.Dashboard.Person do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "people" do
-    belongs_to :organization, Bigseat.Dashboard.Organization
+    belongs_to :organization, Bigseat.Core.Organization
     field :email, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
@@ -42,7 +42,7 @@ defmodule Bigseat.Dashboard.Person do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{is_admin: true}} ->
         email = Map.get(changeset.changes, :email)
-        query = from person in Bigseat.Dashboard.Person, where: person.email == ^email, where: person.is_admin == true
+        query = from person in Bigseat.Core.Person, where: person.email == ^email, where: person.is_admin == true
 
         case Bigseat.Repo.exists?(query) == false do
           true -> changeset

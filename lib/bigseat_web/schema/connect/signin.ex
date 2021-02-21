@@ -3,7 +3,7 @@ defmodule Bigseat.Schema.Connect.Signin do
   alias Crudry.Middlewares.TranslateErrors
   import Comeonin.Bcrypt, only: [checkpw: 2]
   alias Bigseat.Repo
-  alias Bigseat.Dashboard.Person
+  alias Bigseat.Core.Person
 
   object :connect_signin do
     @desc "Signin to the dashboard"
