@@ -7,6 +7,7 @@ defmodule Bigseat.Core.Person do
   @foreign_key_type :binary_id
   schema "people" do
     belongs_to :organization, Bigseat.Core.Organization
+    has_many :bookings, Bigseat.Core.Booking
     field :email, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string

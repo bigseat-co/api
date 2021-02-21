@@ -3,8 +3,8 @@ defmodule Bigseat.Schema.Booking.ListSpaces do
   alias Crudry.Middlewares.TranslateErrors
 
   object :booking_list_spaces do
-    @desc "List spaces by date range"
-    field :booking_list_spaces, :person do
+    @desc "List spaces by date range and its bookings"
+    field :booking_list_spaces, :booking_space do
       arg :start_at, non_null(:string)
       arg :end_at, non_null(:string)
 

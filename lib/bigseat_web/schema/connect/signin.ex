@@ -22,7 +22,7 @@ defmodule Bigseat.Schema.Connect.Signin do
     cond do
       person && checkpw(password, person.encrypted_password) -> {:ok, person}
       person -> {:error, "Incorrect signin credentials"}
-      true -> {:error, :"Person not found"}
+      true -> {:error, "Person not found"}
     end
   end
 

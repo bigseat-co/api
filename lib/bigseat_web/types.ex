@@ -20,17 +20,31 @@ defmodule Bigseat.Schema.Types do
     field :organization, :dashboard_organization
   end
 
-  object :dashboard_space do
+  object :booking_space do
     field :id, :uuid
-    field :organization_id, :id
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
     field :maximum_people, :integer
-    field :open_hours, list_of(:dashboard_space_open_hours)
+    field :open_hours, list_of(:dashboard_space_open_hour)
+    field :bookings, list_of(:booking)
   end
 
-  object :dashboard_space_open_hours do
+  object :booking do
+    field :id, :uuid
+  end
+
+  object :dashboard_space do
+    field :id, :uuid
+    field :avatar_url, :string
+    field :name, :string
+    field :slug, :string
+    field :maximum_people, :integer
+    field :open_hours, list_of(:dashboard_space_open_hour)
+    field :organization, :dashboard_organization
+  end
+
+  object :dashboard_space_open_hour do
     field :id, :uuid
     field :space_id, :id
     field :day_of_the_week, :string

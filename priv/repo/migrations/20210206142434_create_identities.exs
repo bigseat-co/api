@@ -10,8 +10,8 @@ defmodule Bigseat.Repo.Migrations.CreateIdentities do
       add :last_name, :string
       add :is_admin, :boolean, default: false, null: false
       add :group, :string
-      add :type, :string
-      add :organization_id, references(:organizations, on_delete: :delete_all, type: :binary_id)
+      add :type, :string, null: false
+      add :organization_id, references(:organizations, on_delete: :delete_all, type: :binary_id), null: false
       add :api_key, :string, null: false
       add :password_recovery_token, :string
 

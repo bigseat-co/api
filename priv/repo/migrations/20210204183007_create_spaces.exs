@@ -4,11 +4,11 @@ defmodule Bigseat.Repo.Migrations.CreateSpaces do
   def change do
     create table(:spaces, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :slug, :string
-      add :name, :string
+      add :slug, :string, null: false
+      add :name, :string, null: false
       add :avatar_url, :string
-      add :maximum_people, :integer
-      add :organization_id, references(:organizations, on_delete: :delete_all, type: :binary_id)
+      add :maximum_people, :integer, null: false
+      add :organization_id, references(:organizations, on_delete: :delete_all, type: :binary_id), null: false
 
       timestamps()
     end
