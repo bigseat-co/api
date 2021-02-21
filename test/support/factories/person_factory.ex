@@ -9,7 +9,7 @@ defmodule Bigseat.Factory.PersonFactory do
       first_name: "Laurent",
       last_name: "Schaffner",
       encrypted_password: Comeonin.Bcrypt.hashpwsalt("password"),
-      api_key: "valid-api-key",
+      api_key: :crypto.strong_rand_bytes(64) |> Base.url_encode64,
       type: "TeamMember"
     }
   end

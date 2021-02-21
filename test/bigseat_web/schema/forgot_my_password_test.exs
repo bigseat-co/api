@@ -2,9 +2,6 @@ defmodule BigseatWeb.Schema.ForgotMyPasswordTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
-    Person
-  }
 
   describe "forgot_my_password" do
     setup do
@@ -18,7 +15,7 @@ defmodule BigseatWeb.Schema.ForgotMyPasswordTest do
       assert response == %{"data" => %{"forgotMyPassword" => %{"email" => person.email}}}
     end
 
-    test "with non existing email", %{conn: conn, person: person} do
+    test "with non existing email", %{conn: conn} do
       response = conn |> graphql_query(%{query: query(), variables: %{email: "wrong-email@gmail.com"}}, :success)
       assert response == %{"data" => %{"forgotMyPassword" => %{"email" => "wrong-email@gmail.com"}}}
     end

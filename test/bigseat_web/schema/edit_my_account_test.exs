@@ -2,9 +2,6 @@ defmodule BigseatWeb.Schema.EditMyAccountTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
-    Person
-  }
 
   describe "edit_my_account" do
     setup do

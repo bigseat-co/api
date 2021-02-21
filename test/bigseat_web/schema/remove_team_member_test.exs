@@ -2,20 +2,21 @@ defmodule BigseatWeb.Schema.RemoveTeamMemberTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
-    Person
-  }
 
   describe "add_new_team_member" do
     setup do
       person = PersonFactory.insert(:person, is_admin: true)
       [
         person: person,
-        other_team_member: PersonFactory.insert(:person, organization_id: person.organization_id)
+        other_team_member: PersonFactory.insert(
+          :person,
+          email: "other-team-member@gmail.com",
+          organization: person.organization
+        )
       ]
     end
 
-    test "without authentication", %{conn: conn, person: person, other_team_member: other_team_member} do
+    test "without authentication", %{conn: conn, other_team_member: other_team_member} do
       response = graphql_query(conn, %{query: query(), variables: %{id: other_team_member.id}}, :success)
       assert Map.has_key?(response, "errors")
     end

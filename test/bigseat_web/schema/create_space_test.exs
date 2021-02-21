@@ -2,7 +2,6 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.{
     PersonFactory,
-    SpaceFactory
   }
   use Bigseat.HelpersCase
   alias Bigseat.Dashboard.Space
@@ -11,7 +10,6 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
     setup do
       [
         person: PersonFactory.insert(:person, is_admin: true),
-        # payload: %{} # not currently in use, can be transferred if complex data are needed
       ]
     end
 

@@ -2,9 +2,6 @@ defmodule BigseatWeb.Schema.ChangePasswordFromTokenTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
-  alias Bigseat.Dashboard.{
-    Person
-  }
 
   describe "change_password_from_token" do
     setup do
@@ -13,7 +10,7 @@ defmodule BigseatWeb.Schema.ChangePasswordFromTokenTest do
       ]
     end
 
-    test "with non existing token", %{conn: conn, person: person} do
+    test "with non existing token", %{conn: conn} do
       response = conn |> graphql_query(%{query: query(), variables: %{token: "wrong-token"}}, :success)
       assert Map.has_key?(response, "errors")
     end
