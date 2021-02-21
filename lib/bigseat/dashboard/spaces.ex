@@ -15,7 +15,7 @@ defmodule Bigseat.Dashboard.Spaces do
 
   def create(params = %{ open_hours: open_hours_params }, organization_id) do
     space_params = Map.delete(params, :open_hours) |> Map.merge(%{organization_id: organization_id})
-    changeset = %Space{} |> Space.changeset(space_params)
+    changeset = %Space{} |> Space.create_changeset(space_params)
 
     multi = Multi.new
     |> Multi.insert(:space, changeset)
@@ -37,15 +37,11 @@ defmodule Bigseat.Dashboard.Spaces do
 
   def update(%Space{} = space, attrs) do
     space
-    |> Space.changeset(attrs)
+    |> Space.update_changeset(attrs)
     |> Repo.update()
   end
 
   def delete(%Space{} = space) do
     Repo.delete(space)
-  end
-
-  def change(%Space{} = space, attrs \\ %{}) do
-    Space.changeset(space, attrs)
   end
 end

@@ -15,13 +15,19 @@ defmodule Bigseat.Dashboard.Space do
     timestamps()
   end
 
-  def changeset(space, attrs) do
+  def create_changeset(space, attrs) do
     space
     |> cast(attrs, [:slug, :name, :avatar_url, :maximum_people, :organization_id])
     |> cast_assoc(:open_hours)
     |> put_slug()
     |> validate_required([:slug, :name, :avatar_url, :maximum_people, :organization_id])
     |> unique_constraint(:slug, [:organization_id, :slug])
+  end
+
+  def update_changeset(space, attrs) do
+    space
+    |> cast(attrs, [:name, :avatar_url, :maximum_people])
+    |> cast_assoc(:open_hours)
   end
 
   defp put_slug(changeset) do
