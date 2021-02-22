@@ -15,7 +15,9 @@ defmodule Bigseat.Core.Bookings do
             join: booking in Booking, on: booking.space_id == space.id,
             join: person in Person, on: booking.person_id == person.id,
             where: space.organization_id == ^organization.id,
-            preload: [bookings: {booking, person: person}]
+            where: booking.start_at >= ^start_at,
+            where: booking.end_at <= ^end_at,
+            preload: [bookings: { booking, person: person }]
 
     Repo.all(query)
   end
