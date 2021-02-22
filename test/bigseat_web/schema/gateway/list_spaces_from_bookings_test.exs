@@ -28,7 +28,6 @@ defmodule BigseatWeb.Schema.ListSpacesFromBookingsTest do
     test "with authentication", %{
       conn: conn,
       space: space,
-      person: person,
       organization: organization,
       booking: booking,
       space_without_booking: space_without_booking,

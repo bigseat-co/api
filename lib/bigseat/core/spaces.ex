@@ -1,14 +1,29 @@
 defmodule Bigseat.Core.Spaces do
+  import Ecto.Query, warn: false
   alias Bigseat.Repo
   alias Ecto.Multi
 
   alias Bigseat.Core.{
     Space,
-    SpaceOpenHour
+    Booking,
+    Person,
+    SpaceOpenHour,
+    Organization
   }
 
   def lists do
     Space |> Repo.all() |> Repo.preload(:open_hours)
+  end
+
+  def list_with_bookings(%Organization{} = organization, start_at, end_at) do
+    query = from space in Space,
+            left_join: booking in Booking, on: booking.space_id == space.id,
+            left_join: person in Person, on: booking.person_id == person.id,
+            where: space.organization_id == ^organization.id,
+            where: booking.start_at >= ^start_at or booking.end_at <= ^end_at or is_nil(booking.id),
+            preload: [bookings: { booking, person: person }]
+
+    Repo.all(query)
   end
 
   def get!(id), do: Repo.get!(Space, id)

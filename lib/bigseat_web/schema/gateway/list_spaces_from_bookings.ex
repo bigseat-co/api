@@ -19,7 +19,7 @@ defmodule Bigseat.Schema.Gateway.ListSpacesFromBookings do
   def resolve(_parent, %{ start_at: start_at, end_at: end_at, organization_id: organization_id }, _resolution) do
     organization = Organization |> Repo.get(organization_id)
     case organization do
-      %Organization{} -> {:ok, Bigseat.Core.Bookings.list_by_space(organization, start_at, end_at)}
+      %Organization{} -> {:ok, Bigseat.Core.Spaces.list_with_bookings(organization, start_at, end_at)}
       _ -> {:error, "organization not found"}
     end
   end
