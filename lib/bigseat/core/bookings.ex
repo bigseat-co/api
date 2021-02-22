@@ -12,11 +12,10 @@ defmodule Bigseat.Core.Bookings do
 
   def list_by_space(%Organization{} = organization, start_at, end_at) do
     query = from space in Space,
-            join: booking in Booking, on: booking.space_id == space.id,
-            join: person in Person, on: booking.person_id == person.id,
+            left_join: booking in Booking, on: booking.space_id == space.id,
+            left_join: person in Person, on: booking.person_id == person.id,
             where: space.organization_id == ^organization.id,
-            where: booking.start_at >= ^start_at,
-            where: booking.end_at <= ^end_at,
+            where: booking.start_at >= ^start_at or booking.end_at <= ^end_at or is_nil(booking.id),
             preload: [bookings: { booking, person: person }]
 
     Repo.all(query)

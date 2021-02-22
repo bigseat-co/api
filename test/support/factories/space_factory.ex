@@ -1,13 +1,16 @@
 defmodule Bigseat.Factory.SpaceFactory do
   use ExMachina.Ecto, repo: Bigseat.Repo
-  alias Bigseat.Factory.OrganizationFactory
+  alias Bigseat.Factory.{
+    OrganizationFactory,
+    BookingFactory
+  }
 
   def space_factory do
     %Bigseat.Core.Space{
       organization: OrganizationFactory.build(:organization),
       avatar_url: "http://fake-avatar.com",
-      name: "Random name",
-      slug: "random-slug",
+      name: Faker.Pokemon.location(),
+      maximum_people: 10,
       open_hours: [build(:space_open_hour)]
     }
   end
@@ -20,4 +23,10 @@ defmodule Bigseat.Factory.SpaceFactory do
       close_time: "18:00:00Z"
     }
   end
+
+  # def space_with_bookings_factory do
+  #   Map.merge(space_factory(), %{
+  #     bookings: [BookingFactory.insert(:booking)]
+  #   })
+  # end
 end

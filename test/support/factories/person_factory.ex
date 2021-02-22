@@ -5,9 +5,9 @@ defmodule Bigseat.Factory.PersonFactory do
   def person_factory do
     %Bigseat.Core.Person{
       organization: OrganizationFactory.build(:organization),
-      email: "test@test.com",
-      first_name: "Laurent",
-      last_name: "Schaffner",
+      email: Faker.Internet.email(),
+      first_name: Faker.Person.first_name(),
+      last_name: Faker.Person.last_name(),
       encrypted_password: Comeonin.Bcrypt.hashpwsalt("password"),
       api_key: :crypto.strong_rand_bytes(64) |> Base.url_encode64,
       type: "TeamMember"

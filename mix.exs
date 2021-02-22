@@ -47,11 +47,13 @@ defmodule Bigseat.MixProject do
       {:crudry, "~> 2.3.1"}, # error handling
       {:poison, "~> 4.0.1"}, # json decoder
       {:jason, "~> 1.0"}, # json decoder
-      {:ex_machina, "~> 2.5.0", only: :test}, # factories
       {:comeonin, "~> 4.0"}, # authentication
       {:bcrypt_elixir, "~> 1.0"}, # authentication
       {:inflex, "~> 2.0.0"}, # slugs, camelize, kebabcase everything (useful for graphql variables, etc.)
-      {:bamboo, "~> 1.7.0"} # emailing
+      {:bamboo, "~> 1.7.0"}, # emailing
+      {:timex, "~> 3.6.3"}, # time management
+      {:ex_machina, "~> 2.5.0", only: :test}, # factories in tests
+      {:faker, "~> 0.16", only: :test}, # faking data for tests
     ]
   end
 
