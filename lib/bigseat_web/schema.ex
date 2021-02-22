@@ -19,9 +19,12 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.RemoveTeamMember
   import_types Bigseat.Schema.Dashboard.EditMyAccount
 
+  import_types Bigseat.Schema.Gateway.ListSpacesFromBookings
+
   query do
     import_fields :dashboard_list_spaces
     import_fields :dashboard_get_space
+    import_fields :gateway_list_spaces_from_bookings
   end
 
   mutation do

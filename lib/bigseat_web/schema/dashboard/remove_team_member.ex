@@ -20,7 +20,7 @@ defmodule Bigseat.Schema.Dashboard.RemoveTeamMember do
     person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case person do
       %Person{} -> Bigseat.Core.People.delete(person)
-      _ -> {:error, "not found"}
+      _ -> {:error, "person not found"}
     end
   end
 

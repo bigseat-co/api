@@ -29,7 +29,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
     space = Space |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case space do
       %Space{} -> Bigseat.Core.Spaces.update(space, space_input)
-      _ -> {:error, "not found"}
+      _ -> {:error, "space not found"}
     end
   end
 

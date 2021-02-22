@@ -7,6 +7,7 @@ defmodule Bigseat.Core.Space do
   schema "spaces" do
     belongs_to :organization, Bigseat.Core.Organization
     has_many :open_hours, Bigseat.Core.SpaceOpenHour
+    has_many :bookings, Bigseat.Core.Booking
     field :avatar_url, :string
     field :name, :string
     field :slug, :string
