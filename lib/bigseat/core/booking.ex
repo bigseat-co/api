@@ -1,6 +1,8 @@
 defmodule Bigseat.Core.Booking do
-  use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query, warn: false
+  use Ecto.Schema
+  alias Bigseat.Repo
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -26,5 +28,10 @@ defmodule Bigseat.Core.Booking do
     |> cast(attrs, [:start_at, :end_at])
     |> cast_assoc(:person)
     |> cast_assoc(:space)
+  end
+
+  def range(query, start_at, end_at) do
+    from booking in query,
+    where: booking.start_at >= ^start_at or booking.end_at <= ^end_at
   end
 end
