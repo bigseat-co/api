@@ -20,6 +20,13 @@ defmodule Bigseat.Schema.Types do
     field :organization, :dashboard_organization
   end
 
+  object :gateway_person do
+    field :id, :uuid
+    field :first_name, :string
+    field :last_name, :string
+    field :email, :string
+  end
+
   object :gateway_space do
     field :id, :uuid
     field :avatar_url, :string
@@ -34,7 +41,14 @@ defmodule Bigseat.Schema.Types do
     field :id, :uuid
     field :start_at, :datetime
     field :end_at, :datetime
-    field :person, :dashboard_person
+    field :person, :gateway_person
+  end
+
+  object :gateway_checkin do
+    field :id, :uuid
+    field :checked_at, :datetime
+    field :end_at, :datetime
+    field :person, :gateway_person
   end
 
   object :dashboard_space do

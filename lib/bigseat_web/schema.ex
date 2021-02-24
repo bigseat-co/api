@@ -20,6 +20,7 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.RemoveTeamMember
 
   import_types Bigseat.Schema.Gateway.BookSpace
+  import_types Bigseat.Schema.Gateway.CheckinSpace
   import_types Bigseat.Schema.Gateway.ListSpacesFromBookings
 
   query do
@@ -39,5 +40,6 @@ defmodule Bigseat.Schema do
     import_fields :connect_forgot_my_password
     import_fields :dashboard_edit_my_account
     import_fields :gateway_book_space
+    import_fields :gateway_checkin_space
   end
 end

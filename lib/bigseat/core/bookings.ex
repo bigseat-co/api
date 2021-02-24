@@ -15,13 +15,11 @@ defmodule Bigseat.Core.Bookings do
     with {:ok} <- capacity_not_reached?(space, start_at, end_at),
          {:ok, person} <- find_or_create_person(space.organization_id, person_params),
          {:ok} <- already_booked?(space, person, start_at, end_at) do
-          booking = %Booking{}
+          %Booking{}
           |> Booking.create_changeset(params)
           |> Ecto.Changeset.put_assoc(:space, space)
           |> Ecto.Changeset.put_assoc(:person, person)
           |> Repo.insert()
-
-          booking
     end
   end
 

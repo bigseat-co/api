@@ -33,9 +33,9 @@ defmodule Bigseat.Core.Booking do
   def range(query, from, to) do
     from booking in query,
     where: (
-        booking.start_at >= ^from and booking.end_at <= ^from
+        booking.start_at >= ^from and booking.start_at <= ^to
       ) or (
-        booking.end_at <= ^to and booking.start_at >= ^to
+        booking.end_at >= ^from and booking.end_at <= ^to
       )
   end
 end

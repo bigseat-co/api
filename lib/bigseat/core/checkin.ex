@@ -31,6 +31,6 @@ defmodule Bigseat.Core.Checkin do
 
   def range(query, from, to) do
     from checkin in query,
-    where: checkin.checked_at >= ^from or checkin.checked_at <= ^to
+    where: checkin.checked_at >= ^from and checkin.checked_at <= ^to
   end
 end
