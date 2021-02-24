@@ -12,10 +12,9 @@ defmodule Bigseat.Core.Bookings do
   def get!(id), do: Repo.get!(Booking, id)
 
   def create(space, person_params = %{email: email, first_name: first_name, last_name: last_name}, params = %{start_at: start_at, end_at: end_at}) do
-    bookings_count = Booking |> Booking.range(start_at, end_at) |> Repo.aggregate(:count, :id)
-
     with {:ok} <- capacity_not_reached?(space, start_at, end_at),
-         {:ok, person} <- find_or_create_person(space.organization_id, person_params) do
+         {:ok, person} <- find_or_create_person(space.organization_id, person_params),
+         {:ok} <- already_booked?(space, person, start_at, end_at) do
           booking = %Booking{}
           |> Booking.create_changeset(params)
           |> Ecto.Changeset.put_assoc(:space, space)
@@ -32,12 +31,10 @@ defmodule Bigseat.Core.Bookings do
       %Person{} -> {:ok, person}
       _ ->
         organization = Organization |> Repo.get!(organization_id)
-        guest = %Person{}
+        %Person{}
         |> Person.create_changeset(Map.merge(params, %{is_admin: false, type: "Guest", group: :remote}))
         |> Ecto.Changeset.put_assoc(:organization, organization)
         |> Repo.insert()
-
-        {:ok, guest}
     end
   end
 
@@ -45,6 +42,20 @@ defmodule Bigseat.Core.Bookings do
     bookings_count = Booking |> Booking.range(start_at, end_at) |> Repo.aggregate(:count, :id)
     if bookings_count >= space.maximum_people do
       {:error, "maximum people reached for this space (#{space.maximum_people})"}
+    else
+      {:ok}
+    end
+  end
+
+  defp already_booked?(space, person, start_at, end_at) do
+    bookings_from_person = Booking
+    |> Booking.range(start_at, end_at)
+    |> where(person_id: ^person.id)
+    |> where(space_id: ^space.id)
+    |> Repo.aggregate(:count, :id)
+
+    if bookings_from_person > 0 do
+      {:error, "space already booked for this person"}
     else
       {:ok}
     end
