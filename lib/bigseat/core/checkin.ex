@@ -1,4 +1,4 @@
-defmodule Bigseat.Core.Booking do
+defmodule Bigseat.Core.Checkin do
   import Ecto.Changeset
   import Ecto.Query, warn: false
   use Ecto.Schema
@@ -6,36 +6,31 @@ defmodule Bigseat.Core.Booking do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "bookings" do
+  schema "checkins" do
     belongs_to :person, Bigseat.Core.Person
     belongs_to :space, Bigseat.Core.Space
-    field :start_at, :utc_datetime
-    field :end_at, :utc_datetime
+    field :checked_at, :utc_datetime
 
     timestamps()
   end
 
-  def create_changeset(booking, attrs) do
-    booking
-    |> cast(attrs, [:start_at, :end_at])
+  def create_changeset(checkin, attrs) do
+    checkin
+    |> cast(attrs, [:checked_at])
     |> cast_assoc(:person)
     |> cast_assoc(:space)
-    |> validate_required([:start_at, :end_at])
+    |> validate_required([:checked_at])
   end
 
   def update_changeset(space, attrs) do
     space
-    |> cast(attrs, [:start_at, :end_at])
+    |> cast(attrs, [:checked_at])
     |> cast_assoc(:person)
     |> cast_assoc(:space)
   end
 
   def range(query, from, to) do
-    from booking in query,
-    where: (
-        booking.start_at >= ^from and booking.end_at <= ^from
-      ) or (
-        booking.end_at <= ^to and booking.start_at >= ^to
-      )
+    from checkin in query,
+    where: checkin.checked_at >= ^from or checkin.checked_at <= ^to
   end
 end
