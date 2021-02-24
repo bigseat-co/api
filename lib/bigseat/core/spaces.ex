@@ -11,9 +11,8 @@ defmodule Bigseat.Core.Spaces do
     Organization
   }
 
-  def lists do
-    Space |> Repo.all() |> Repo.preload(:open_hours)
-  end
+  def get(id), do: Space |> Repo.get(id)
+  def list, do: Space |> Repo.all() |> Repo.preload(:open_hours)
 
   def list_with_bookings(%Organization{} = organization, start_at, end_at) do
     query = from space in Space,
@@ -26,7 +25,6 @@ defmodule Bigseat.Core.Spaces do
     Repo.all(query)
   end
 
-  def get(id), do: Repo.get(Space, id)
 
   def create(params = %{ open_hours: open_hours_params }, organization_id) do
     space_params = Map.delete(params, :open_hours) |> Map.merge(%{organization_id: organization_id})

@@ -9,13 +9,9 @@ defmodule Bigseat.Core.Bookings do
     Person
   }
 
-  def get(id), do: Repo.get(Booking, id)
+  def get(id), do: Booking |> Repo.get(id) |> Repo.preload([:person, :space])
+  def list, do: Booking |> Repo.all() |> Repo.preload([:person, :space])
 
-  @spec create(
-          atom | %{:maximum_people => any, optional(any) => any},
-          %{:email => any, :first_name => any, :last_name => any, optional(any) => any},
-          %{:end_at => any, :start_at => any, optional(any) => any}
-        ) :: any
   def create(space, person_params = %{email: email, first_name: first_name, last_name: last_name}, params = %{start_at: start_at, end_at: end_at}) do
     with {:ok} <- capacity_not_reached?(space, start_at, end_at),
          {:ok, person} <- find_or_create_person(space.organization_id, person_params),
@@ -33,7 +29,7 @@ defmodule Bigseat.Core.Bookings do
     case person do
       %Person{} -> {:ok, person}
       _ ->
-        organization = Organization |> Repo.get!(organization_id)
+        organization = Organization |> Repo.get(organization_id)
         %Person{}
         |> Person.create_changeset(Map.merge(params, %{is_admin: false, type: "Guest", group: :remote}))
         |> Ecto.Changeset.put_assoc(:organization, organization)

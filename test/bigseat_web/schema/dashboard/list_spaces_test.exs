@@ -6,7 +6,7 @@ defmodule BigseatWeb.Schema.ListSpacesTest do
   }
   use Bigseat.HelpersCase
 
-  describe "get_space" do
+  describe "list spaces" do
     setup do
       [
         space: SpaceFactory.insert(:space),

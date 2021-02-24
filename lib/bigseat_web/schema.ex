@@ -17,6 +17,8 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.EditSpace
   import_types Bigseat.Schema.Dashboard.GetSpace
   import_types Bigseat.Schema.Dashboard.ListSpaces
+  import_types Bigseat.Schema.Dashboard.ListCheckins
+  import_types Bigseat.Schema.Dashboard.ListBookings
   import_types Bigseat.Schema.Dashboard.RemoveTeamMember
 
   import_types Bigseat.Schema.Gateway.BookSpace
@@ -25,6 +27,8 @@ defmodule Bigseat.Schema do
 
   query do
     import_fields :dashboard_list_spaces
+    import_fields :dashboard_list_checkins
+    import_fields :dashboard_list_bookings
     import_fields :dashboard_get_space
     import_fields :gateway_list_spaces_from_bookings
   end

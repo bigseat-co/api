@@ -1,8 +1,7 @@
 defmodule Bigseat.Factory.SpaceFactory do
   use ExMachina.Ecto, repo: Bigseat.Repo
   alias Bigseat.Factory.{
-    OrganizationFactory,
-    BookingFactory
+    OrganizationFactory
   }
 
   def space_factory do

@@ -3,7 +3,7 @@ defmodule Bigseat.Factory.OrganizationFactory do
 
   def organization_factory do
     %Bigseat.Core.Organization{
-      name: "Random name too"
+      name: Faker.Pokemon.location()
     }
   end
 end

@@ -14,7 +14,7 @@ defmodule Bigseat.Schema.Dashboard.GetSpace do
   end
 
   def resolve(_parent, %{id: id}, _resolution) do
-    {:ok, Bigseat.Core.Spaces.get!(id)}
+    {:ok, Bigseat.Core.Spaces.get(id)}
   end
 
   def resolve(_parent, _args, _resolution) do

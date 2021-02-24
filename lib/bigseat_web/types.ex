@@ -42,6 +42,15 @@ defmodule Bigseat.Schema.Types do
     field :start_at, :datetime
     field :end_at, :datetime
     field :person, :gateway_person
+    field :space, :gateway_space
+  end
+
+  object :dashboard_booking do
+    field :id, :uuid
+    field :start_at, :datetime
+    field :end_at, :datetime
+    field :person, :dashboard_person
+    field :space, :dashboard_space
   end
 
   object :gateway_checkin do
@@ -49,6 +58,15 @@ defmodule Bigseat.Schema.Types do
     field :checked_at, :datetime
     field :end_at, :datetime
     field :person, :gateway_person
+    field :space, :gateway_space
+  end
+
+  object :dashboard_checkin do
+    field :id, :uuid
+    field :checked_at, :datetime
+    field :end_at, :datetime
+    field :person, :dashboard_person
+    field :space, :dashboard_space
   end
 
   object :dashboard_space do
