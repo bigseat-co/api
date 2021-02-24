@@ -25,7 +25,7 @@ defmodule BigseatWeb.Schema.ListSpacesFromBookingsTest do
       ]
     end
 
-    test "with authentication", %{
+    test "with spaces with booking in this date range", %{
       conn: conn,
       space: space,
       organization: organization,

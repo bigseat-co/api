@@ -22,8 +22,8 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
       auth_conn = conn |> authorize(person)
 
       response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
-      space_created = Space |> first() |> Repo.one()
-      assert response == %{"data" => %{"createSpace" => %{"id" => space_created.id}}}
+      created_space = Space |> first() |> Repo.one()
+      assert response == %{"data" => %{"createSpace" => %{"id" => created_space.id}}}
     end
 
 
