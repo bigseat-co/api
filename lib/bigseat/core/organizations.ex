@@ -9,7 +9,7 @@ defmodule Bigseat.Core.Organizations do
     Repo.all(Organization)
   end
 
-  def get!(id), do: Repo.get!(Organization, id)
+  def get(id), do: Repo.get(Organization, id)
 
   def create(attrs \\ %{}) do
     %Organization{}

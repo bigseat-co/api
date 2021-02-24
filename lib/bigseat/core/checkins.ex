@@ -6,7 +6,7 @@ defmodule Bigseat.Core.Checkins do
     Checkin,
   }
 
-  def get!(id), do: Repo.get!(Checkin, id)
+  def get(id), do: Repo.get(Checkin, id)
 
   def create(space, person) do
     checked_at = Timex.now

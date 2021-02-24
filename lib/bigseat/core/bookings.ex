@@ -9,8 +9,13 @@ defmodule Bigseat.Core.Bookings do
     Person
   }
 
-  def get!(id), do: Repo.get!(Booking, id)
+  def get(id), do: Repo.get(Booking, id)
 
+  @spec create(
+          atom | %{:maximum_people => any, optional(any) => any},
+          %{:email => any, :first_name => any, :last_name => any, optional(any) => any},
+          %{:end_at => any, :start_at => any, optional(any) => any}
+        ) :: any
   def create(space, person_params = %{email: email, first_name: first_name, last_name: last_name}, params = %{start_at: start_at, end_at: end_at}) do
     with {:ok} <- capacity_not_reached?(space, start_at, end_at),
          {:ok, person} <- find_or_create_person(space.organization_id, person_params),

@@ -12,7 +12,7 @@ defmodule Bigseat.Core.People do
     Repo.all(Person)
   end
 
-  def get!(id), do: Repo.get!(Person, id)
+  def get(id), do: Repo.get(Person, id)
 
   def create_from_scratch(params = %{ organization: organization_params } \\ %{}) do
     organization_changeset = %Organization{}

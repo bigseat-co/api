@@ -26,7 +26,7 @@ defmodule Bigseat.Core.Spaces do
     Repo.all(query)
   end
 
-  def get!(id), do: Repo.get!(Space, id)
+  def get(id), do: Repo.get(Space, id)
 
   def create(params = %{ open_hours: open_hours_params }, organization_id) do
     space_params = Map.delete(params, :open_hours) |> Map.merge(%{organization_id: organization_id})
