@@ -8,7 +8,7 @@ defmodule BigseatWeb.Schema.BookSpaceTest do
   use Bigseat.HelpersCase
   alias Bigseat.Core.Booking
 
-  describe "list_spaces_from_bookings" do
+  describe "book space" do
     setup do
       person = PersonFactory.insert(:person, is_admin: true)
       team_member = PersonFactory.insert(:person, is_admin: false)
