@@ -16,7 +16,7 @@ defmodule Bigseat.Core.People do
 
   def create_owner(params = %{ organization: organization_params } \\ %{}) do
     organization_changeset = %Organization{}
-    |> Organization.changeset(organization_params)
+    |> Organization.create_changeset(organization_params)
 
     # those are default attributes
     # when you create from scratch

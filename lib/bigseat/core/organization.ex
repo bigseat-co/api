@@ -14,8 +14,7 @@ defmodule Bigseat.Core.Organization do
     timestamps()
   end
 
-  @doc false
-  def changeset(organization, attrs) do
+  def create_changeset(organization, attrs) do
     organization
     |> cast(attrs, [:name, :slug])
     |> cast_assoc(:people)
@@ -24,12 +23,20 @@ defmodule Bigseat.Core.Organization do
     |> unique_constraint(:slug)
   end
 
-  defp put_slug(changeset) do
+  def update_changeset(organization, attrs) do
+    organization
+    |> cast(attrs, [:name, :slug])
+    |> cast_assoc(:people)
+    |> put_slug(%{ignore: organization.slug})
+    |> unique_constraint(:slug)
+  end
+
+  defp put_slug(changeset, options \\ %{}) do
     case changeset.changes do
     %{slug: _} ->
       changeset
     _ ->
-      put_change(changeset, :slug, Bigseat.Core.Organization.Helper.slug_with(changeset.changes))
+      put_change(changeset, :slug, Bigseat.Core.Organization.Helper.slug_with(changeset.changes, 0, options))
     end
   end
 end
@@ -37,18 +44,18 @@ end
 defmodule Bigseat.Core.Organization.Helper do
   import Ecto.Query, warn: false
 
-  def slug_with(params = %{name: name}, iteration \\ 0) do
+  def slug_with(params = %{name: name}, iteration \\ 0, options = %{}) do
     raw_slug = Inflex.parameterize(name)
     end_slug = if iteration === 0 do
       raw_slug
     else
       "#{raw_slug}#{iteration}"
     end
-
-    query = from organization in Bigseat.Core.Organization, where: organization.slug == ^end_slug
+    ignore = options[:ignore]
+    query = from organization in Bigseat.Core.Organization, where: organization.slug == ^end_slug and organization.slug != ^ignore
 
     if Bigseat.Repo.exists?(query) do
-      Bigseat.Core.Organization.Helper.slug_with(params, iteration+1)
+      Bigseat.Core.Organization.Helper.slug_with(params, iteration+1, options)
     else
       end_slug
     end
