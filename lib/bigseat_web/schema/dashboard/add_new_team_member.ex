@@ -20,7 +20,7 @@ defmodule Bigseat.Schema.Dashboard.AddNewTeamMember do
 
   def resolve(_parent, args, %{ context: %{ current_person: %{ organization_id: organization_id }}}) do
     organization = Organization |> Repo.get(organization_id)
-    Bigseat.Core.People.create_for_organization(args, organization)
+    Bigseat.Core.People.create_team_member(args, organization)
   end
 
   def resolve(_parent, _args, _resolution) do

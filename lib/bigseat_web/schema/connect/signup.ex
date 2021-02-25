@@ -22,6 +22,6 @@ defmodule Bigseat.Schema.Connect.Signup do
   end
 
   def resolve(_parent, args, _resolution) do
-    Bigseat.Core.People.create_from_scratch(args)
+    Bigseat.Core.People.create_owner(args)
   end
 end

@@ -15,11 +15,12 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.CreateSpace
   import_types Bigseat.Schema.Dashboard.EditMyAccount
   import_types Bigseat.Schema.Dashboard.EditSpace
+  import_types Bigseat.Schema.Dashboard.EditPerson
   import_types Bigseat.Schema.Dashboard.GetSpace
   import_types Bigseat.Schema.Dashboard.ListSpaces
   import_types Bigseat.Schema.Dashboard.ListCheckins
   import_types Bigseat.Schema.Dashboard.ListBookings
-  import_types Bigseat.Schema.Dashboard.RemoveTeamMember
+  import_types Bigseat.Schema.Dashboard.RemovePerson
 
   import_types Bigseat.Schema.Gateway.BookSpace
   import_types Bigseat.Schema.Gateway.CheckinSpace
@@ -39,8 +40,9 @@ defmodule Bigseat.Schema do
     import_fields :connect_change_password_from_token
     import_fields :dashboard_create_space
     import_fields :dashboard_edit_space
+    import_fields :dashboard_edit_person
     import_fields :dashboard_add_new_team_member
-    import_fields :dashboard_remove_team_member
+    import_fields :dashboard_remove_person
     import_fields :connect_forgot_my_password
     import_fields :dashboard_edit_my_account
     import_fields :gateway_book_space

@@ -1,4 +1,4 @@
-defmodule BigseatWeb.Schema.RemoveTeamMemberTest do
+defmodule BigseatWeb.Schema.RemovePersonTest do
   use BigseatWeb.ConnCase, async: true
   alias Bigseat.Factory.PersonFactory
   use Bigseat.HelpersCase
@@ -24,15 +24,15 @@ defmodule BigseatWeb.Schema.RemoveTeamMemberTest do
     test "with authentication", %{conn: conn, person: person, other_team_member: other_team_member} do
       auth_conn = conn |> authorize(person)
       response = graphql_query(auth_conn, %{query: query(), variables: %{id: other_team_member.id}}, :success)
-      assert response == %{"data" => %{"removeTeamMember" => %{"id" => other_team_member.id}}}
+      assert response == %{"data" => %{"removePerson" => %{"id" => other_team_member.id}}}
     end
 
     defp query() do
       """
-      mutation removeTeamMember(
+      mutation removePerson(
         $id: UUID4!
       ) {
-        removeTeamMember(
+        removePerson(
           id: $id
         ) {
           id

@@ -14,7 +14,7 @@ defmodule Bigseat.Core.People do
 
   def get(id), do: Repo.get(Person, id)
 
-  def create_from_scratch(params = %{ organization: organization_params } \\ %{}) do
+  def create_owner(params = %{ organization: organization_params } \\ %{}) do
     organization_changeset = %Organization{}
     |> Organization.changeset(organization_params)
 
@@ -41,7 +41,7 @@ defmodule Bigseat.Core.People do
     end
   end
 
-  def create_for_organization(params \\ %{}, %Organization{} = organization) do
+  def create_team_member(params \\ %{}, %Organization{} = organization) do
 
     # it's a team member but he has no admin power
     # the group must be defined by hand

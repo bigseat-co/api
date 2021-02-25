@@ -8,7 +8,7 @@ defmodule Bigseat.Schema.Gateway.BookSpace do
     @desc "Book space"
     field :book_space, :gateway_booking do
       arg :space_id, non_null(:uuid)
-      arg :person, non_null(:person_input)
+      arg :person, non_null(:book_space_person_input)
       arg :start_at, non_null(:datetime)
       arg :end_at, non_null(:datetime)
 
@@ -17,16 +17,16 @@ defmodule Bigseat.Schema.Gateway.BookSpace do
     end
   end
 
-  input_object :person_input do
+  input_object :book_space_person_input do
     field :email, non_null(:string)
     field :first_name, non_null(:string)
     field :last_name, non_null(:string)
   end
 
-  def resolve(_parent, %{ start_at: start_at, end_at: end_at, space_id: space_id, person: person_input }, _resolution) do
+  def resolve(_parent, %{ start_at: start_at, end_at: end_at, space_id: space_id, person: book_space_person_input }, _resolution) do
     space = Space |> Repo.get(space_id)
     case space do
-      %Space{} -> Bigseat.Core.Bookings.create(space, person_input, %{start_at: start_at, end_at: end_at})
+      %Space{} -> Bigseat.Core.Bookings.create(space, book_space_person_input, %{start_at: start_at, end_at: end_at})
       _ -> {:error, "space not found"}
     end
   end

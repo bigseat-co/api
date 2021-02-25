@@ -80,7 +80,7 @@ defmodule BigseatWeb.Schema.BookSpaceTest do
         $startAt: DateTime!
         $endAt: DateTime!
         $spaceId: UUID4!
-        $person: PersonInput!
+        $person: BookSpacePersonInput!
       ) {
         bookSpace(
           startAt: $startAt
