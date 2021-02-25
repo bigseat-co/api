@@ -8,11 +8,11 @@ defmodule BigseatWeb.Schema.EditSpaceTest do
 
   describe "get_space" do
     setup do
-      person = PersonFactory.insert(:person, is_admin: true)
+      myself = PersonFactory.insert(:person, is_admin: true)
 
       [
-        space: SpaceFactory.insert(:space, organization: person.organization),
-        person: person,
+        space: SpaceFactory.insert(:space, organization: myself.organization),
+        myself: myself,
         person_from_another_organization: PersonFactory.insert(:person, is_admin: true)
       ]
     end
@@ -22,8 +22,8 @@ defmodule BigseatWeb.Schema.EditSpaceTest do
       assert Map.has_key?(response, "errors")
     end
 
-    test "with authentication", %{conn: conn, space: space, person: person} do
-      auth_conn = conn |> authorize(person)
+    test "with authentication", %{conn: conn, space: space, myself: myself} do
+      auth_conn = conn |> authorize(myself)
 
       response = graphql_query(auth_conn, %{query: query(), variables: space |> variables(%{name: "Random name"})}, :success)
       assert response == %{"data" => %{"editSpace" => %{"id" => "#{space.id}", "name" => "Random name"}}}

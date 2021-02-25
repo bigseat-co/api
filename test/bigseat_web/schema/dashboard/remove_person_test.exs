@@ -5,14 +5,10 @@ defmodule BigseatWeb.Schema.RemovePersonTest do
 
   describe "add_new_team_member" do
     setup do
-      person = PersonFactory.insert(:person, is_admin: true)
+      myself = PersonFactory.insert(:person, is_admin: true)
       [
-        person: person,
-        other_team_member: PersonFactory.insert(
-          :person,
-          email: "other-team-member@gmail.com",
-          organization: person.organization
-        )
+        myself: myself,
+        other_team_member: PersonFactory.insert(:person, email: "other-team-member@gmail.com", organization: myself.organization)
       ]
     end
 
@@ -21,8 +17,8 @@ defmodule BigseatWeb.Schema.RemovePersonTest do
       assert Map.has_key?(response, "errors")
     end
 
-    test "with authentication", %{conn: conn, person: person, other_team_member: other_team_member} do
-      auth_conn = conn |> authorize(person)
+    test "with authentication", %{conn: conn, myself: myself, other_team_member: other_team_member} do
+      auth_conn = conn |> authorize(myself)
       response = graphql_query(auth_conn, %{query: query(), variables: %{id: other_team_member.id}}, :success)
       assert response == %{"data" => %{"removePerson" => %{"id" => other_team_member.id}}}
     end

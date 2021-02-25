@@ -10,7 +10,7 @@ defmodule BigseatWeb.Schema.ListSpacesTest do
     setup do
       [
         space: SpaceFactory.insert(:space),
-        person: PersonFactory.insert(:person, is_admin: true)
+        myself: PersonFactory.insert(:person, is_admin: true)
       ]
     end
 
@@ -19,8 +19,8 @@ defmodule BigseatWeb.Schema.ListSpacesTest do
       assert Map.has_key?(response, "errors")
     end
 
-    test "gets a space by id", %{conn: conn, space: space, person: person} do
-      auth_conn = conn |> authorize(person)
+    test "gets a space by id", %{conn: conn, space: space, myself: myself} do
+      auth_conn = conn |> authorize(myself)
 
       response = graphql_query(auth_conn, %{query: query()}, :success)
       assert response == %{"data" => %{"listSpaces" => [%{"id" => "#{space.id}", "openHours" => [%{"dayOfTheWeek" => "monday"}]}]}}

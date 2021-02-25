@@ -9,7 +9,7 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
   describe "create_space" do
     setup do
       [
-        person: PersonFactory.insert(:person, is_admin: true),
+        myself: PersonFactory.insert(:person, is_admin: true),
       ]
     end
 
@@ -18,8 +18,8 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
       assert Map.has_key?(response, "errors")
     end
 
-    test "with authentication", %{conn: conn, person: person} do
-      auth_conn = conn |> authorize(person)
+    test "with authentication", %{conn: conn, myself: myself} do
+      auth_conn = conn |> authorize(myself)
 
       response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
       created_space = Space |> first() |> Repo.one()

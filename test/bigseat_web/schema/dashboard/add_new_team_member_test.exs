@@ -9,8 +9,7 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
   describe "add_new_team_member" do
     setup do
       [
-        person: PersonFactory.insert(:person, is_admin: true),
-        # payload: %{} # not currently in use, can be transferred if complex data are needed
+        myself: PersonFactory.insert(:person, is_admin: true),
       ]
     end
 
@@ -19,15 +18,15 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
       assert Map.has_key?(response, "errors")
     end
 
-    test "with authentication and a taken email", %{conn: conn, person: person} do
-      auth_conn = conn |> authorize(person)
+    test "with authentication and a taken email", %{conn: conn, myself: myself} do
+      auth_conn = conn |> authorize(myself)
 
-      response = graphql_query(auth_conn, %{query: query(), variables: variables() |> Map.merge(%{email: person.email})}, :success)
+      response = graphql_query(auth_conn, %{query: query(), variables: variables() |> Map.merge(%{email: myself.email})}, :success)
       assert Map.has_key?(response, "errors")
     end
 
-    test "with authentication and a free email", %{conn: conn, person: person} do
-      auth_conn = conn |> authorize(person)
+    test "with authentication and a free email", %{conn: conn, myself: myself} do
+      auth_conn = conn |> authorize(myself)
 
       response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
       person_created = Person |> where(is_admin: false) |> first() |> Repo.one()

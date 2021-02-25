@@ -6,7 +6,7 @@ defmodule BigseatWeb.Schema.EditMyAccountTest do
   describe "edit_my_account" do
     setup do
       [
-        person: PersonFactory.insert(:person, is_admin: true),
+        myself: PersonFactory.insert(:person, is_admin: true),
       ]
     end
 
@@ -15,11 +15,11 @@ defmodule BigseatWeb.Schema.EditMyAccountTest do
       assert Map.has_key?(response, "errors")
     end
 
-    test "with authentication", %{conn: conn, person: person} do
-      auth_conn = conn |> authorize(person)
+    test "with authentication", %{conn: conn, myself: myself} do
+      auth_conn = conn |> authorize(myself)
 
       response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
-      assert response == %{"data" => %{"editMyAccount" => %{"id" => person.id, "firstName" => "Lorenzo", "lastName" => "Schaffnero"}}}
+      assert response == %{"data" => %{"editMyAccount" => %{"id" => myself.id, "firstName" => "Lorenzo", "lastName" => "Schaffnero"}}}
     end
 
     defp query() do
