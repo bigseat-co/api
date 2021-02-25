@@ -1,7 +1,7 @@
 defmodule BigseatWeb.Middleware.AuthorizedAny do
   @behaviour Absinthe.Middleware
 
-  def call(resolution = %{context: %{current_person: _}}, _config) do
+  def call(resolution = %{context: %{myself: _}}, _config) do
     resolution
   end
 

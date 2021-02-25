@@ -24,7 +24,7 @@ defmodule Bigseat.Schema.Dashboard.EditPerson do
     field :group, :string
   end
 
-  def resolve(_parent, %{ id: id, person_input: person_input }, %{ context: %{ current_person: %{ organization_id: organization_id }}}) do
+  def resolve(_parent, %{ id: id, person_input: person_input }, %{ context: %{ myself: %{ organization_id: organization_id }}}) do
     person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case person do
       %Person{} -> Bigseat.Core.People.update(person, person_input)

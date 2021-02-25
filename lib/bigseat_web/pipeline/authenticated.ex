@@ -18,8 +18,8 @@ defmodule BigseatWeb.Pipeline.Authenticated do
 
   defp build_context(conn) do
     with ["Bearer " <> api_key] <- get_req_header(conn, "authorization"),
-        {:ok, current_person} <- authorize(api_key) do
-        {:ok, %{current_person: current_person}}
+        {:ok, myself} <- authorize(api_key) do
+        {:ok, %{myself: myself}}
     end
   end
 

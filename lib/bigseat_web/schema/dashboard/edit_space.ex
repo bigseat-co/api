@@ -25,7 +25,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
     field :maximum_people, :integer
   end
 
-  def resolve(_parent, %{ id: id, space_input: space_input }, %{ context: %{ current_person: %{ organization_id: organization_id }}}) do
+  def resolve(_parent, %{ id: id, space_input: space_input }, %{ context: %{ myself: %{ organization_id: organization_id }}}) do
     space = Space |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case space do
       %Space{} -> Bigseat.Core.Spaces.update(space, space_input)

@@ -23,7 +23,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
     field :close_time, non_null(:time) # ISO 8601
   end
 
-  def resolve(_parent, args, %{ context: %{ current_person: %{ organization_id: organization_id} }}) do
+  def resolve(_parent, args, %{ context: %{ myself: %{ organization_id: organization_id} }}) do
     Bigseat.Core.Spaces.create(args, organization_id)
   end
 
