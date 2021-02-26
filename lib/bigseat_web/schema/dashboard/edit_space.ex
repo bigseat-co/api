@@ -23,6 +23,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
     field :name, :string
     field :open_hours, list_of(:open_hours_input)
     field :maximum_people, :integer
+    field :daily_checkin, :boolean
   end
 
   def resolve(_parent, %{ id: id, space_input: space_input }, %{ context: %{ myself: %{ organization_id: organization_id }}}) do

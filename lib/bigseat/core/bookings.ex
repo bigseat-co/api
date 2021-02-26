@@ -5,14 +5,13 @@ defmodule Bigseat.Core.Bookings do
   alias Bigseat.Core.{
     Booking,
     Organization,
-    Space,
     Person
   }
 
   def get(id), do: Booking |> Repo.get(id) |> Repo.preload([:person, :space])
   def list, do: Booking |> Repo.all() |> Repo.preload([:person, :space])
 
-  def create(space, person_params = %{email: email, first_name: first_name, last_name: last_name}, params = %{start_at: start_at, end_at: end_at}) do
+  def create(space, person_params = %{email: _email, first_name: _first_name, last_name: _last_name}, params = %{start_at: start_at, end_at: end_at}) do
     with {:ok} <- capacity_not_reached?(space, start_at, end_at),
          {:ok, person} <- find_or_create_person(space.organization_id, person_params),
          {:ok} <- already_booked?(space, person, start_at, end_at) do
@@ -24,7 +23,7 @@ defmodule Bigseat.Core.Bookings do
     end
   end
 
-  defp find_or_create_person(organization_id, params = %{email: email, first_name: first_name, last_name: last_name}) do
+  defp find_or_create_person(organization_id, params = %{email: email, first_name: _first_name, last_name: _last_name}) do
     person = Person |> where(email: ^email) |> where(organization_id: ^organization_id) |> Repo.one()
     case person do
       %Person{} -> {:ok, person}

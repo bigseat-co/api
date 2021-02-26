@@ -37,6 +37,7 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
           name: "My space",
           openHours: $openHours,
           maximumPeople: 10
+          dailyCheckin: true
         ) {
           id
         }

@@ -1,17 +1,22 @@
 defmodule Bigseat.Factory.SpaceFactory do
   use ExMachina.Ecto, repo: Bigseat.Repo
+  alias Bigseat.Repo
+  alias Bigseat.Core.{
+    Space
+  }
   alias Bigseat.Factory.{
     OrganizationFactory
   }
 
   def space_factory do
-    name = Faker.Pokemon.location()
+    name = "#{Faker.Pokemon.location()} #{Space |> Repo.aggregate(:count, :id)}"
     %Bigseat.Core.Space{
       organization: OrganizationFactory.build(:organization),
       avatar_url: "http://fake-avatar.com",
       name: name,
       slug: Inflex.parameterize(name),
       maximum_people: 10,
+      daily_checkin: true,
       open_hours: [build(:space_open_hour)]
     }
   end

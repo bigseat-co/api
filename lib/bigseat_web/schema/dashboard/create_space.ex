@@ -10,6 +10,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
       arg :name, non_null(:string)
       arg :open_hours, list_of(non_null(:open_hours_input))
       arg :maximum_people, non_null(:integer)
+      arg :daily_checkin, non_null(:boolean)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
       resolve &resolve/3
