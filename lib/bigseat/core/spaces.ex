@@ -20,6 +20,7 @@ defmodule Bigseat.Core.Spaces do
             left_join: person in Person, on: booking.person_id == person.id,
             where: space.organization_id == ^organization.id,
             where: booking.start_at >= ^start_at or booking.end_at <= ^end_at or is_nil(booking.id),
+            order_by: booking.inserted_at,
             preload: [bookings: { booking, person: person }]
 
     Repo.all(query)

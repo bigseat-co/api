@@ -5,10 +5,12 @@ defmodule Bigseat.Factory.SpaceFactory do
   }
 
   def space_factory do
+    name = Faker.Pokemon.location()
     %Bigseat.Core.Space{
       organization: OrganizationFactory.build(:organization),
       avatar_url: "http://fake-avatar.com",
-      name: Faker.Pokemon.location(),
+      name: name,
+      slug: Inflex.parameterize(name),
       maximum_people: 10,
       open_hours: [build(:space_open_hour)]
     }
