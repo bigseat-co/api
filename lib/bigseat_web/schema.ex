@@ -1,6 +1,7 @@
 defmodule Bigseat.Schema do
   use Absinthe.Schema
 
+  import_types Absinthe.Plug.Types
   import_types Absinthe.Type.Custom
   import_types Bigseat.Schema.Scalars.Json
   import_types Bigseat.Schema.Scalars.Uuid
@@ -27,6 +28,8 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Gateway.CheckinSpace
   import_types Bigseat.Schema.Gateway.ListSpacesFromBookings
 
+  import_types Bigseat.Schema.Plugins.ImportTeamFromCsv
+
   query do
     import_fields :dashboard_list_spaces
     import_fields :dashboard_list_checkins
@@ -49,5 +52,6 @@ defmodule Bigseat.Schema do
     import_fields :dashboard_edit_my_organization
     import_fields :gateway_book_space
     import_fields :gateway_checkin_space
+    import_fields :plugins_import_team_from_csv
   end
 end
