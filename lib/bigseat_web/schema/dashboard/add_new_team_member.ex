@@ -11,6 +11,7 @@ defmodule Bigseat.Schema.Dashboard.AddNewTeamMember do
       arg :last_name, non_null(:string)
       arg :email, non_null(:string)
       arg :group, non_null(:string)
+      arg :origin, non_null(:string)
 
       middleware BigseatWeb.Middleware.AuthorizedAdmin
       resolve &resolve/3
