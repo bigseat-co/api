@@ -54,6 +54,7 @@ defmodule Bigseat.MixProject do
       {:timex, "~> 3.6.3"}, # time management
       {:ex_machina, "~> 2.5.0", only: :test}, # factories in tests
       {:faker, "~> 0.16", only: :test}, # faking data for tests
+      {:cors_plug, "~> 2.0"} # let the world access /graphql
     ]
   end
 

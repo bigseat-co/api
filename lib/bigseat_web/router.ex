@@ -2,6 +2,7 @@ defmodule BigseatWeb.Router do
   use BigseatWeb, :router
 
   pipeline :graphql do
+    plug CORSPlug
   end
 
   pipeline :authenticated do
