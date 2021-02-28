@@ -30,7 +30,7 @@ defmodule Bigseat.Core.Bookings do
       _ ->
         organization = Organization |> Repo.get(organization_id)
         %Person{}
-        |> Person.create_changeset(Map.merge(params, %{is_admin: false, type: "Guest", group: :remote}))
+        |> Person.create_changeset(Map.merge(params, %{is_admin: false, type: "Guest", group: :remote, origin: "native"}))
         |> Ecto.Changeset.put_assoc(:organization, organization)
         |> Repo.insert()
     end
