@@ -8,6 +8,7 @@ defmodule Bigseat.Factory.PersonFactory do
       email: Faker.Internet.email(),
       first_name: Faker.Person.first_name(),
       last_name: Faker.Person.last_name(),
+      origin: "native",
       encrypted_password: Comeonin.Bcrypt.hashpwsalt("password"),
       api_key: :crypto.strong_rand_bytes(64) |> Base.url_encode64,
       type: "TeamMember"

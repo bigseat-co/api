@@ -23,7 +23,8 @@ defmodule Bigseat.Core.People do
     person_characteristics = %{
       is_admin: true,
       group: :office,
-      type: "TeamMember"
+      type: "TeamMember",
+      origin: "native"
     }
 
     multi = Multi.new
@@ -42,7 +43,6 @@ defmodule Bigseat.Core.People do
   end
 
   def create_team_member(params \\ %{}, %Organization{} = organization) do
-
     # it's a team member but he has no admin power
     # the group must be defined by hand
     person_characteristics = %{

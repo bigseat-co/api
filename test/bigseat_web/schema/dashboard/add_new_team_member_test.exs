@@ -40,12 +40,14 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
         $firstName: String!
         $lastName: String!
         $group: String!
+        $origin: String!
       ) {
         addNewTeamMember(
           email: $email
           firstName: $firstName
           lastName: $lastName
           group: $group
+          origin: $origin
         ) {
           id
         }
@@ -58,7 +60,8 @@ defmodule BigseatWeb.Schema.AddNewTeamMemberTest do
         email: "random@email.com",
         first_name: "Laurent",
         last_name: "Schaffner",
-        group: "remote"
+        group: "remote",
+        origin: "native"
       }
     end
   end
