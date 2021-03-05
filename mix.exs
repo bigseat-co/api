@@ -55,7 +55,8 @@ defmodule Bigseat.MixProject do
       {:ex_machina, "~> 2.5.0", only: :test}, # factories in tests
       {:faker, "~> 0.16", only: :test}, # faking data for tests
       {:cors_plug, "~> 2.0"}, # let the world access /graphql
-      {:csv, "~> 2.4.1"} # csv processing
+      {:csv, "~> 2.4.1"}, # csv processing
+      {:file_info, "~> 0.0.4"} # csv processing
     ]
   end
 
