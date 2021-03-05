@@ -25,3 +25,11 @@ iex -S mix phx.server
 # Access
 
 [`localhost:4000`](http://localhost:4000)
+
+# Other
+
+## Upload a file with cURL
+
+```
+curl -X POST -F query="mutation { importTeamFromCsv(file: \"csv\") { id } }" -F csv=@team-members-list.csv localhost:4000/graphql
+```
