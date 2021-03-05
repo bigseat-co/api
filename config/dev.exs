@@ -8,8 +8,8 @@ config :bigseat, Bigseat.Repo,
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
-  timeout: 100_000,
-  connect_timeout: 100_000
+  timeout: 100_100_000,
+  connect_timeout: 100_100_000
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
