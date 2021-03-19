@@ -19,9 +19,10 @@ defmodule Bigseat.Core.Space do
 
   def create_changeset(space, attrs) do
     space
-    |> cast(attrs, [:slug, :name, :avatar_url, :maximum_people, :daily_checkin, :organization_id])
+    |> cast(attrs, [:slug, :name, :avatar, :maximum_people, :daily_checkin, :organization_id])
     |> cast_assoc(:open_hours)
     |> put_slug()
+    |> put_avatar()
     |> validate_required([:slug, :name, :avatar_url, :maximum_people, :daily_checkin, :organization_id])
     |> unique_constraint(:slug, [:organization_id, :slug])
   end
@@ -30,6 +31,14 @@ defmodule Bigseat.Core.Space do
     space
     |> cast(attrs, [:name, :avatar_url, :maximum_people, :daily_checkin])
     |> cast_assoc(:open_hours)
+  end
+
+  defp put_avatar(changeset = %{changeset: avatar}) do
+    require IEx; IEx.pry
+    case Bigseat.Avatar.store(avatar) do
+      {:ok, file} -> put_change(changeset, :avatar_url, file)
+      {:error, _} -> changeset
+    end
   end
 
   defp put_slug(changeset) do

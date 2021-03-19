@@ -63,7 +63,7 @@ defmodule BigseatWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import BigseatWeb.ErrorHelpers
+      # import BigseatWeb.ErrorHelpers
       import BigseatWeb.Gettext
       alias BigseatWeb.Router.Helpers, as: Routes
     end

@@ -45,7 +45,7 @@ defmodule Bigseat.MixProject do
       {:absinthe, "~> 1.4"}, # graphql
       {:absinthe_plug, "~> 1.4"}, # graphql
       {:crudry, "~> 2.3.1"}, # error handling
-      {:poison, "~> 4.0.1"}, # json decoder
+      {:poison, "~> 4.0.1", override: true}, # json decoder
       {:jason, "~> 1.0"}, # json decoder
       {:comeonin, "~> 4.0"}, # authentication
       {:bcrypt_elixir, "~> 1.0"}, # authentication
@@ -56,7 +56,8 @@ defmodule Bigseat.MixProject do
       {:faker, "~> 0.16", only: :test}, # faking data for tests
       {:cors_plug, "~> 2.0"}, # let the world access /graphql
       {:csv, "~> 2.4.1"}, # csv processing
-      {:file_info, "~> 0.0.4"} # csv processing
+      {:file_info, "~> 0.0.4"}, # csv processing
+      {:arc, "~> 0.11.0"} # file upload library
     ]
   end
 

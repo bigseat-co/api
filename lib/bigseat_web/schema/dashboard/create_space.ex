@@ -5,7 +5,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
   object :dashboard_create_space do
     @desc "Create a new space"
     field :create_space, :dashboard_space do
-      arg :avatar_url, :string
+      arg :avatar, :upload
       arg :slug, :string
       arg :name, non_null(:string)
       arg :open_hours, list_of(non_null(:open_hours_input))
@@ -25,6 +25,7 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
   end
 
   def resolve(_parent, args, %{ context: %{ myself: %{ organization_id: organization_id} }}) do
+    require IEx; IEx.pry
     Bigseat.Core.Spaces.create(args, organization_id)
   end
 

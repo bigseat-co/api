@@ -33,3 +33,9 @@ iex -S mix phx.server
 ```
 curl -X POST -F query="mutation { importTeamFromCsv(file: \"csv\") { id } }" -F csv=@team-members-list.csv localhost:4000/graphql
 ```
+
+## Create uploader
+
+```
+mix arc.g avatar
+```

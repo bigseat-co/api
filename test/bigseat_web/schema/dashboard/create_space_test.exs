@@ -21,7 +21,8 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
     test "with authentication", %{conn: conn, myself: myself} do
       auth_conn = conn |> authorize(myself)
 
-      response = graphql_query(auth_conn, %{query: query(), variables: variables()}, :success)
+      response = graphql_query(auth_conn, %{query: query(), variables: variables(), file: avatar()}, :success)
+
       created_space = Space |> first() |> Repo.one()
       assert response == %{"data" => %{"createSpace" => %{"id" => created_space.id}}}
     end
@@ -31,9 +32,10 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
       """
       mutation createSpace(
         $openHours: OpenHoursInput!
+        $avatar: Upload
       ) {
         createSpace(
-          avatarUrl: "https://fake-image.com",
+          avatar: $avatar,
           name: "My space",
           openHours: $openHours,
           maximumPeople: 10
@@ -45,8 +47,13 @@ defmodule BigseatWeb.Schema.CreateSpaceTest do
       """
     end
 
+    def avatar() do
+      %Plug.Upload{path: "test/support/files/valid-space-avatar.png", filename: "valid-space-avatar.png"}
+    end
+
     def variables() do
       %{
+        avatar: "file",
         open_hours: [%{
           day_of_the_week: "monday",
           open_time: "10:59:40Z",
