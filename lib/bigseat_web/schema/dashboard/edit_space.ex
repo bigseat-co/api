@@ -18,7 +18,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
   end
 
   input_object :space_input do
-    field :avatar, :string
+    field :avatar, :upload
     field :slug, :string
     field :name, :string
     field :open_hours, list_of(:open_hours_input)

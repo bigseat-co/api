@@ -12,7 +12,7 @@ defmodule Bigseat.Factory.SpaceFactory do
     name = "#{Faker.Pokemon.location()} #{Space |> Repo.aggregate(:count, :id)}"
     %Bigseat.Core.Space{
       organization: OrganizationFactory.build(:organization),
-      avatar: "http://fake-avatar.com",
+      avatar: nil,
       name: name,
       slug: Inflex.parameterize(name),
       maximum_people: 10,
