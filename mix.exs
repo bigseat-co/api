@@ -57,7 +57,8 @@ defmodule Bigseat.MixProject do
       {:cors_plug, "~> 2.0"}, # let the world access /graphql
       {:csv, "~> 2.4.1"}, # csv processing
       {:file_info, "~> 0.0.4"}, # csv processing
-      {:arc, "~> 0.11.0"} # file upload library
+      {:arc, "~> 0.11.0"}, # file upload library
+      {:arc_ecto, "~> 0.11.3"} # file upload library linked to ecto
     ]
   end
 

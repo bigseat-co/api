@@ -29,7 +29,7 @@ defmodule Bigseat.Schema.Types do
 
   object :gateway_space do
     field :id, :uuid
-    field :avatar_url, :string
+    field :avatar, :string
     field :name, :string
     field :slug, :string
     field :maximum_people, :integer
@@ -71,7 +71,7 @@ defmodule Bigseat.Schema.Types do
 
   object :dashboard_space do
     field :id, :uuid
-    field :avatar_url, :string
+    field :avatar, :string
     field :name, :string
     field :slug, :string
     field :maximum_people, :integer

@@ -25,7 +25,6 @@ defmodule Bigseat.Schema.Dashboard.CreateSpace do
   end
 
   def resolve(_parent, args, %{ context: %{ myself: %{ organization_id: organization_id} }}) do
-    require IEx; IEx.pry
     Bigseat.Core.Spaces.create(args, organization_id)
   end
 

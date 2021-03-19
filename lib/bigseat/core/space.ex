@@ -1,5 +1,6 @@
 defmodule Bigseat.Core.Space do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -8,7 +9,7 @@ defmodule Bigseat.Core.Space do
     belongs_to :organization, Bigseat.Core.Organization
     has_many :open_hours, Bigseat.Core.SpaceOpenHour
     has_many :bookings, Bigseat.Core.Booking
-    field :avatar_url, :string
+    field :avatar, Bigseat.Avatar.Type
     field :name, :string
     field :slug, :string
     field :maximum_people, :integer
@@ -19,27 +20,27 @@ defmodule Bigseat.Core.Space do
 
   def create_changeset(space, attrs) do
     space
-    |> cast(attrs, [:slug, :name, :avatar, :maximum_people, :daily_checkin, :organization_id])
+    |> cast(attrs, [:slug, :name, :maximum_people, :daily_checkin, :organization_id])
+    |> cast_attachments(attrs, [:avatar])
     |> cast_assoc(:open_hours)
     |> put_slug()
-    |> put_avatar()
-    |> validate_required([:slug, :name, :avatar_url, :maximum_people, :daily_checkin, :organization_id])
+    |> validate_required([:slug, :name, :maximum_people, :daily_checkin, :organization_id])
     |> unique_constraint(:slug, [:organization_id, :slug])
   end
 
   def update_changeset(space, attrs) do
     space
-    |> cast(attrs, [:name, :avatar_url, :maximum_people, :daily_checkin])
+    |> cast(attrs, [:name, :maximum_people, :daily_checkin])
+    |> cast_attachments(attrs, [:avatar])
     |> cast_assoc(:open_hours)
   end
 
-  defp put_avatar(changeset = %{changeset: avatar}) do
-    require IEx; IEx.pry
-    case Bigseat.Avatar.store(avatar) do
-      {:ok, file} -> put_change(changeset, :avatar_url, file)
-      {:error, _} -> changeset
-    end
-  end
+  # defp put_avatar(changeset = %{changeset: avatar}) do
+  #   case Bigseat.Avatar.store(avatar) do
+  #     {:ok, file} -> put_change(changeset, :avatar, file)
+  #     {:error, _} -> changeset
+  #   end
+  # end
 
   defp put_slug(changeset) do
     case changeset.changes do

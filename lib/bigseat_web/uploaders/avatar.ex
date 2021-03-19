@@ -1,5 +1,6 @@
 defmodule Bigseat.Avatar do
   use Arc.Definition
+  use Arc.Ecto.Definition
 
   # Include ecto support (requires package arc_ecto installed):
   # use Arc.Ecto.Definition
