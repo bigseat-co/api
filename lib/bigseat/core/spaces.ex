@@ -12,7 +12,14 @@ defmodule Bigseat.Core.Spaces do
   }
 
   def get(id), do: Space |> Repo.get(id)
-  def list, do: Space |> Repo.all() |> Repo.preload(:open_hours)
+
+  def list(%Organization{} = organization) do
+    query = from space in Space,
+            where: space.organization_id == ^organization.id,
+            preload: [:open_hours]
+
+    Repo.all(query)
+  end
 
   def list_with_bookings(%Organization{} = organization, start_at, end_at) do
     query = from space in Space,
