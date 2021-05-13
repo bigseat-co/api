@@ -1,8 +1,6 @@
 defmodule Bigseat.Schema.Dashboard.ListSpaces do
   use Absinthe.Schema.Notation
   alias Crudry.Middlewares.TranslateErrors
-  alias Bigseat.Repo
-  alias Bigseat.Core.Organization
 
   object :dashboard_list_spaces do
     @desc "Get a list of spaces"
@@ -14,11 +12,7 @@ defmodule Bigseat.Schema.Dashboard.ListSpaces do
   end
 
   def resolve(_parent, _args, %{ context: %{ myself: %{ organization_id: organization_id } }}) do
-    organization = Organization |> Repo.get(organization_id)
-    case organization do
-      %Organization{} -> {:ok, Bigseat.Core.Spaces.list(organization)}
-      _ -> {:error, "organization not found"}
-    end
+    {:ok, Bigseat.Organization.Spaces.list(organization_id)}
   end
 
   def resolve(_parent, _args, _resolution) do
