@@ -6,10 +6,16 @@ defmodule Bigseat.Schema.Dashboard.ListSpaces do
     @desc "Get a list of spaces"
     field :list_spaces, list_of(:dashboard_space) do
       middleware BigseatWeb.Middleware.AuthorizedAdmin
-      resolve fn _parent, _args, _resolution ->
-        {:ok, Bigseat.Core.Spaces.list()}
-      end
+      resolve &resolve/3
       middleware TranslateErrors
     end
+  end
+
+  def resolve(_parent, _args, %{ context: %{ myself: %{ organization_id: organization_id } }}) do
+    {:ok, Bigseat.Organization.Spaces.list(organization_id)}
+  end
+
+  def resolve(_parent, _args, _resolution) do
+    {:error, "not found"}
   end
 end

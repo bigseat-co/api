@@ -12,6 +12,7 @@ defmodule Bigseat.Core.Spaces do
   }
 
   def get(id), do: Space |> Repo.get(id)
+
   def list, do: Space |> Repo.all() |> Repo.preload(:open_hours)
 
   def list_with_bookings(%Organization{} = organization, start_at, end_at) do
