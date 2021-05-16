@@ -11,7 +11,7 @@ defmodule Bigseat.Core.Spaces do
     Organization
   }
 
-  def get(id), do: Space |> Repo.get(id)
+  def get(id), do: Space |> Repo.get(id) |> Repo.preload(:open_hours)
 
   def list, do: Space |> Repo.all() |> Repo.preload(:open_hours)
 
