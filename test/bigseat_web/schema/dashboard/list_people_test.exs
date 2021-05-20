@@ -11,7 +11,6 @@ defmodule BigseatWeb.Schema.ListPeopleTest do
       organization = OrganizationFactory.insert(:organization)
 
       [
-
         myself: PersonFactory.insert(:person, %{organization: organization, is_admin: true})
       ]
     end
