@@ -4,6 +4,7 @@ defmodule Bigseat.Core.SpaceOpenHour do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+
   schema "space_open_hours" do
     belongs_to :space, Bigseat.Core.Space
     field :day_of_the_week, :string
