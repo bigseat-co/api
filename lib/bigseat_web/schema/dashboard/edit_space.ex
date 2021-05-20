@@ -27,7 +27,7 @@ defmodule Bigseat.Schema.Dashboard.EditSpace do
   end
 
   def resolve(_parent, %{ id: id, space_input: space_input }, %{ context: %{ myself: %{ organization_id: organization_id }}}) do
-    space = Space |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
+    space = Space |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one() |> Repo.preload(:open_hours)
     case space do
       %Space{} -> Bigseat.Core.Spaces.update(space, space_input)
       _ -> {:error, "space not found"}
