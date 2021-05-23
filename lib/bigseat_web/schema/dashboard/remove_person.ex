@@ -19,7 +19,9 @@ defmodule Bigseat.Schema.Dashboard.RemovePerson do
   def resolve(_parent, %{ id: id }, %{ context: %{ myself: %{ organization_id: organization_id } }}) do
     person = Person |> where(id: ^id) |> where(organization_id: ^organization_id) |> Repo.one()
     case person do
-      %Person{} -> Bigseat.Core.People.delete(person)
+      %Person{} ->
+        Bigseat.Core.People.delete(person)
+        {:ok, person} # return deleted resource
       _ -> {:error, "person not found"}
     end
   end

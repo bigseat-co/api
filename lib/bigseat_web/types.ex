@@ -18,6 +18,7 @@ defmodule Bigseat.Schema.Types do
     field :last_name, :string
     field :email, :string
     field :is_admin, :boolean
+    field :group, :string
     field :organization, :dashboard_organization
   end
 
