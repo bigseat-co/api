@@ -7,7 +7,7 @@ defmodule Bigseat.Core.Space do
   @foreign_key_type :binary_id
   schema "spaces" do
     belongs_to :organization, Bigseat.Core.Organization
-    has_many :open_hours, Bigseat.Core.SpaceOpenHour
+    has_many :open_hours, Bigseat.Core.SpaceOpenHour, on_replace: :delete_if_exists
     has_many :bookings, Bigseat.Core.Booking
     field :avatar, Bigseat.Avatar.Type
     field :name, :string
