@@ -24,10 +24,12 @@ defmodule Bigseat.Schema do
   import_types Bigseat.Schema.Dashboard.ListPeople
   import_types Bigseat.Schema.Dashboard.ListSpaces
   import_types Bigseat.Schema.Dashboard.RemovePerson
+  import_types Bigseat.Schema.Dashboard.RemoveSpace
 
   import_types Bigseat.Schema.Gateway.BookSpace
   import_types Bigseat.Schema.Gateway.CheckinSpace
   import_types Bigseat.Schema.Gateway.ListSpacesFromBookings
+  import_types Bigseat.Schema.Gateway.GetOrganization
 
   import_types Bigseat.Schema.Plugins.ImportTeamFromCsv
 
@@ -49,6 +51,7 @@ defmodule Bigseat.Schema do
     import_fields :dashboard_edit_person
     import_fields :dashboard_add_new_team_member
     import_fields :dashboard_remove_person
+    import_fields :dashboard_remove_space
     import_fields :connect_forgot_my_password
     import_fields :dashboard_edit_my_account
     import_fields :dashboard_edit_my_organization
